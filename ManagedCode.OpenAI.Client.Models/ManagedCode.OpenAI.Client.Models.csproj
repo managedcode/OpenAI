@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ManagedCode.OpenAI.Client\ManagedCode.OpenAI.Client.csproj" />
+      <ProjectReference Include="..\ManagedCode.OpenAI.Client.Exceptions\ManagedCode.OpenAI.Client.Exceptions.csproj" />
+    </ItemGroup>
+
+</Project>
