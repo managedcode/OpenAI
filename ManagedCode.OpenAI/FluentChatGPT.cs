@@ -5,7 +5,7 @@ using ManagedCode.OpenAI.RequestModels;
 using ManagedCode.OpenAI.ResponseModels;
 
 namespace ManagedCode.OpenAI;
-internal class FluentChatGPT
+public sealed class FluentChatGPT
 {
     private const string _uriCh = @"https://api.openai.com/v1/chat/completions";
     private const string _model = "gpt-3.5-turbo";
@@ -33,9 +33,7 @@ internal class FluentChatGPT
     public async Task<ChatCompletion> GetCompletionAsync()
     {
         using var client = new HttpClient();
-
         client.DefaultRequestHeaders.Add("authorization", $"Bearer {_apiKey}");
-
 
         var request = new Request()
         {
@@ -51,23 +49,40 @@ internal class FluentChatGPT
 
         var response = await client.PostAsync(_uriCh, content);
 
+        //todo: need to refactor
         if(!response.IsSuccessStatusCode)
         {
             var responseString = await response.Content.ReadAsStringAsync();
+            var error = JsonDocument.Parse(responseString)
+                .RootElement.GetProperty("error");
 
-            throw new Exception(responseString);
-        }
-        else
-        {
-            var responseCompletion = await response.Content
-                .ReadFromJsonAsync<ChatCompletion>(
-                    new JsonSerializerOptions()
+            var errorCompletion = new ChatCompletion()
+            {
+                Choices = new Choice[] 
+                {
+                    new Choice
                     {
-                        PropertyNameCaseInsensitive = true
-                    });
+                        Message = new ResponseMessage()
+                        {
+                            Content = $"{error.GetProperty("type").GetRawText()}: \n" +
+                                $"{error.GetProperty("message").GetRawText()}"
+                        }
+                    }
+                } 
+            };
 
-            return responseCompletion;
+            return errorCompletion;
+            //throw new Exception(responseString);
         }
+
+        var responseCompletion = await response.Content
+            .ReadFromJsonAsync<ChatCompletion>(
+                new JsonSerializerOptions()
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+        return responseCompletion;
     }
 
     public ConversationBuilder NewConversation()
