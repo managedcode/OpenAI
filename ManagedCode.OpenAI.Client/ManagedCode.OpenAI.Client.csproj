@@ -11,12 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OpenAI.Api.Client.Usages\OpenAI.Api.Client.Usages.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Objects\File" />
-      <Folder Include="Objects\Image" />
+      <ProjectReference Include="..\ManagedCode.OpenAI.Client.Usages\ManagedCode.OpenAI.Client.Usages.csproj" />
     </ItemGroup>
 
 </Project>
