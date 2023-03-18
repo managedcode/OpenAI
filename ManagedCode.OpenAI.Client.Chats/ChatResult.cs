@@ -3,7 +3,7 @@ using ManagedCode.OpenAI.Client.Usages;
 
 namespace ManagedCode.OpenAI.Client.Chats;
 
-public class Chat
+public class ChatResult
 {
     [JsonProperty("id")]
     public string Id;
