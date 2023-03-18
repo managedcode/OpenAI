@@ -6,4 +6,13 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ManagedCode.OpenAI.Client.Exceptions\ManagedCode.OpenAI.Client.Exceptions.csproj" />
+      <ProjectReference Include="..\ManagedCode.OpenAI.Client\ManagedCode.OpenAI.Client.csproj" />
+    </ItemGroup>
+
 </Project>
