@@ -18,9 +18,6 @@
       <ProjectReference Include="..\ManagedCode.OpenAI.Client.Models\ManagedCode.OpenAI.Client.Models.csproj" />
       <ProjectReference Include="..\ManagedCode.OpenAI.Client.Usages\ManagedCode.OpenAI.Client.Usages.csproj" />
       <ProjectReference Include="..\ManagedCode.OpenAI.Client\ManagedCode.OpenAI.Client.csproj" />
-      <ProjectReference Include="..\OpenAI.Api.Client.Models\OpenAI.Api.Client.Models.csproj" />
-      <ProjectReference Include="..\OpenAI.Api.Client.Usages\OpenAI.Api.Client.Usages.csproj" />
-      <ProjectReference Include="..\OpenAI.Api.Client\OpenAI.Api.Client.csproj" />
     </ItemGroup>
 
 </Project>
