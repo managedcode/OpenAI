@@ -120,7 +120,7 @@ public class ChatRequestBuilder
     }
 
 
-    public async Task<Chat> Send()
+    public async Task<ChatResult> Send()
     {
         var json = JsonConvert.SerializeObject(_chat);
 
@@ -133,7 +133,7 @@ public class ChatRequestBuilder
 
         string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
 
-        var result = JsonConvert.DeserializeObject<Chat>(responseBody);
+        var result = JsonConvert.DeserializeObject<ChatResult>(responseBody);
 
         _chat.Messages.AddRange(result.Choices.Select(e => e.Message));
         
