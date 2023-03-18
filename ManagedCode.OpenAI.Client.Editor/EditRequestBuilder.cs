@@ -1,8 +1,8 @@
 using System.Text;
+using ManagedCode.Methods;
 using ManagedCode.OpenAI.Client.Exceptions;
 using Newtonsoft.Json;
 using ManagedCode.OpenAI.Client.Models;
-using OpenAI.Api.Exceptions;
 
 namespace ManagedCode.OpenAI.Client.Editor;
 
