@@ -1,7 +1,8 @@
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ManagedCode.Keda.Tests;
+namespace ManagedCode.OpenAI.Tests;
 
 
 public class SomeTest 
