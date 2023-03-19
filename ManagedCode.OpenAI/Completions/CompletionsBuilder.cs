@@ -11,8 +11,8 @@ namespace ManagedCode.OpenAI.Completions;
 
 public class CompletionsBuilder
 {
-    public const string URL_COMPLETIONS = "https://api.openai.com/v1/completions";
-    
+    public const string URL_COMPLETIONS = "completions";
+
     private OpenAIClient.OpenAIClient _client;
     private CompletionRequest _completion;
 
@@ -24,17 +24,17 @@ public class CompletionsBuilder
             Model = modelId
         };
     }
-    
+
     public CompletionsBuilder SetPrompt(string prompt)
     {
         if (prompt.Length > 1024)
             throw new ArgumentException();
 
-        _completion.Prompt = new string[]{prompt};
+        _completion.Prompt = new string[] { prompt };
 
         return this;
     }
-    
+
     public CompletionsBuilder SetPrompt(string[] prompt)
     {
         _completion.Prompt = prompt;
@@ -45,7 +45,7 @@ public class CompletionsBuilder
     public CompletionsBuilder SetSuffix(string suffix)
     {
         _completion.Suffix = suffix;
-        
+
         return this;
     }
 
@@ -111,7 +111,7 @@ public class CompletionsBuilder
 
         return this;
     }
-    
+
     public CompletionsBuilder SetStop(string[] stop)
     {
         if (stop.Length > 4)
@@ -131,7 +131,7 @@ public class CompletionsBuilder
 
         return this;
     }
-    
+
     public CompletionsBuilder SetFrequencyPenalty(float number)
     {
         if (number is < -2f or > 2f)
@@ -141,7 +141,7 @@ public class CompletionsBuilder
 
         return this;
     }
-    
+
     public CompletionsBuilder SetBestOf(int integer)
     {
         if (integer <= 0)
@@ -163,23 +163,23 @@ public class CompletionsBuilder
 
         return this;
     }
-    
+
     public CompletionsBuilder AddLogitBias(string key, int value)
     {
         var dict = _completion.LogitBias ??= new Dictionary<string, int>();
 
         dict.Add(key, value);
-        
+
         return this;
     }
-    
+
     public CompletionsBuilder SetUser(string user)
     {
         _completion.User = user;
 
         return this;
     }
-    
+
 
     public async Task<CompletionResult> Send()
     {
@@ -191,9 +191,9 @@ public class CompletionsBuilder
             URL_COMPLETIONS, content);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
-        
+
         string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-        
+
         var result = JsonSerializer.Deserialize<CompletionResult>(responseBody);
 
         return result;
@@ -205,7 +205,7 @@ public class CompletionsBuilder
         {
             Model = modelId
         };
-        
+
         return this;
     }
 

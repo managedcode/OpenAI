@@ -14,7 +14,7 @@ namespace ManagedCode.OpenAI.Chats;
 
 public class ChatRequestBuilder
 {
-    public const string URL_COMPLETIONS = "https://api.openai.com/v1/chat/completions";
+    public const string URL_COMPLETIONS = "chat/completions";
 
     private OpenAIClient.OpenAIClient _client;
     private ChatRequest _chat;
@@ -140,10 +140,10 @@ public class ChatRequestBuilder
         string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
 
         var result = JsonSerializer.Deserialize<ChatResult>(responseBody);
-        
+
         //TOOD: checl model
         _chat.Messages.AddRange(result.Choices.Select(e => e.Message));
-        
+
         return result;
     }
 
@@ -166,7 +166,7 @@ public class ChatRequestBuilder
     {
         return Clear(model);
     }
-    
+
     public ChatRequestBuilder Clear()
     {
         return Clear(_chat.Model);

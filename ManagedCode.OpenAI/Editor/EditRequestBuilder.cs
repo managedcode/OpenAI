@@ -11,8 +11,8 @@ namespace ManagedCode.OpenAI.Editor;
 
 public class EditRequestBuilder
 {
-    public const string URL_EDITS = "https://api.openai.com/v1/edits";
-    
+    public const string URL_EDITS = "edits";
+
     private OpenAIClient.OpenAIClient _client;
     private EditRequest _request = new EditRequest();
 
@@ -20,7 +20,7 @@ public class EditRequestBuilder
     {
         _client = client;
     }
-    
+
 
     public EditRequestBuilder SetInput(string input)
     {
@@ -28,7 +28,7 @@ public class EditRequestBuilder
 
         return this;
     }
-    
+
     public EditRequestBuilder SetRequestResult(int count)
     {
         if (count is < 0)
@@ -38,7 +38,7 @@ public class EditRequestBuilder
 
         return this;
     }
-    
+
     public EditRequestBuilder SetTemperature(float temperature)
     {
         if (temperature is < 0f or > 2)
@@ -55,7 +55,7 @@ public class EditRequestBuilder
 
         return this;
     }
-    
+
     public async Task<EditResult> Send()
     {
         var json = JsonSerializer.Serialize(_request);
@@ -94,10 +94,9 @@ public class EditRequestBuilder
     {
         return Clear(model, instruction);
     }
-    
+
     public EditRequestBuilder Clear()
     {
         return Clear(_request.Model, _request.Instruction);
     }
-
 }

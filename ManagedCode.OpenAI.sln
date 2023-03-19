@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedCode.OpenAI", "Manag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedCode.OpenAI.Tests", "ManagedCode.OpenAI.Tests\ManagedCode.OpenAI.Tests.csproj", "{A9F57AEF-9EBA-405A-8B74-1B1BD2BEC70B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedCode.OpenAI.Client.Example", "ManagedCode.OpenAI.Client.Example\ManagedCode.OpenAI.Client.Example.csproj", "{F4CCC5EC-53AA-45EE-A378-2E22BD604476}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedCode.OpenAI.Client.Experiments", "ManagedCode.OpenAI.Client.Experiments\ManagedCode.OpenAI.Client.Experiments.csproj", "{87129CF2-1C60-47A0-9D97-5017308DA64F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{A9F57AEF-9EBA-405A-8B74-1B1BD2BEC70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9F57AEF-9EBA-405A-8B74-1B1BD2BEC70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9F57AEF-9EBA-405A-8B74-1B1BD2BEC70B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4CCC5EC-53AA-45EE-A378-2E22BD604476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4CCC5EC-53AA-45EE-A378-2E22BD604476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4CCC5EC-53AA-45EE-A378-2E22BD604476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4CCC5EC-53AA-45EE-A378-2E22BD604476}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87129CF2-1C60-47A0-9D97-5017308DA64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87129CF2-1C60-47A0-9D97-5017308DA64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87129CF2-1C60-47A0-9D97-5017308DA64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87129CF2-1C60-47A0-9D97-5017308DA64F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

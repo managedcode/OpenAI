@@ -9,12 +9,12 @@ namespace ManagedCode.OpenAI.Files;
 
 public class FileManager
 {
-    public const string URL_FILES = "https://api.openai.com/v1/files";
+    public const string URL_FILES = "files";
 
-    public const string URL_FILE = URL_FILES + "/{0}";
+    public const string URL_FILE = "files/{0}";
 
-    public const string URL_FILE_CONTEXT = URL_FILE + "/content";
-    
+    public const string URL_FILE_CONTEXT = "files/{0}/content";
+
     public const string FINE_TUNE = "fine-tune";
 
     private readonly OpenAIClient.OpenAIClient _client;
@@ -42,11 +42,11 @@ public class FileManager
     public async Task<FileInfo> UploadAsync(string fileName, HttpContent content)
     {
         MultipartFormDataContent multipartFormDataContent = new();
-        
+
         multipartFormDataContent.Add(new StringContent(FINE_TUNE), "purpose");
-        
+
         multipartFormDataContent.Add(content, "file", fileName);
-        
+
         var httpResponseMessage = await _client.PostAsync(URL_FILES, multipartFormDataContent);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
@@ -64,7 +64,7 @@ public class FileManager
     {
         return await UploadAsync(fileName, new StringContent(content, Encoding.UTF8, "multipart/form-data"));
     }
-    
+
     public async Task<FileInfo> UploadAsync(string fileName, Stream content)
     {
         return await UploadAsync(fileName, new StreamContent(content));

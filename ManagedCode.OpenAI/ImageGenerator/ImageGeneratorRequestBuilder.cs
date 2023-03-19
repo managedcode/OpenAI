@@ -10,8 +10,8 @@ namespace ManagedCode.OpenAI.ImageGenerator;
 
 public class ImageGeneratorRequestBuilder
 {
-    public const string URL_EDITS = "https://api.openai.com/v1/images/generations";
-    
+    public const string URL_EDITS = "images/generations";
+
     private OpenAIClient.OpenAIClient _client;
     private ImageGeneratorRequest _request;
 
@@ -19,7 +19,7 @@ public class ImageGeneratorRequestBuilder
     {
         _client = client;
     }
-    
+
 
     public ImageGeneratorRequestBuilder SetPrompt(string prompt)
     {
@@ -27,7 +27,7 @@ public class ImageGeneratorRequestBuilder
 
         return this;
     }
-    
+
     public ImageGeneratorRequestBuilder SetRequestResult(int count)
     {
         if (count is < 0)
@@ -37,10 +37,9 @@ public class ImageGeneratorRequestBuilder
 
         return this;
     }
-    
+
     public ImageGeneratorRequestBuilder SetResolution(string size)
     {
-
         _request.Size = size;
 
         return this;
@@ -50,10 +49,9 @@ public class ImageGeneratorRequestBuilder
     {
         return SetResolution(resize);
     }
-    
+
     public ImageGeneratorRequestBuilder SetFormat(string format)
     {
-
         _request.ResponseFormat = format;
 
         return this;
@@ -70,7 +68,7 @@ public class ImageGeneratorRequestBuilder
 
         return this;
     }
-    
+
     public async Task<CreateImageResult> Send()
     {
         var json = JsonSerializer.Serialize(_request);
@@ -98,8 +96,8 @@ public class ImageGeneratorRequestBuilder
 
         return this;
     }
-    
-    
+
+
     public ImageGeneratorRequestBuilder Clear()
     {
         return Clear(_request.Prompt);
