@@ -15,5 +15,10 @@
         <Description>OpenAI</Description>
         <PackageTags>managedcode, OpenAI, ChatGPT,</PackageTags>
     </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="Files\Enums" />
+      <Folder Include="ImageGenerator\Manager" />
+      <Folder Include="Methods" />
+    </ItemGroup>
 
 </Project>

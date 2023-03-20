@@ -7,14 +7,14 @@ namespace ManagedCode.OpenAI.Editor;
 public class EditResult
 {
     [JsonPropertyName("object")]
-    public string Object;
+    public string Object { get; set; }
 
     [JsonPropertyName("created")]
-    public int Created;
+    public int Created { get; set; }
 
     [JsonPropertyName("choices")]
-    public List<ChoiceEdit> Choices;
+    public List<ChoiceEdit> Choices { get; set; }
 
     [JsonPropertyName("usage")]
-    public Usage Usage;
+    public Usage Usage { get; set; }
 }

@@ -7,11 +7,11 @@ namespace ManagedCode.OpenAI.ManagedCode.OpenAI.Client.Usages;
 public class Usage
 {
     [JsonPropertyName("prompt_tokens")]
-    public int PromptTokens;
+    public int PromptTokens { get; set; }
 
     [JsonPropertyName("completion_tokens")]
-    public int CompletionTokens;
+    public int CompletionTokens { get; set; }
 
     [JsonPropertyName("total_tokens")]
-    public int TotalTokens;
+    public int TotalTokens { get; set; }
 }

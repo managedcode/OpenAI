@@ -5,11 +5,11 @@ namespace ManagedCode.OpenAI.Files;
 public class FileDeleteResult
 {
     [JsonPropertyName("id")] 
-    public string Id;
+    public string Id  { get; set; }
 
     [JsonPropertyName("object")] 
-    public string Object;
+    public string Object  { get; set; }
 
     [JsonPropertyName("deleted")] 
-    public bool Deleted;
+    public bool Deleted  { get; set; }
 }

@@ -5,8 +5,8 @@ namespace ManagedCode.OpenAI.ImageGenerator;
 public class ImageResult
 {
     [JsonPropertyName("url")]
-    public string Url;
+    public string Url  { get; set; }
     
     [JsonPropertyName("b64_json")]
-    public string Base64Json;
+    public string Base64Json  { get; set; }
 }

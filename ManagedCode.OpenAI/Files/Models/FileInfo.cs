@@ -5,20 +5,20 @@ namespace ManagedCode.OpenAI.Files;
 public class FileInfo
 {
     [JsonPropertyName("id")]
-    public string Id;
+    public string Id  { get; set; }
 
     [JsonPropertyName("object")]
-    public string Object;
+    public string Object  { get; set; }
 
     [JsonPropertyName("bytes")]
-    public int Bytes;
+    public int Bytes  { get; set; }
 
     [JsonPropertyName("created_at")]
-    public int CreatedAt;
+    public int CreatedAt  { get; set; }
 
     [JsonPropertyName("filename")]
-    public string Filename;
+    public string Filename  { get; set; }
 
     [JsonPropertyName("purpose")]
-    public string Purpose;
+    public string Purpose  { get; set; }
 }

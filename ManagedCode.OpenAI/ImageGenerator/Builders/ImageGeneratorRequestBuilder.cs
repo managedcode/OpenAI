@@ -14,7 +14,7 @@ public class ImageGeneratorRequestBuilder
     public const string URL_EDITS = "images/generations";
 
     private OpenAIClient _client;
-    private ImageGeneratorRequest _request;
+    private ImageRequest _request;
 
     public ImageGeneratorRequestBuilder(OpenAIClient client)
     {
@@ -90,7 +90,7 @@ public class ImageGeneratorRequestBuilder
 
     public ImageGeneratorRequestBuilder Clear(string prompt)
     {
-        _request = new ImageGeneratorRequest()
+        _request = new ImageRequest()
         {
             Prompt = prompt
         };

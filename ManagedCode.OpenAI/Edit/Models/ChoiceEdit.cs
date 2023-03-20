@@ -5,8 +5,8 @@ namespace ManagedCode.OpenAI.Editor;
 public class ChoiceEdit
 {
     [JsonPropertyName("text")]
-    public string Text;
+    public string Text { get; set; }
 
     [JsonPropertyName("index")]
-    public int Index;
+    public int Index { get; set; }
 }

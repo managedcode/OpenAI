@@ -6,8 +6,8 @@ namespace ManagedCode.OpenAI.ImageGenerator;
 public class CreateImageResult
 {
     [JsonPropertyName("created")]
-    public int Created;
+    public int Created  { get; set; }
 
     [JsonPropertyName("data")]
-    public List<ImageResult> Data;
+    public List<ImageResult> Data  { get; set; }
 }

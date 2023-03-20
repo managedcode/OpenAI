@@ -6,8 +6,8 @@ namespace ManagedCode.OpenAI.Files;
 public class FileListResult
 {
     [JsonPropertyName("data")]
-    public List<FileInfo> Data;
+    public List<FileInfo> Data  { get; set; }
 
     [JsonPropertyName("object")]
-    public string Object;
+    public string Object  { get; set; }
 }

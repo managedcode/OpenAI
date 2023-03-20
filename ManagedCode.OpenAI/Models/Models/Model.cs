@@ -5,14 +5,14 @@ namespace ManagedCode.OpenAI.Models;
 public class Model
 {
     [JsonPropertyName("id")]
-    public string Id;
+    public string Id {get; set; }
 
     [JsonPropertyName("object")]
-    public string Object;
+    public string Object {get; set; }
 
     [JsonPropertyName("owned_by")]
-    public string OwnedBy;
+    public string OwnedBy {get; set; }
 
     [JsonPropertyName("permission")]
-    public Permission[] Permission;
+    public Permission[] Permission {get; set; }
 }

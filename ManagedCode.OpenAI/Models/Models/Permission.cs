@@ -5,38 +5,38 @@ namespace ManagedCode.OpenAI.Models;
 public class Permission
 {
     [JsonPropertyName("id")]
-    public string Id;
+    public string Id {get; set; }
 
     [JsonPropertyName("object")]
-    public string Object;
+    public string Object {get; set; }
 
     [JsonPropertyName("created")]
-    public int Created;
+    public int Created {get; set; }
 
     [JsonPropertyName("allow_create_engine")]
-    public bool AllowCreateEngine;
+    public bool AllowCreateEngine {get; set; }
 
     [JsonPropertyName("allow_sampling")]
-    public bool AllowSampling;
+    public bool AllowSampling {get; set; }
 
     [JsonPropertyName("allow_logprobs")]
-    public bool AllowLogprobs;
+    public bool AllowLogprobs {get; set; }
 
     [JsonPropertyName("allow_search_indices")]
-    public bool AllowSearchIndices;
+    public bool AllowSearchIndices {get; set; }
 
     [JsonPropertyName("allow_view")]
-    public bool AllowView;
+    public bool AllowView {get; set; }
 
     [JsonPropertyName("allow_fine_tuning")]
-    public bool AllowFineTuning;
+    public bool AllowFineTuning {get; set; }
 
     [JsonPropertyName("organization")]
-    public string Organization;
+    public string Organization {get; set; }
 
     [JsonPropertyName("group")]
-    public object Group;
+    public object Group {get; set; }
 
     [JsonPropertyName("is_blocking")]
-    public bool IsBlocking;
+    public bool IsBlocking {get; set; }
 }
