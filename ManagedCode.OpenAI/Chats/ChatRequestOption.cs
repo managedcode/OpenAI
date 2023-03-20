@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.Chats;
 
-public class ChatRequest
+public class ChatRequestOption: ICloneable
 {
     [JsonPropertyName("model")]
     public string Model;
@@ -37,4 +37,13 @@ public class ChatRequest
     
     [JsonPropertyName("user")] 
     public string? User;
+
+    public object Clone()
+    {
+        return MemberwiseClone();
+    }
+    
+    
+    
+    
 }
