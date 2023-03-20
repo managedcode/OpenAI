@@ -18,12 +18,12 @@ namespace ManagedCode.OpenAI.Chats;
 public class ChatRequestBuilder
 {
     private OpenAIClient _client;
-    private ChatRequestOption _option;
+    private ChatRequestOptions _option;
 
     public ChatRequestBuilder(OpenAIClient client, ChatModel model)
     {
         this._client = client;
-        _option = new ChatRequestOption()
+        _option = new ChatRequestOptions()
         {
             Model = model
         };
@@ -138,7 +138,7 @@ public class ChatRequestBuilder
 
     public ChatRequestBuilder Reset()
     {
-        _option = new ChatRequestOption()
+        _option = new ChatRequestOptions()
         {
             Model = _option.Model
         };

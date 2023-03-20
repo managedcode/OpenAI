@@ -6,7 +6,7 @@ using ManagedCode.OpenAI.Interfaces;
 namespace ManagedCode.OpenAI.Chats;
 
 
-public class ChatRequestOption: ICloneable<ChatRequestOption>, IDeepCloneable<ChatRequestOption>
+public class ChatRequestOptions: ICloneable<ChatRequestOptions>, IDeepCloneable<ChatRequestOptions>
 {
     [JsonPropertyName("model")]
     public ChatModel Model { get; set; }
@@ -52,7 +52,7 @@ public class ChatRequestOption: ICloneable<ChatRequestOption>, IDeepCloneable<Ch
     public string? User { get; set; }
 
 
-    public ChatRequestOption DeepClone()
+    public ChatRequestOptions DeepClone()
     {
         var result = Clone();
 
@@ -64,5 +64,5 @@ public class ChatRequestOption: ICloneable<ChatRequestOption>, IDeepCloneable<Ch
 
     }
 
-    public ChatRequestOption Clone() => (ChatRequestOption)MemberwiseClone();
+    public ChatRequestOptions Clone() => (ChatRequestOptions)MemberwiseClone();
 }

@@ -10,12 +10,12 @@ namespace ManagedCode.OpenAI.Chats;
 
 public class ChatRequestManager
 {
-    private const string URL_COMPLETIONS = "chat/completions";
+    private const string URL_CHAT_COMPLETIONS = "chat/completions";
     
     private OpenAIClient _client;
-    private ChatRequestOption _option;
+    private ChatRequestOptions _option;
 
-    public ChatRequestManager(ChatRequestOption option, OpenAIClient client)
+    public ChatRequestManager(ChatRequestOptions option, OpenAIClient client)
     {
         _option = option;
         _client = client;
@@ -30,7 +30,7 @@ public class ChatRequestManager
 
     public async Task<ChatResult> GetResultAsync()
     {
-        var httpResponseMessage = await _client.PostAsJsonAsync(URL_COMPLETIONS, _option);
+        var httpResponseMessage = await _client.PostAsJsonAsync(URL_CHAT_COMPLETIONS, _option);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
 
