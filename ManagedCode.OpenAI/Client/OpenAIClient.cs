@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace ManagedCode.OpenAI.OpenAIClient;
+namespace ManagedCode.OpenAI.Client;
 
 public class OpenAIClient : HttpClient
 {

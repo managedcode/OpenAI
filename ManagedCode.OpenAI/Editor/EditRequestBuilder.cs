@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Editor.Enums;
 using ManagedCode.OpenAI.Exceptions;
 using ManagedCode.OpenAI.Models;
@@ -13,10 +14,10 @@ public class EditRequestBuilder
 {
     public const string URL_EDITS = "edits";
 
-    private OpenAIClient.OpenAIClient _client;
+    private OpenAIClient _client;
     private EditRequest _request = new EditRequest();
 
-    public EditRequestBuilder(OpenAIClient.OpenAIClient client)
+    public EditRequestBuilder(OpenAIClient client)
     {
         _client = client;
     }

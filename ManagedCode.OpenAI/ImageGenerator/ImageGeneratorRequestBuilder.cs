@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Exceptions;
 using ManagedCode.OpenAI.ImageGenerator.Enums;
 
@@ -12,10 +13,10 @@ public class ImageGeneratorRequestBuilder
 {
     public const string URL_EDITS = "images/generations";
 
-    private OpenAIClient.OpenAIClient _client;
+    private OpenAIClient _client;
     private ImageGeneratorRequest _request;
 
-    public ImageGeneratorRequestBuilder(OpenAIClient.OpenAIClient client)
+    public ImageGeneratorRequestBuilder(OpenAIClient client)
     {
         _client = client;
     }

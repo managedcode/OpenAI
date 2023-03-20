@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Threading.Tasks;
+using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Exceptions;
 
 namespace ManagedCode.OpenAI.Models;
@@ -9,7 +10,7 @@ public static class ModelMethods
     public const string URL_LIST_MODELS = "models";
     public const string URL_MODEL = "models/{0}";
 
-    public static async Task<ListModels?> GetModels(this OpenAIClient.OpenAIClient client)
+    public static async Task<ListModels?> GetModels(this OpenAIClient client)
     {
         var httpResponseMessage = await client.GetAsync(URL_LIST_MODELS);
 
@@ -20,7 +21,7 @@ public static class ModelMethods
         return JsonSerializer.Deserialize<ListModels>(responseBody);
     }
 
-    public static async Task<Model?> GetModel(this OpenAIClient.OpenAIClient client, string id)
+    public static async Task<Model?> GetModel(this OpenAIClient client, string id)
     {
         var httpResponseMessage = await client.GetAsync(
             string.Format(URL_MODEL, id));

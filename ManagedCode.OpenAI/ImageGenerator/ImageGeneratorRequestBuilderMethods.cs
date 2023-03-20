@@ -1,9 +1,11 @@
+using ManagedCode.OpenAI.Client;
+
 namespace ManagedCode.OpenAI.ImageGenerator;
 
 public static class ImageGeneratorRequestBuilderMethods
 {
     public static ImageGeneratorRequestBuilder AsImageGenerator(
-        this OpenAIClient.OpenAIClient client,
+        this OpenAIClient client,
         string prompt
     )
     {

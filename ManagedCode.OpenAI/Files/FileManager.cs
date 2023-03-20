@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Exceptions;
 
 namespace ManagedCode.OpenAI.Files;
@@ -17,9 +18,9 @@ public class FileManager
 
     public const string FINE_TUNE = "fine-tune";
 
-    private readonly OpenAIClient.OpenAIClient _client;
+    private readonly OpenAIClient _client;
 
-    internal FileManager(OpenAIClient.OpenAIClient client)
+    internal FileManager(OpenAIClient client)
     {
         _client = client;
     }

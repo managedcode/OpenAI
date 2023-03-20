@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Exceptions;
 using ManagedCode.OpenAI.Models;
 
@@ -13,10 +14,10 @@ public class CompletionsBuilder
 {
     public const string URL_COMPLETIONS = "completions";
 
-    private OpenAIClient.OpenAIClient _client;
+    private OpenAIClient _client;
     private CompletionRequest _completion;
 
-    public CompletionsBuilder(OpenAIClient.OpenAIClient client, string modelId)
+    public CompletionsBuilder(OpenAIClient client, string modelId)
     {
         this._client = client;
         _completion = new CompletionRequest()
