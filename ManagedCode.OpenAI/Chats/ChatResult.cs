@@ -7,17 +7,17 @@ namespace ManagedCode.OpenAI.Chats;
 public class ChatResult
 {
     [JsonPropertyName("id")]
-    public string Id;
+    public string Id { get; set; }
 
     [JsonPropertyName("object")]
-    public string Object;
+    public string Object { get; set; }
 
     [JsonPropertyName("created")]
-    public int Created;
+    public int Created { get; set; }
 
     [JsonPropertyName("choices")] 
-    public List<ChoiceChat> Choices = new();
+    public List<ChoiceChat> Choices { get; set; } = new();
 
     [JsonPropertyName("usage")]
-    public Usage Usage;
+    public Usage Usage { get; set; }
 }
