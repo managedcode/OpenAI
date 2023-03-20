@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ManagedCode.OpenAI.Chats.Enums;
+using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Exceptions;
 using ManagedCode.OpenAI.Models;
 
@@ -14,161 +17,138 @@ namespace ManagedCode.OpenAI.Chats;
 
 public class ChatRequestBuilder
 {
-    public const string URL_COMPLETIONS = "chat/completions";
+    private OpenAIClient _client;
+    private ChatRequestOption _option;
 
-    private OpenAIClient.OpenAIClient _client;
-    private ChatRequest _chat;
-
-    public ChatRequestBuilder(OpenAIClient.OpenAIClient client, string modelId)
+    public ChatRequestBuilder(OpenAIClient client, ChatModel model)
     {
         this._client = client;
-        _chat = new ChatRequest()
+        _option = new ChatRequestOption()
         {
-            Model = modelId
+            Model = model
         };
     }
 
-    public ChatRequestBuilder AddMessage(string text)
+    public ChatRequestBuilder AskUser(string text)
     {
-        _chat.Messages.Add(new Message(RoleType.user.ToString(), text));
+        _option.Messages.Add(new Message(RoleType.user, text));
 
         return this;
     }
+    
+    public ChatRequestBuilder AskAssistant(string text)
+    {
+        _option.Messages.Add(new Message(RoleType.assistant, text));
+
+        return this;
+    }
+    
+    
 
 
-    public ChatRequestBuilder SetMaxTokens(int maxTokens)
+    public ChatRequestBuilder WithMaxTockens(int maxTokens)
     {
         if (maxTokens is < 0 or > 2048)
             throw new ArgumentOutOfRangeException();
 
-        _chat.MaxTokens = maxTokens;
+        _option.MaxTokens = maxTokens;
 
         return this;
     }
 
-    public ChatRequestBuilder SetTemperature(float temperature)
+    public ChatRequestBuilder WithTemperature(float temperature)
     {
         if (temperature is < 0f or > 2)
             throw new ArgumentOutOfRangeException();
 
-        _chat.Temperature = temperature;
+        _option.Temperature = temperature;
 
         return this;
     }
 
-    public ChatRequestBuilder SetTopP(int topP)
+    public ChatRequestBuilder WithNucleus(float value)
     {
-        _chat.TopP = topP;
+        _option.TopP = value;
 
         return this;
     }
 
-    public ChatRequestBuilder SetRequestResult(int count)
+    public ChatRequestBuilder WithResultCount(int count)
     {
         if (count is < 0)
             throw new ArgumentOutOfRangeException();
 
-        _chat.N = count;
+        _option.N = count;
 
         return this;
     }
 
-    public ChatRequestBuilder UseStream()
+    public ChatRequestBuilder WithStream()
     {
-        _chat.Stream = true;
+        _option.Stream = true;
 
         return this;
     }
 
 
-    public ChatRequestBuilder SetPresencePenalty(float number)
-    {
-        if (number is < -2f or > 2f)
-            throw new ArgumentOutOfRangeException();
-
-        _chat.PresencePenalty = number;
-
-        return this;
-    }
-
-    public ChatRequestBuilder SetFrequencyPenalty(float number)
+    public ChatRequestBuilder WithPresencePenalty(float number)
     {
         if (number is < -2f or > 2f)
             throw new ArgumentOutOfRangeException();
 
-        _chat.FrequencyPenalty = number;
+        _option.PresencePenalty = number;
+
+        return this;
+    }
+
+    public ChatRequestBuilder WithFrequencyPenalty(float number)
+    {
+        if (number is < -2f or > 2f)
+            throw new ArgumentOutOfRangeException();
+
+        _option.FrequencyPenalty = number;
 
         return this;
     }
 
 
-    public ChatRequestBuilder SetLogitBias(Dictionary<string, int> dictionary)
+    public ChatRequestBuilder WithLogitBias(Dictionary<string, int> dictionary)
     {
-        _chat.LogitBias = dictionary;
+        _option.LogitBias = dictionary;
 
         return this;
     }
 
     public ChatRequestBuilder AddLogitBias(string key, int value)
     {
-        var dict = _chat.LogitBias ??= new Dictionary<string, int>();
+        var dict = _option.LogitBias ??= new Dictionary<string, int>();
 
         dict.Add(key, value);
 
         return this;
     }
 
-    public ChatRequestBuilder SetUser(string user)
+    public ChatRequestBuilder WithUsername(string user)
     {
-        _chat.User = user;
+        _option.User = user;
 
         return this;
     }
 
 
-    public async Task<ChatResult> Send()
+    public ChatRequestBuilder Reset()
     {
-        var json = JsonSerializer.Serialize(_chat);
-
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        var httpResponseMessage = await _client.PostAsync(
-            URL_COMPLETIONS, content);
-
-        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
-
-        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-
-        var result = JsonSerializer.Deserialize<ChatResult>(responseBody);
-
-        //TOOD: checl model
-        _chat.Messages.AddRange(result.Choices.Select(e => e.Message));
-
-        return result;
-    }
-
-    public ChatRequestBuilder Clear(string modelId)
-    {
-        _chat = new ChatRequest()
+        _option = new ChatRequestOption()
         {
-            Model = modelId
+            Model = _option.Model
         };
 
         return this;
     }
-
-    public ChatRequestBuilder Clear(Model model)
+    
+    public ChatRequestManager Create()
     {
-        return Clear(model.Id);
-    }
-
-    public ChatRequestBuilder Clear(ChatModel model)
-    {
-        return Clear(model);
-    }
-
-    public ChatRequestBuilder Clear()
-    {
-        return Clear(_chat.Model);
+        
+        return new ChatRequestManager(_option.DeepClone(), _client);;
     }
 }

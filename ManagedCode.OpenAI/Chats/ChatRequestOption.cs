@@ -1,49 +1,68 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using ManagedCode.OpenAI.Chats.Enums;
+using ManagedCode.OpenAI.Interfaces;
 
 namespace ManagedCode.OpenAI.Chats;
 
-public class ChatRequestOption: ICloneable
+
+public class ChatRequestOption: ICloneable<ChatRequestOption>, IDeepCloneable<ChatRequestOption>
 {
     [JsonPropertyName("model")]
-    public string Model;
+    public ChatModel Model { get; set; }
     
     [JsonPropertyName("messages")]
-    public List<Message> Messages = new List<Message>();
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public List<Message> Messages { get; set; } = new List<Message>();
     
     [JsonPropertyName("temperature")] 
-    public float? Temperature;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public float? Temperature { get; set; }
 
     [JsonPropertyName("top_p")] 
-    public int? TopP;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public float? TopP { get; set; }
 
     [JsonPropertyName("n")] 
-    public int? N;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? N { get; set; }
 
     [JsonPropertyName("stream")] 
-    public bool? Stream;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Stream { get; set; }
     
     [JsonPropertyName("max_tokens")] 
-    public int? MaxTokens;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? MaxTokens { get; set; }
     
     [JsonPropertyName("presence_penalty")] 
-    public float? PresencePenalty;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public float? PresencePenalty { get; set; }
     
     [JsonPropertyName("frequency_penalty")] 
-    public float? FrequencyPenalty;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public float? FrequencyPenalty { get; set; }
     
     [JsonPropertyName("logit_biat")] 
-    public Dictionary<string, int>? LogitBias;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Dictionary<string, int>? LogitBias { get; set; }
     
     [JsonPropertyName("user")] 
-    public string? User;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? User { get; set; }
 
-    public object Clone()
+
+    public ChatRequestOption DeepClone()
     {
-        return MemberwiseClone();
+        var result = Clone();
+
+        result.Messages = Messages?.Count != 0 ? new List<Message>(Messages) : new List<Message>();
+        
+        result.LogitBias = LogitBias;
+        
+        return result;
+
     }
-    
-    
-    
-    
+
+    public ChatRequestOption Clone() => (ChatRequestOption)MemberwiseClone();
 }
