@@ -6,18 +6,9 @@ namespace ManagedCode.OpenAI.Completions;
 
 public static class CompletionsBuilderMethods
 {
-    public static CompletionsBuilder AsCompletions(this OpenAIClient client, string modelId)
+
+    public static CompletionsBuilder CreateCompletionsBuilder(this OpenAIClient client, CompletionModel model)
     {
-        return new CompletionsBuilder(client, modelId);
-    }
-    
-    public static CompletionsBuilder AsCompletions(this OpenAIClient client, Model model)
-    {
-        return client.AsCompletions(model.Id);
-    }
-    
-    public static CompletionsBuilder AsCompletions(this OpenAIClient client, CompletionModel model)
-    {
-        return client.AsCompletions(model);
+        return new CompletionsBuilder(client, model);
     }
 }
