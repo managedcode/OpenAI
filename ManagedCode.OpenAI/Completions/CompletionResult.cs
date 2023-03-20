@@ -7,20 +7,20 @@ namespace ManagedCode.OpenAI.Completions;
 public class CompletionResult
 {
     [JsonPropertyName("id")]
-    public string Id;
+    public string Id { get; set; }
 
     [JsonPropertyName("object")]
-    public string Object;
+    public string Object {get; set;}
 
     [JsonPropertyName("created")]
-    public int Created;
+    public int Created {get; set;}
 
     [JsonPropertyName("model")]
-    public string Model;
+    public string Model {get; set;}
 
     [JsonPropertyName("choices")]
-    public List<ChoiceComplete> Choices;
+    public List<ChoiceComplete> Choices {get; set;}
 
     [JsonPropertyName("usage")]
-    public Usage Usage;
+    public Usage Usage {get; set;}
 }
