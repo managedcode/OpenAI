@@ -1,6 +1,5 @@
 using ManagedCode.OpenAI.Chats.Enums;
 using ManagedCode.OpenAI.Client;
-using ManagedCode.OpenAI.Methods;
 using ManagedCode.OpenAI.Models;
 
 namespace ManagedCode.OpenAI.Chats;
