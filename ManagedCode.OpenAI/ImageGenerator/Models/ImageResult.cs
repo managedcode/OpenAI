@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.ImageGenerator;
 
-public class ImageResult
+public class ImageResult<T>
 {
-    [JsonPropertyName("url")]
-    public string Url  { get; set; }
-    
-    [JsonPropertyName("b64_json")]
-    public string Base64Json  { get; set; }
+    [JsonPropertyName("created")]
+    public int Created  { get; set; }
+
+    [JsonPropertyName("data")]
+    public List<T> Data  { get; set; }
 }
