@@ -4,11 +4,6 @@ namespace ManagedCode.OpenAI.ImageGenerator;
 
 public static class ImageGeneratorRequestBuilderMethods
 {
-    public static ImageGeneratorRequestBuilder AsImageGenerator(
-        this OpenAIClient client,
-        string prompt
-    )
-    {
-        return new ImageGeneratorRequestBuilder(client).Clear(prompt);
-    }
+    public static ImageGeneratorRequestBuilder CreateImageBuilder(this OpenAIClient client) 
+        => new ImageGeneratorRequestBuilder(client);
 }

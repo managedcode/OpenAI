@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Exceptions;
 using ManagedCode.OpenAI.ImageGenerator.Enums;
+using ManagedCode.OpenAI.ImageGenerator.Manager;
 
 namespace ManagedCode.OpenAI.ImageGenerator;
 
@@ -14,22 +15,14 @@ public class ImageGeneratorRequestBuilder
     public const string URL_EDITS = "images/generations";
 
     private OpenAIClient _client;
-    private ImageRequest _request;
+    private ImageRequestOptions _request;
 
     public ImageGeneratorRequestBuilder(OpenAIClient client)
     {
         _client = client;
     }
 
-
-    public ImageGeneratorRequestBuilder SetPrompt(string prompt)
-    {
-        _request.Prompt = prompt;
-
-        return this;
-    }
-
-    public ImageGeneratorRequestBuilder SetRequestResult(int count)
+    public ImageGeneratorRequestBuilder WithRequestResult(int count)
     {
         if (count is < 0)
             throw new ArgumentOutOfRangeException();
@@ -39,68 +32,43 @@ public class ImageGeneratorRequestBuilder
         return this;
     }
 
-    public ImageGeneratorRequestBuilder SetResolution(string size)
+
+    public ImageGeneratorRequestBuilder WithResolution(ImageResolution resize)
     {
-        _request.Size = size;
+        _request.Size = resize;
 
         return this;
     }
 
-    public ImageGeneratorRequestBuilder SetResolution(ImageResolution resize)
-    {
-        return SetResolution(resize);
-    }
 
-    public ImageGeneratorRequestBuilder SetFormat(string format)
-    {
-        _request.ResponseFormat = format;
 
-        return this;
-    }
-
-    public ImageGeneratorRequestBuilder SetFormat(ImageFormat format)
-    {
-        return SetFormat(format);
-    }
-
-    public ImageGeneratorRequestBuilder SetUser(string user)
+    public ImageGeneratorRequestBuilder WithUsername(string user)
     {
         _request.User = user;
 
         return this;
     }
 
-    public async Task<CreateImageResult> Send()
+    public Base64ImageManager CreateAsBase64()
     {
-        var json = JsonSerializer.Serialize(_request);
-
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        var httpResponseMessage = await _client.PostAsync(
-            URL_EDITS, content);
-
-        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
-
-        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-
-        var result = JsonSerializer.Deserialize<CreateImageResult>(responseBody);
-
-        return result;
+        var options = _request.DeepClone();
+        options.ResponseFormat = ImageFormat.Base64Json;
+        
+        return new Base64ImageManager(_client, options);
     }
-
-    public ImageGeneratorRequestBuilder Clear(string prompt)
+    
+    public UrlImageManager CreateAsUrl()
     {
-        _request = new ImageRequest()
-        {
-            Prompt = prompt
-        };
+        var options = _request.DeepClone();
+        options.ResponseFormat = ImageFormat.Url;
 
-        return this;
+        return new UrlImageManager(_client, options);
     }
-
 
     public ImageGeneratorRequestBuilder Clear()
     {
-        return Clear(_request.Prompt);
+        _request = new ImageRequestOptions();
+        
+        return this;
     }
 }
