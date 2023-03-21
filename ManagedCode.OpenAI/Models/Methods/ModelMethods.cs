@@ -1,0 +1,35 @@
+using System.Text.Json;
+using System.Threading.Tasks;
+using ManagedCode.OpenAI.Client;
+using ManagedCode.OpenAI.Exceptions;
+
+namespace ManagedCode.OpenAI.Models;
+
+public static class ModelMethods
+{
+    public const string URL_LIST_MODELS = "models";
+    public const string URL_MODEL = "models/{0}";
+
+    public static async Task<ListModels?> GetModels(this OpenAIClient client)
+    {
+        var httpResponseMessage = await client.GetAsync(URL_LIST_MODELS);
+
+        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
+
+        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<ListModels>(responseBody);
+    }
+
+    public static async Task<Model?> GetModel(this OpenAIClient client, string id)
+    {
+        var httpResponseMessage = await client.GetAsync(
+            string.Format(URL_MODEL, id));
+
+        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
+
+        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<Model>(responseBody);
+    }
+}
