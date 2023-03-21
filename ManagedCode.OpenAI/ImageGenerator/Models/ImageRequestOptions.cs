@@ -9,15 +9,19 @@ public class ImageRequestOptions : ICloneable<ImageRequestOptions>, IDeepCloneab
     [JsonPropertyName("prompt")] 
     public string Prompt { get; set; }
     
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("n")] 
     public int? N  { get; set; }
     
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("size")]
     public ImageResolution? Size  { get; set; }
     
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("response_format")]
     public ImageFormat? ResponseFormat  { get; set; }
     
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("user")]
     public string? User  { get; set; }
 

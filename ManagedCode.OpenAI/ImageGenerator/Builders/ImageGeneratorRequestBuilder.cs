@@ -15,7 +15,7 @@ public class ImageGeneratorRequestBuilder
     public const string URL_EDITS = "images/generations";
 
     private OpenAIClient _client;
-    private ImageRequestOptions _request;
+    private ImageRequestOptions _request = new ImageRequestOptions();
 
     public ImageGeneratorRequestBuilder(OpenAIClient client)
     {

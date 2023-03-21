@@ -26,7 +26,7 @@ public class ImageManager<T> where T : class
         return this;
     }
     
-    public async Task<T> GetResultAsStringAsync()
+    public async Task<T> GetResultAsync()
     {
 
         var httpResponseMessage = await _client.PostAsJsonAsync(
