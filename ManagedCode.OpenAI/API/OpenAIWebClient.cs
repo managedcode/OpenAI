@@ -74,7 +74,6 @@ internal class OpenAiWebClient : IOpenAiWebClient
     public async Task<ImageResponseDto> EditImageAsync(EditImageRequestDto request)
     {
         var imageBytes = Convert.FromBase64String(request.ImageBase64);
-
         var parameters = ToImageRequestParameters(request);
         using var form = new MultipartFormDataContent();
 

@@ -62,7 +62,7 @@ namespace ManagedCode.OpenAI.Client
 
         public IEditBuilder Edit(string input, string instruction)
         {
-            return new EditRequestBuilder(_webClient, Configuration.ModelId, input, instruction);
+            return new EditBuilder(_webClient, Configuration.ModelId, input, instruction);
         }
 
         public IGenerateImageBuilder GenerateImage(string description)

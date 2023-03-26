@@ -6,17 +6,18 @@ using ManagedCode.OpenAI.Extensions;
 
 namespace ManagedCode.OpenAI.Edit;
 
-internal class EditRequestBuilder : IEditBuilder
+internal class EditBuilder : IEditBuilder
 {
     private readonly EditRequestDto _request;
     private readonly IOpenAiWebClient _client;
 
-    public EditRequestBuilder(IOpenAiWebClient client, string model, string input, string instruction)
+    public EditBuilder(IOpenAiWebClient client, string model, string input, string instruction)
     {
         _client = client;
         _request = new EditRequestDto()
         {
             Model = model,
+            Input = input,
             Instruction = instruction,
         };
     }
