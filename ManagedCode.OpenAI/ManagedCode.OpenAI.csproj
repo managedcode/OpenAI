@@ -16,8 +16,12 @@
         <PackageTags>managedcode, OpenAI, ChatGPT,</PackageTags>
     </PropertyGroup>
     <ItemGroup>
+      <Compile Remove="Methods\**" />
+      <EmbeddedResource Remove="Methods\**" />
+      <None Remove="Methods\**" />
+    </ItemGroup>
+    <ItemGroup>
       <Folder Include="Files\Enums" />
-      <Folder Include="Methods" />
     </ItemGroup>
 
 </Project>

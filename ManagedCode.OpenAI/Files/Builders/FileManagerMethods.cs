@@ -1,12 +1,10 @@
-using ManagedCode.OpenAI.Client;
-
-namespace ManagedCode.OpenAI.Files;
+namespace ManagedCode.OpenAI.Files.Builders;
 
 public static class FileManagerMethods
 {
     
-    public static FileManager CreateFileManager(this OpenAIClient client)
+    public static FileManager CreateFileManager(this HttpClient webClient)
     {
-        return new FileManager(client);
+        return new FileManager(webClient);
     }
 }

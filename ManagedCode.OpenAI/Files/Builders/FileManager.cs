@@ -1,12 +1,10 @@
-using System.IO;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Exceptions;
+using ManagedCode.OpenAI.Files.Models;
+using FileInfo = ManagedCode.OpenAI.Files.Models.FileInfo;
 
-namespace ManagedCode.OpenAI.Files;
+namespace ManagedCode.OpenAI.Files.Builders;
 
 public class FileManager
 {
@@ -18,16 +16,16 @@ public class FileManager
 
     public const string FINE_TUNE = "fine-tune";
 
-    private readonly OpenAIClient _client;
+    private readonly HttpClient _webClient;
 
-    internal FileManager(OpenAIClient client)
+    internal FileManager(HttpClient webClient)
     {
-        _client = client;
+        _webClient = webClient;
     }
 
     public async Task<FileListResult> ListAsync()
     {
-        var httpResponseMessage = await _client.GetAsync(URL_FILES);
+        var httpResponseMessage = await _webClient.GetAsync(URL_FILES);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
 
@@ -48,7 +46,7 @@ public class FileManager
 
         multipartFormDataContent.Add(content, "file", fileName);
 
-        var httpResponseMessage = await _client.PostAsync(URL_FILES, multipartFormDataContent);
+        var httpResponseMessage = await _webClient.PostAsync(URL_FILES, multipartFormDataContent);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
 
@@ -80,7 +78,7 @@ public class FileManager
     {
         string resultUrl = string.Format(URL_FILE, fileId);
 
-        var httpResponseMessage = await _client.DeleteAsync(resultUrl);
+        var httpResponseMessage = await _webClient.DeleteAsync(resultUrl);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
 
@@ -100,7 +98,7 @@ public class FileManager
     {
         string resultUrl = string.Format(URL_FILE, fileId);
 
-        var httpResponseMessage = await _client.GetAsync(resultUrl);
+        var httpResponseMessage = await _webClient.GetAsync(resultUrl);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
 
@@ -121,7 +119,7 @@ public class FileManager
     {
         string resultUrl = string.Format(URL_FILE_CONTEXT, fileId);
 
-        var httpResponseMessage = await _client.GetAsync(resultUrl);
+        var httpResponseMessage = await _webClient.GetAsync(resultUrl);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
 

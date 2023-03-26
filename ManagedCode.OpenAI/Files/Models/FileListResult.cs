@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace ManagedCode.OpenAI.Files;
+namespace ManagedCode.OpenAI.Files.Models;
 
 public class FileListResult
 {
