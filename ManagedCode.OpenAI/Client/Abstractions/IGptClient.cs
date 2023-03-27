@@ -1,6 +1,7 @@
 ﻿using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
+using ManagedCode.OpenAI.Files.Abstractions;
 using ManagedCode.OpenAI.Image;
 
 namespace ManagedCode.OpenAI.Client
@@ -25,6 +26,8 @@ namespace ManagedCode.OpenAI.Client
         IEditImageBuilder EditImage(string description, string imageBase64);
 
         IVariationImageBuilder VariationImage(string imageBase64);
+
+        IFileManager FileManager();
 
     }
 }

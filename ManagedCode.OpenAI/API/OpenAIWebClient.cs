@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.API.Image;
+using ManagedCode.OpenAI.Files.Models;
 
 namespace ManagedCode.OpenAI.API;
 
@@ -21,6 +22,11 @@ internal class OpenAiWebClient : IOpenAiWebClient
     private const string URL_IMAGE_GENERATION = "images/generations";
     private const string URL_IMAGE_EDIT = "images/edits";
     private const string URL_IMAGE_VARIATION = "images/variations";
+    
+    private const string URL_FILES = "files";
+    private const string URL_FILE = "files/{0}";
+    private const string URL_FILE_CONTEXT = "files/{0}/content";
+
 
     private readonly HttpClient _httpClient;
 
@@ -111,6 +117,7 @@ internal class OpenAiWebClient : IOpenAiWebClient
         return await ReadAsync<ImageResponseDto>(response);
     }
 
+
     public void Dispose()
     {
         _httpClient.Dispose();
@@ -155,4 +162,62 @@ internal class OpenAiWebClient : IOpenAiWebClient
 
         return result;
     }
+
+    #region Files
+
+    
+    public async Task<FilesInfoResponseDto> FilesInfoAsync()
+    {
+        var httpResponseMessage = await _httpClient.GetAsync(URL_FILES);
+        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
+        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+        return JsonDeserialize<FilesInfoResponseDto>(responseBody);
+    }
+
+    public async Task<FileInfoDto> CreateFileAsync(HttpContent content, string fileName, string purpose = "fine-tune")
+    {
+        MultipartFormDataContent multipartFormDataContent = new();
+        multipartFormDataContent.Add(new StringContent(purpose), "purpose");
+        multipartFormDataContent.Add(content, "file", fileName);
+        
+        var httpResponseMessage = await _httpClient.PostAsync(URL_FILES, multipartFormDataContent);
+        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
+        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+        
+        return JsonDeserialize<FileInfoDto>(responseBody);
+    }
+
+    public async Task<FileDeleteResponseDto> DeleteFileAsync(string fileId)
+    {
+        string resultUrl = string.Format(URL_FILE, fileId);
+        var httpResponseMessage = await _httpClient.DeleteAsync(resultUrl);
+        
+        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
+
+        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+
+        return JsonDeserialize<FileDeleteResponseDto>(responseBody);
+    }
+
+    public async Task<FileInfoDto> FileInfoAsync(string fileId)
+    {
+        string resultUrl = string.Format(URL_FILE, fileId);
+
+        var httpResponseMessage = await _httpClient.GetAsync(resultUrl);
+
+        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
+
+        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+        return JsonDeserialize<FileInfoDto>(responseBody);
+    }
+
+    public async Task<string> GetContentFromFileAsync(string fileId)
+    {
+        string resultUrl = string.Format(URL_FILE_CONTEXT, fileId);
+        var httpResponseMessage = await _httpClient.GetAsync(resultUrl);
+        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
+        return await httpResponseMessage.Content.ReadAsStringAsync();
+    }
+
+    #endregion
 }
