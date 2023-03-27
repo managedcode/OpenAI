@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.Files.Models;
 
-public class FileDeleteResult
+public class FileDeleteResponseDto
 {
     [JsonPropertyName("id")] 
     public string Id  { get; set; }
