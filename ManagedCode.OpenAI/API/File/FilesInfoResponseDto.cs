@@ -3,7 +3,7 @@ using ManagedCode.OpenAI.Files.Abstractions;
 
 namespace ManagedCode.OpenAI.Files.Models;
 
-public class FilesInfoResponseDto: IDataArrayResponseDto<FileInfoDto>
+internal class FilesInfoResponseDto: IDataArrayResponseDto<FileInfoDto>
 {
     [JsonPropertyName("data")]
     public FileInfoDto[] Data { get; set; }
