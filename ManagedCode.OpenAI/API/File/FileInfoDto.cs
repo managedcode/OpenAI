@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.Files.Models;
 
-public class FileInfo
+public class FileInfoDto
 {
     [JsonPropertyName("id")]
     public string Id  { get; set; }
