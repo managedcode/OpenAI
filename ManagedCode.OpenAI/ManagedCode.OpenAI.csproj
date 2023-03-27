@@ -20,8 +20,5 @@
       <EmbeddedResource Remove="Methods\**" />
       <None Remove="Methods\**" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Files\Enums" />
-    </ItemGroup>
 
 </Project>
