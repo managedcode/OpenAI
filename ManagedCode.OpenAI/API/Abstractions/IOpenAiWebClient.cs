@@ -1,5 +1,6 @@
 ﻿using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.API.Image;
+using ManagedCode.OpenAI.API.Moderations;
 using ManagedCode.OpenAI.Files.Models;
 
 namespace ManagedCode.OpenAI.API
@@ -34,6 +35,12 @@ namespace ManagedCode.OpenAI.API
         // I don't know what response type is returned here
         Task<string> GetContentFromFileAsync(string fileId);
 
+        #endregion
+        
+        #region Moderations
+        
+        Task<ModerationResponseDto> ModerationAsync(ModerationRequestDto request);
+        
         #endregion
     }
 }

@@ -7,6 +7,8 @@ using ManagedCode.OpenAI.Files.Abstractions;
 using ManagedCode.OpenAI.Files.Builders;
 using ManagedCode.OpenAI.Image;
 using ManagedCode.OpenAI.Image.Builders;
+using ManagedCode.OpenAI.Moderations;
+using ManagedCode.OpenAI.Moderations.Abstractions;
 
 namespace ManagedCode.OpenAI.Client
 {
@@ -85,6 +87,11 @@ namespace ManagedCode.OpenAI.Client
         public IFileManager FileManager()
         {
             return new FileManager(_webClient);
+        }
+
+        public IModerationBuilder ModerationBuilder()
+        {
+            return new ModerationBuilder(_webClient);
         }
     }
 }

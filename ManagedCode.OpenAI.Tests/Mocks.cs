@@ -4,7 +4,7 @@ namespace ManagedCode.OpenAI.Tests
 {
     internal static class Mocks
     {
-        private const string API_KEY = "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";
+        private const string API_KEY = "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";
 
         public static IGptClient Client()
         {

@@ -1,10 +1,13 @@
 using System.Net.Http.Headers;
 using ManagedCode.OpenAI.Exceptions;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.API.Image;
+using ManagedCode.OpenAI.API.Moderations;
 using ManagedCode.OpenAI.Files.Models;
+using ManagedCode.OpenAI.Moderations.Abstractions;
 
 namespace ManagedCode.OpenAI.API;
 
@@ -27,6 +30,8 @@ internal class OpenAiWebClient : IOpenAiWebClient
     private const string URL_FILE = "files/{0}";
     private const string URL_FILE_CONTEXT = "files/{0}/content";
 
+    private const string URL_MODERATION = "moderations";
+    
 
     private readonly HttpClient _httpClient;
 
@@ -237,6 +242,17 @@ internal class OpenAiWebClient : IOpenAiWebClient
         
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
         return await httpResponseMessage.Content.ReadAsStringAsync();
+    }
+
+    #endregion
+    
+    #region Moderations
+    
+    public async Task<ModerationResponseDto> ModerationAsync(ModerationRequestDto request)
+    {
+        var httpResponseMessage = await _httpClient.PostAsJsonAsync(URL_MODERATION, request);
+
+        return await ReadAsync<ModerationResponseDto>(httpResponseMessage);
     }
 
     #endregion

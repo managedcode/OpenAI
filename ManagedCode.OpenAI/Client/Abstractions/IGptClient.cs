@@ -3,6 +3,7 @@ using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
 using ManagedCode.OpenAI.Files.Abstractions;
 using ManagedCode.OpenAI.Image;
+using ManagedCode.OpenAI.Moderations.Abstractions;
 
 namespace ManagedCode.OpenAI.Client
 {
@@ -28,6 +29,8 @@ namespace ManagedCode.OpenAI.Client
         IVariationImageBuilder VariationImage(string imageBase64);
 
         IFileManager FileManager();
+        
+        IModerationBuilder ModerationBuilder();
 
     }
 }
