@@ -50,6 +50,7 @@ namespace ManagedCode.OpenAI.Completions
             return this;
         }
 
+        // TODO: How to work, when stream is true?
         public ICompletionBuilder SetStream()
         {
             _request.Stream = true;

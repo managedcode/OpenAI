@@ -23,7 +23,10 @@ namespace ManagedCode.OpenAI.API
         #region Files
 
         Task<FilesInfoResponseDto> FilesInfoAsync();
-        Task<FileInfoDto> CreateFileAsync(HttpContent content, string fileName, string purpose = "fine-tune");
+        Task<FileInfoDto> CreateFileAsync(string content, string fileName, string purpose = "fine-tune");
+        Task<FileInfoDto> CreateFileAsync(Stream content, string fileName, string purpose = "fine-tune");
+        Task<FileInfoDto> CreateFileAsync(byte[] content, string fileName, string purpose = "fine-tune");
+        Task<FileInfoDto> CreateFileAsync(ReadOnlyMemory<byte> content, string fileName, string purpose = "fine-tune");
         Task<FileDeleteResponseDto> DeleteFileAsync(string fileId);
         Task<FileInfoDto> FileInfoAsync(string fileId);
         

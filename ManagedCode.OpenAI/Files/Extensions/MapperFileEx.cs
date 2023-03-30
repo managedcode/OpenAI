@@ -17,7 +17,7 @@ internal static class MapperFileEx
         };
     }
     
-    public static IFileInfo[] ToFileInfoArray(this IDataArrayResponseDto<FileInfoDto> dto)
+    public static IFileInfo[] ToFileInfoArray(this FilesInfoResponseDto dto)
     {
         return dto.Data
             .Select(e => e.ToFileInfo())

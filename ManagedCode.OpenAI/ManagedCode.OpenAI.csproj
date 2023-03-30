@@ -20,5 +20,9 @@
       <EmbeddedResource Remove="Methods\**" />
       <None Remove="Methods\**" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Audio" />
+      <Folder Include="FileTunes" />
+    </ItemGroup>
 
 </Project>

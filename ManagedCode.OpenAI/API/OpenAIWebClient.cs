@@ -111,7 +111,7 @@ internal class OpenAiWebClient : IOpenAiWebClient
         foreach (var parameter in parameters)
             form.Add(parameter.Key, parameter.Value);
 
-        form.Add(new StreamContent(new MemoryStream(imageBytes)), "image", "image.png");
+        form.Add(new ByteArrayContent(imageBytes), "image", "image.png");
 
         var response = await _httpClient.PostAsync(URL_IMAGE_EDIT, form);
         return await ReadAsync<ImageResponseDto>(response);
@@ -169,34 +169,53 @@ internal class OpenAiWebClient : IOpenAiWebClient
     public async Task<FilesInfoResponseDto> FilesInfoAsync()
     {
         var httpResponseMessage = await _httpClient.GetAsync(URL_FILES);
-        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
-        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-        return JsonDeserialize<FilesInfoResponseDto>(responseBody);
+        return await ReadAsync<FilesInfoResponseDto>(httpResponseMessage);
     }
 
-    public async Task<FileInfoDto> CreateFileAsync(HttpContent content, string fileName, string purpose = "fine-tune")
+    private async Task<FileInfoDto> CreateFileAsync(HttpContent content, string fileName, string purpose = "fine-tune")
     {
         MultipartFormDataContent multipartFormDataContent = new();
         multipartFormDataContent.Add(new StringContent(purpose), "purpose");
         multipartFormDataContent.Add(content, "file", fileName);
         
         var httpResponseMessage = await _httpClient.PostAsync(URL_FILES, multipartFormDataContent);
-        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
-        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-        
-        return JsonDeserialize<FileInfoDto>(responseBody);
+
+        return await ReadAsync<FileInfoDto>(httpResponseMessage);
     }
+
+    public async Task<FileInfoDto> CreateFileAsync(Stream content, string fileName, string purpose = "fine-tune") 
+    {
+        StreamContent streamContent = new(content);
+        return await CreateFileAsync(streamContent, fileName, purpose);
+    }
+
+    public async Task<FileInfoDto> CreateFileAsync(string content, string fileName, string purpose = "fine-tune")
+    {
+        StringContent stringContent = new(content);
+        return await CreateFileAsync(stringContent, fileName, purpose);
+    }
+    
+    public async Task<FileInfoDto> CreateFileAsync(byte[] content, string fileName, string purpose = "fine-tune")
+    {
+        ByteArrayContent byteArrayContent = new(content);
+        return await CreateFileAsync(byteArrayContent, fileName, purpose);
+    }
+    
+    public async Task<FileInfoDto> CreateFileAsync(ReadOnlyMemory<byte> content, string fileName, string purpose = 
+    "fine-tune")
+    {
+        ReadOnlyMemoryContent readOnlyMemoryContent = new(content);
+        return await CreateFileAsync(readOnlyMemoryContent, fileName, purpose);
+    }
+    
+    
 
     public async Task<FileDeleteResponseDto> DeleteFileAsync(string fileId)
     {
         string resultUrl = string.Format(URL_FILE, fileId);
         var httpResponseMessage = await _httpClient.DeleteAsync(resultUrl);
         
-        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
-
-        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-
-        return JsonDeserialize<FileDeleteResponseDto>(responseBody);
+        return await ReadAsync<FileDeleteResponseDto>(httpResponseMessage);
     }
 
     public async Task<FileInfoDto> FileInfoAsync(string fileId)
@@ -205,16 +224,17 @@ internal class OpenAiWebClient : IOpenAiWebClient
 
         var httpResponseMessage = await _httpClient.GetAsync(resultUrl);
 
-        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
-
-        string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-        return JsonDeserialize<FileInfoDto>(responseBody);
+        return await ReadAsync<FileInfoDto>(httpResponseMessage);
     }
 
+
+    
+    // TODO: It is not known what the result of the query returns
     public async Task<string> GetContentFromFileAsync(string fileId)
     {
         string resultUrl = string.Format(URL_FILE_CONTEXT, fileId);
         var httpResponseMessage = await _httpClient.GetAsync(resultUrl);
+        
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
         return await httpResponseMessage.Content.ReadAsStringAsync();
     }

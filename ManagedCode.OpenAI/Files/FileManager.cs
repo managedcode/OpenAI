@@ -20,30 +20,36 @@ public class FileManager : IFileManager
         var response = await _client.FilesInfoAsync();
         return response.ToFileInfoArray();
     }
+    
+    
+    public async Task<IFileInfo> CreateFileAsync(string content, string fileName, string purpose = "fine-tune")
+    {
+        var fileInfoDto = await _client.CreateFileAsync(content, fileName, purpose);
+        
+        return fileInfoDto.ToFileInfo();
+    }
+    
+    public async Task<IFileInfo> CreateFileAsync(Stream content, string fileName, string purpose = "fine-tune")
+    {
+        var fileInfoDto = await _client.CreateFileAsync(content, fileName, purpose);
+        
+        return fileInfoDto.ToFileInfo();
+    }
 
-    public async Task<IFileInfo> CreateFileAsync(
-        string fileName,
-        HttpContent content,
-        string purpose = "fine-tune")
+    public async Task<IFileInfo> CreateFileAsync(byte[] content, string fileName, string purpose = "fine-tune")
     {
-        var response = 
-            await _client.CreateFileAsync(content, fileName, purpose);
-        return response.ToFileInfo();
+        var fileInfoDto = await _client.CreateFileAsync(content, fileName, purpose);
+        
+        return fileInfoDto.ToFileInfo();
     }
-    
-    public async Task<IFileInfo> CreateFileAsync(string fileName, string content, string purpose = "fine-tune")
+
+    public async Task<IFileInfo> CreateFileAsync(ReadOnlyMemory<byte> content, string fileName, string purpose = "fine-tune")
     {
-        var stringContent = new StringContent(content, Encoding.UTF8, "multipart/form-data");
-        return await CreateFileAsync(fileName, stringContent, purpose);
+        var fileInfoDto = await _client.CreateFileAsync(content, fileName, purpose);
+        
+        return fileInfoDto.ToFileInfo();
     }
-    
-    public async Task<IFileInfo> CreateFileAsync(string fileName, Stream content, string purpose = "fine-tune")
-    {
-        var streamContent = new StreamContent(content);
-        return await CreateFileAsync(fileName, streamContent, purpose);
-    }
-    
-    
+
 
     public async Task<bool> DeleteFileAsync(string fileId)
     {
@@ -63,8 +69,6 @@ public class FileManager : IFileManager
         return response.ToFileInfo();
     }
     
-    
-
     public async Task<string> FileContentAsync(IFileInfo info)
     {
         return await FileContentAsync(info.Id);

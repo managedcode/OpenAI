@@ -31,7 +31,7 @@ public class FileTest
         const string fileName = "test.txt";
         
         
-        var file = await _fileManager.CreateFileAsync(fileName, fileContent);
+        var file = await _fileManager.CreateFileAsync(fileContent, fileName);
         
         Log($"File id: {file.Id}");
 
@@ -60,7 +60,7 @@ public class FileTest
     {
         const string fileName = "test.txt";
         
-        var newFile = await _fileManager.CreateFileAsync(fileName, fileContent);
+        var newFile = await _fileManager.CreateFileAsync(fileContent, fileName);
         Assert.NotNull(newFile);
         
         var files = await _fileManager.FileListAsync();
@@ -84,7 +84,7 @@ public class FileTest
     {
         const string fileName = "test.txt";
         
-        var newFile = await _fileManager.CreateFileAsync(fileName, fileContent);
+        var newFile = await _fileManager.CreateFileAsync(fileContent, fileName);
         Assert.NotNull(newFile);
         
         //Waiting for file to be deleted
@@ -103,7 +103,7 @@ public class FileTest
     {
         const string fileName = "test.txt";
         
-        var newFile = await _fileManager.CreateFileAsync(fileName, fileContent);
+        var newFile = await _fileManager.CreateFileAsync(fileContent, fileName);
         Assert.NotNull(newFile);
 
         var fileInfo = await _fileManager.FileInfoAsync(newFile.Id);
