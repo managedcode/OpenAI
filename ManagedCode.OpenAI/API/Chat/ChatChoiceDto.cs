@@ -13,12 +13,3 @@ public class ChatChoiceDto
     [JsonPropertyName("finish_reason")]
     public string FinishReason { get; set; }
 }
-
-public class MessageDto
-{
-    [JsonPropertyName("role")]
-    public string Role { get; set; }
-
-    [JsonPropertyName("content")]
-    public string Content { get; set; }
-}

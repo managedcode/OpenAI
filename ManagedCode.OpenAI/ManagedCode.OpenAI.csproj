@@ -21,7 +21,8 @@
       <None Remove="Methods\**" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Files\Enums" />
+      <Folder Include="Audio" />
+      <Folder Include="FileTunes" />
     </ItemGroup>
 
 </Project>

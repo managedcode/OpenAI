@@ -67,5 +67,16 @@ public enum GptModel
 
     [EnumMember(Value = "code-cushman-001")]
     [Description("code-cushman-001")]
-    CodeCushman001
+    CodeCushman001,
+    
+    
+    [EnumMember(Value = "text-moderation-stable")]
+    [Description("text-moderation-stable")]
+    TextModerationStable,
+    
+    [EnumMember(Value = "text-moderation-latest")]
+    [Description("text-moderation-latest")]
+    TextModerationLatest,
+    
+    
 }

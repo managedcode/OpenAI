@@ -1,5 +1,7 @@
 ﻿using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.API.Image;
+using ManagedCode.OpenAI.API.Moderations;
+using ManagedCode.OpenAI.Files.Models;
 
 namespace ManagedCode.OpenAI.API
 {
@@ -18,5 +20,27 @@ namespace ManagedCode.OpenAI.API
         Task<ImageResponseDto> GenerateImageAsync(GenerateImageRequestDto request);
         Task<ImageResponseDto> EditImageAsync(EditImageRequestDto request);
         Task<ImageResponseDto> VariationImageAsync(VariationImageRequestDto request);
+
+        #region Files
+
+        Task<FilesInfoResponseDto> FilesInfoAsync();
+        Task<FileInfoDto> CreateFileAsync(string content, string fileName, string purpose = "fine-tune");
+        Task<FileInfoDto> CreateFileAsync(Stream content, string fileName, string purpose = "fine-tune");
+        Task<FileInfoDto> CreateFileAsync(byte[] content, string fileName, string purpose = "fine-tune");
+        Task<FileInfoDto> CreateFileAsync(ReadOnlyMemory<byte> content, string fileName, string purpose = "fine-tune");
+        Task<FileDeleteResponseDto> DeleteFileAsync(string fileId);
+        Task<FileInfoDto> FileInfoAsync(string fileId);
+        
+        // TODO: This may be a stream
+        // I don't know what response type is returned here
+        Task<string> GetContentFromFileAsync(string fileId);
+
+        #endregion
+        
+        #region Moderations
+        
+        Task<ModerationResponseDto> ModerationAsync(ModerationRequestDto request);
+        
+        #endregion
     }
 }
