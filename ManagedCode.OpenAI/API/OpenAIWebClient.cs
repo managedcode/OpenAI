@@ -7,7 +7,6 @@ using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.API.File;
 using ManagedCode.OpenAI.API.Image;
 using ManagedCode.OpenAI.API.Moderation;
-
 namespace ManagedCode.OpenAI.API;
 
 internal class OpenAiWebClient : IOpenAiWebClient
@@ -24,7 +23,6 @@ internal class OpenAiWebClient : IOpenAiWebClient
     private const string URL_IMAGE_GENERATION = "images/generations";
     private const string URL_IMAGE_EDIT = "images/edits";
     private const string URL_IMAGE_VARIATION = "images/variations";
-
     private const string URL_FILES = "files";
     private const string URL_FILE = "files/{0}";
     private const string URL_FILE_CONTEXT = "files/{0}/content";
@@ -148,11 +146,6 @@ internal class OpenAiWebClient : IOpenAiWebClient
                ?? throw new NullReferenceException();
     }
 
-    private string JsonSerialize<TModel>(TModel model)
-    {
-        return JsonSerializer.Serialize(model);
-    }
-
     private Dictionary<StringContent, string> ToImageRequestParameters(BaseImageRequestDto request)
     {
         var result = new Dictionary<StringContent, string>();
@@ -234,8 +227,6 @@ internal class OpenAiWebClient : IOpenAiWebClient
 
         return await ReadAsync<FileInfoDto>(httpResponseMessage);
     }
-
-
 
     // TODO: It is not known what the result of the query returns
     public async Task<string> GetContentFromFileAsync(string fileId)
