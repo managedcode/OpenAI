@@ -1,6 +1,6 @@
 namespace ManagedCode.OpenAI.Moderation;
 
-public interface ICategory<TResult> where TResult : struct
+public interface ICategory<out TResult> where TResult : struct
 {
     public TResult Hate { get;}
     public TResult HateThreatening { get; }

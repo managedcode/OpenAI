@@ -22,7 +22,7 @@ public class FileTest
     public FileTest(ITestOutputHelper output)
     {
         _output = output;
-        _fileClient = _client.FileManager();
+        _fileClient = _client.FileClient;
     }
 
     [Fact]

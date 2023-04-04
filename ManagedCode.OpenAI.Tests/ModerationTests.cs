@@ -10,7 +10,7 @@ public class ModerationTests
 {
     private readonly ITestOutputHelper _output;
     private readonly IGptClient _client = Mocks.Client();
-    private IModerationBuilder ModerationBuilder => _client.ModerationBuilder();
+    private IModerationBuilder ModerationBuilder => _client.Moderation();
 
     public ModerationTests(ITestOutputHelper output)
     {
@@ -21,8 +21,7 @@ public class ModerationTests
     public async Task CreateModeration_Success()
     {
         var moderation = await ModerationBuilder
-            .AddInput("I kill you")
-            .ExecuteAsync();
+            .ExecuteAsync("I kill you");
 
         Assert.NotNull(moderation);
 
@@ -36,17 +35,15 @@ public class ModerationTests
     [Fact]
     public async Task CreateMultipleModeration_Success()
     {
-        var moderations = await ModerationBuilder
-            .AddInput("I kill you")
-            .AddInput("You are a bad man")
-            .ExecuteMultipleAsync();
+        var moderation = await ModerationBuilder
+            .ExecuteMultipleAsync("I kill you", "You are a bad man");
 
-        Assert.NotNull(moderations);
+        Assert.NotNull(moderation);
 
-        Assert.Equal(2, moderations.Length);
+        Assert.Equal(2, moderation.Length);
         
         Log("Moderations have next content:");
-        Log(ToJson(moderations));
+        Log(ToJson(moderation));
     }
 
 

@@ -11,6 +11,10 @@ namespace ManagedCode.OpenAI.Client
     public interface IGptClient
     {
         public IGptClientConfiguration Configuration { get; }
+
+        public IImageClient ImageClient { get; }
+        public IFileClient FileClient { get; }
+
         void Configure(IGptClientConfiguration configuration);
         void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration);
 
@@ -18,19 +22,8 @@ namespace ManagedCode.OpenAI.Client
         public Task<IModel> GetModelAsync(string modelId);
 
         IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
-
         ICompletionBuilder Completion();
         IEditBuilder Edit(string input, string instruction);
-
-        IGenerateImageBuilder GenerateImage(string description);
-
-        IEditImageBuilder EditImage(string description, string imageBase64);
-
-        IVariationImageBuilder VariationImage(string imageBase64);
-
-        IFileClient FileManager();
-        
-        IModerationBuilder ModerationBuilder();
-
+        IModerationBuilder Moderation();
     }
 }

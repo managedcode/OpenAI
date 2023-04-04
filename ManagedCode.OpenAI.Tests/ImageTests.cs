@@ -23,7 +23,7 @@ namespace ManagedCode.OpenAI.Tests
         [Fact]
         public async Task GenerateImage_Success()
         {
-            var image = await _client.GenerateImage("Red dragon")
+            var image = await _client.ImageClient.GenerateImage("Red dragon")
                 .SetImageResolution(ImageResolution._512x512).GenerateAsync();
 
             Log($"Image url: {image.Content}");
@@ -34,7 +34,7 @@ namespace ManagedCode.OpenAI.Tests
         public async Task EditImage_Success()
         {
            var edited = await _client
-               .EditImage("change color to blue",
+               .ImageClient.EditImage("change color to blue",
                    x=> x.FromBytes(Properties.Resources.Dog))
                .AsUrl()
                .EditAsync();

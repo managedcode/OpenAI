@@ -24,13 +24,13 @@ internal class OpenAiWebClient : IOpenAiWebClient
     private const string URL_IMAGE_GENERATION = "images/generations";
     private const string URL_IMAGE_EDIT = "images/edits";
     private const string URL_IMAGE_VARIATION = "images/variations";
-    
+
     private const string URL_FILES = "files";
     private const string URL_FILE = "files/{0}";
     private const string URL_FILE_CONTEXT = "files/{0}/content";
 
     private const string URL_MODERATION = "moderations";
-    
+
 
     private readonly HttpClient _httpClient;
 
@@ -40,6 +40,16 @@ internal class OpenAiWebClient : IOpenAiWebClient
         _httpClient.DefaultRequestHeaders.Add(AUTHORIZATION,
             string.Format(AUTHORIZATION_FORMAT, apiKey));
 
+        _httpClient.BaseAddress = new Uri(URL_BASE);
+    }
+
+    public OpenAiWebClient(string apiKey, string organization)
+    {
+        _httpClient = new HttpClient();
+        _httpClient.DefaultRequestHeaders.Add(AUTHORIZATION,
+            string.Format(AUTHORIZATION_FORMAT, apiKey));
+
+        _httpClient.DefaultRequestHeaders.Add(ORGANIZATION, organization);
         _httpClient.BaseAddress = new Uri(URL_BASE);
     }
 
@@ -100,7 +110,6 @@ internal class OpenAiWebClient : IOpenAiWebClient
 
         form.Add(new StringContent(request.Description), "prompt");
 
-
         var response = await _httpClient.PostAsync(URL_IMAGE_EDIT, form);
         return await ReadAsync<ImageResponseDto>(response);
     }
@@ -120,7 +129,6 @@ internal class OpenAiWebClient : IOpenAiWebClient
         var response = await _httpClient.PostAsync(URL_IMAGE_VARIATION, form);
         return await ReadAsync<ImageResponseDto>(response);
     }
-
 
     public void Dispose()
     {
@@ -152,24 +160,20 @@ internal class OpenAiWebClient : IOpenAiWebClient
         if (!string.IsNullOrWhiteSpace(request.Size))
             result.Add(new StringContent(request.Size), "size");
 
-
         if (!string.IsNullOrWhiteSpace(request.ResponseFormat))
             result.Add(new StringContent(request.ResponseFormat), "response_format");
-
 
         if (!string.IsNullOrWhiteSpace(request.User))
             result.Add(new StringContent(request.User), "user");
 
-        //todo implement 'N' parameter 
-        //if (request.N.HasValue)
-        //    result.Add();
-
+        if (request.N.HasValue)
+            result.Add(new StringContent(request.N.Value.ToString()), "m");
         return result;
     }
 
     #region Files
 
-    
+
     public async Task<FilesInfoResponseDto> FilesInfoAsync()
     {
         var httpResponseMessage = await _httpClient.GetAsync(URL_FILES);
@@ -181,13 +185,13 @@ internal class OpenAiWebClient : IOpenAiWebClient
         MultipartFormDataContent multipartFormDataContent = new();
         multipartFormDataContent.Add(new StringContent(purpose), "purpose");
         multipartFormDataContent.Add(content, "file", fileName);
-        
+
         var httpResponseMessage = await _httpClient.PostAsync(URL_FILES, multipartFormDataContent);
 
         return await ReadAsync<FileInfoDto>(httpResponseMessage);
     }
 
-    public async Task<FileInfoDto> CreateFileAsync(Stream content, string fileName, string purpose = "fine-tune") 
+    public async Task<FileInfoDto> CreateFileAsync(Stream content, string fileName, string purpose = "fine-tune")
     {
         StreamContent streamContent = new(content);
         return await CreateFileAsync(streamContent, fileName, purpose);
@@ -198,27 +202,27 @@ internal class OpenAiWebClient : IOpenAiWebClient
         StringContent stringContent = new(content);
         return await CreateFileAsync(stringContent, fileName, purpose);
     }
-    
+
     public async Task<FileInfoDto> CreateFileAsync(byte[] content, string fileName, string purpose = "fine-tune")
     {
         ByteArrayContent byteArrayContent = new(content);
         return await CreateFileAsync(byteArrayContent, fileName, purpose);
     }
-    
-    public async Task<FileInfoDto> CreateFileAsync(ReadOnlyMemory<byte> content, string fileName, string purpose = 
+
+    public async Task<FileInfoDto> CreateFileAsync(ReadOnlyMemory<byte> content, string fileName, string purpose =
     "fine-tune")
     {
         ReadOnlyMemoryContent readOnlyMemoryContent = new(content);
         return await CreateFileAsync(readOnlyMemoryContent, fileName, purpose);
     }
-    
-    
+
+
 
     public async Task<FileDeleteResponseDto> DeleteFileAsync(string fileId)
     {
         string resultUrl = string.Format(URL_FILE, fileId);
         var httpResponseMessage = await _httpClient.DeleteAsync(resultUrl);
-        
+
         return await ReadAsync<FileDeleteResponseDto>(httpResponseMessage);
     }
 
@@ -232,21 +236,21 @@ internal class OpenAiWebClient : IOpenAiWebClient
     }
 
 
-    
+
     // TODO: It is not known what the result of the query returns
     public async Task<string> GetContentFromFileAsync(string fileId)
     {
         string resultUrl = string.Format(URL_FILE_CONTEXT, fileId);
         var httpResponseMessage = await _httpClient.GetAsync(resultUrl);
-        
+
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
         return await httpResponseMessage.Content.ReadAsStringAsync();
     }
 
     #endregion
-    
+
     #region Moderations
-    
+
     public async Task<ModerationResponseDto> ModerationAsync(ModerationRequestDto request)
     {
         var httpResponseMessage = await _httpClient.PostAsJsonAsync(URL_MODERATION, request);
