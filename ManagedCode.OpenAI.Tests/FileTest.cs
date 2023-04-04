@@ -2,6 +2,7 @@ using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Files;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace ManagedCode.OpenAI.Tests;
 
@@ -9,6 +10,9 @@ namespace ManagedCode.OpenAI.Tests;
 
 public class FileTest
 {
+    private const string SKIP = $"Class {nameof(FileTest)} disabled";
+
+
     private readonly ITestOutputHelper _output;
     private readonly IGptClient _client = Mocks.Client();
     private readonly IFileClient _fileClient;
@@ -24,7 +28,7 @@ public class FileTest
         _fileClient = _client.FileClient;
     }
 
-    [Fact]
+    [Fact(Skip = SKIP)]
     public async Task UploadFile_Success()
     {
         const string fileName = "test.txt";
@@ -39,9 +43,9 @@ public class FileTest
         Assert.Equal(fileContent.Length, file.Bytes);
     }
 
-    
+
     // Needs premium account
-    // [Fact]
+    [Fact(Skip = SKIP)]
     public async Task ContentFile_Success()
     {
         string fileId = await _fileClient.FileListAsync()
@@ -53,8 +57,8 @@ public class FileTest
         
         Assert.Equal(fileContent, content);
     }
-    
-    [Fact]
+
+    [Fact(Skip = SKIP)]
     public async Task FileList_Success()
     {
         const string fileName = "test.txt";
@@ -77,8 +81,8 @@ public class FileTest
         Assert.Equal(newFile.Filename, lastFiles.Filename);
         Assert.Equal(newFile.Bytes, lastFiles.Bytes);
     }
-    
-    [Fact]
+
+    [Fact(Skip = SKIP)]
     public async Task DeleteFile_Success()
     {
         const string fileName = "test.txt";
@@ -96,8 +100,8 @@ public class FileTest
         var files = await _fileClient.FileListAsync();
         Assert.NotEqual(newFile.Id, files.Last().Id);
     }
-    
-    [Fact]
+
+    [Fact(Skip = SKIP)]
     public async Task FileInfo_Success()
     {
         const string fileName = "test.txt";

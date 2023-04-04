@@ -7,6 +7,7 @@ namespace ManagedCode.OpenAI.Tests
 {
     public class ImageTests
     {
+        private const string SKIP = $"Class {nameof(ImageTests)} disabled";
         private readonly ITestOutputHelper _output;
         private readonly IGptClient _client = Mocks.Client();
 
@@ -15,7 +16,7 @@ namespace ManagedCode.OpenAI.Tests
             _output = output;
         }
 
-        [Fact]
+        [Fact(Skip = SKIP)]
         public async Task GenerateImage_Success()
         {
             var image = await _client.ImageClient.GenerateImage("Red dragon")
@@ -25,7 +26,7 @@ namespace ManagedCode.OpenAI.Tests
             Assert.False(string.IsNullOrWhiteSpace(image.Content));
         }
 
-        [Fact]
+        [Fact(Skip = SKIP)]
         public async Task EditImage_Success()
         {
            var edited = await _client

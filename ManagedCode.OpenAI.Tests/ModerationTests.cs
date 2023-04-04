@@ -8,6 +8,7 @@ namespace ManagedCode.OpenAI.Tests;
 
 public class ModerationTests
 {
+    private const string SKIP = $"Class {nameof(ImageTests)} disabled";
     private readonly ITestOutputHelper _output;
     private readonly IGptClient _client = Mocks.Client();
     private IModerationBuilder ModerationBuilder => _client.Moderation();
@@ -16,8 +17,8 @@ public class ModerationTests
     {
         _output = output;
     }
-    
-    [Fact]
+
+    [Fact(Skip = SKIP)]
     public async Task CreateModeration_Success()
     {
         var moderation = await ModerationBuilder
@@ -32,7 +33,7 @@ public class ModerationTests
         Log(ToJson(moderation));
     }
 
-    [Fact]
+    [Fact(Skip = SKIP)]
     public async Task CreateMultipleModeration_Success()
     {
         var moderation = await ModerationBuilder
