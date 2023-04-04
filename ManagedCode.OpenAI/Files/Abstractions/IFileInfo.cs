@@ -1,4 +1,4 @@
-namespace ManagedCode.OpenAI.Files.Abstractions;
+namespace ManagedCode.OpenAI.Files;
 
 public interface IFileInfo
 {

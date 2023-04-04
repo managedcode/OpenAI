@@ -1,6 +1,6 @@
 using ManagedCode.OpenAI.Client;
 
-namespace ManagedCode.OpenAI.Moderations.Abstractions;
+namespace ManagedCode.OpenAI.Moderation;
 
 public interface IModerationBuilder
 {

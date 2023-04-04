@@ -1,9 +1,9 @@
 ﻿using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
-using ManagedCode.OpenAI.Files.Abstractions;
+using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
-using ManagedCode.OpenAI.Moderations.Abstractions;
+using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client
 {
@@ -28,7 +28,7 @@ namespace ManagedCode.OpenAI.Client
 
         IVariationImageBuilder VariationImage(string imageBase64);
 
-        IFileManager FileManager();
+        IFileClient FileManager();
         
         IModerationBuilder ModerationBuilder();
 

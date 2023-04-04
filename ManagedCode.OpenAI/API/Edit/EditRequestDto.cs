@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.API.Edit;
 
-public class EditRequestDto
+internal class EditRequestDto
 {
     [JsonPropertyName("model")]
     public string Model { get; set; }

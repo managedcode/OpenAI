@@ -1,6 +1,4 @@
-using ManagedCode.OpenAI.Moderations.Abstractions;
-
-namespace ManagedCode.OpenAI.Moderations.Model;
+namespace ManagedCode.OpenAI.Moderation;
 
 internal class Category<TResult> : ICategory<TResult> where TResult : struct
 {

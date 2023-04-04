@@ -1,11 +1,9 @@
 using ManagedCode.OpenAI.API;
-using ManagedCode.OpenAI.API.Moderations;
+using ManagedCode.OpenAI.API.Moderation;
 using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Extensions;
-using ManagedCode.OpenAI.Moderations.Abstractions;
-using ManagedCode.OpenAI.Moderations.Exceptions;
 
-namespace ManagedCode.OpenAI.Moderations;
+namespace ManagedCode.OpenAI.Moderation;
 
 internal class ModerationBuilder: IModerationBuilder
 {
@@ -52,6 +50,6 @@ internal class ModerationBuilder: IModerationBuilder
     {
         ModerationResponseDto moderationResponseDto = await _client.ModerationAsync(_requestDto);
 
-        return moderationResponseDto.ToModerations();
+        return moderationResponseDto.ToModerationCollection();
     }
 }

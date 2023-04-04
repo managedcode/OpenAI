@@ -1,6 +1,5 @@
 ﻿using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.Client;
-using ManagedCode.OpenAI.Completions.Extensions;
 using ManagedCode.OpenAI.Extensions;
 
 namespace ManagedCode.OpenAI.Completions

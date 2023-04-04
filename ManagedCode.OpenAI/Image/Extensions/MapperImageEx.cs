@@ -1,6 +1,6 @@
 ﻿using ManagedCode.OpenAI.API.Image;
 
-namespace ManagedCode.OpenAI.Image.Extensions
+namespace ManagedCode.OpenAI.Image
 {
     internal static class MapperImageEx
     {

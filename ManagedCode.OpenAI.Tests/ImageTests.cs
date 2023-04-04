@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using ManagedCode.OpenAI.Image;
 using Xunit;
 using Xunit.Abstractions;
-using ManagedCode.OpenAI.Image.Extensions;
 
 namespace ManagedCode.OpenAI.Tests
 {

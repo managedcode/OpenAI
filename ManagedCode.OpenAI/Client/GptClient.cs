@@ -1,14 +1,10 @@
 ﻿using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.Chat;
-using ManagedCode.OpenAI.Client.Extensions;
 using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
-using ManagedCode.OpenAI.Files.Abstractions;
-using ManagedCode.OpenAI.Files.Builders;
+using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
-using ManagedCode.OpenAI.Image.Builders;
-using ManagedCode.OpenAI.Moderations;
-using ManagedCode.OpenAI.Moderations.Abstractions;
+using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client
 {
@@ -84,9 +80,9 @@ namespace ManagedCode.OpenAI.Client
             return new VariationImageBuilder(_webClient, imageBase64);
         }
 
-        public IFileManager FileManager()
+        public IFileClient FileManager()
         {
-            return new FileManager(_webClient);
+            return new FileClient(_webClient);
         }
 
         public IModerationBuilder ModerationBuilder()

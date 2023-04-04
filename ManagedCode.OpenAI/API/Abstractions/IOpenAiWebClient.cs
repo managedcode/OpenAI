@@ -1,7 +1,7 @@
 ﻿using ManagedCode.OpenAI.API.Edit;
+using ManagedCode.OpenAI.API.File;
 using ManagedCode.OpenAI.API.Image;
-using ManagedCode.OpenAI.API.Moderations;
-using ManagedCode.OpenAI.Files.Models;
+using ManagedCode.OpenAI.API.Moderation;
 
 namespace ManagedCode.OpenAI.API
 {

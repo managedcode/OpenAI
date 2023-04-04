@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.Chat;
-using ManagedCode.OpenAI.Chat.Extensions;
 using ManagedCode.OpenAI.Client;
-using ManagedCode.OpenAI.Client.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 using static System.String;

@@ -1,5 +1,3 @@
-using ManagedCode.OpenAI.Files.Abstractions;
-
 namespace ManagedCode.OpenAI.Files;
 
 public class FileInfo : IFileInfo

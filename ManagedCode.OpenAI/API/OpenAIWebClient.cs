@@ -4,10 +4,9 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using ManagedCode.OpenAI.API.Edit;
+using ManagedCode.OpenAI.API.File;
 using ManagedCode.OpenAI.API.Image;
-using ManagedCode.OpenAI.API.Moderations;
-using ManagedCode.OpenAI.Files.Models;
-using ManagedCode.OpenAI.Moderations.Abstractions;
+using ManagedCode.OpenAI.API.Moderation;
 
 namespace ManagedCode.OpenAI.API;
 
@@ -118,7 +117,7 @@ internal class OpenAiWebClient : IOpenAiWebClient
 
         form.Add(new ByteArrayContent(imageBytes), "image", "image.png");
 
-        var response = await _httpClient.PostAsync(URL_IMAGE_EDIT, form);
+        var response = await _httpClient.PostAsync(URL_IMAGE_VARIATION, form);
         return await ReadAsync<ImageResponseDto>(response);
     }
 

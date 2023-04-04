@@ -1,10 +1,7 @@
-using ManagedCode.OpenAI.API.Moderations;
-using ManagedCode.OpenAI.Moderations.Abstractions;
-using ManagedCode.OpenAI.Moderations.Model;
+using ManagedCode.OpenAI.API.Moderation;
+namespace ManagedCode.OpenAI.Moderation;
 
-namespace ManagedCode.OpenAI.Moderations.Exceptions;
-
-public static class MapperModerationEx
+internal static class MapperModerationEx
 {
     public static ICategory<TResult> ToCategory<TResult>(this CategoryDto<TResult> dto) where TResult : struct
     {
@@ -25,7 +22,7 @@ public static class MapperModerationEx
         return new Moderation()
         {
             Categories = dto.Categories.ToCategory(),
-            CateroryScores = dto.CategoryScores.ToCategory()
+            CategoryScores = dto.CategoryScores.ToCategory()
         };
     }
     
@@ -35,7 +32,7 @@ public static class MapperModerationEx
         return dto.Results.First().ToModeration();
     }
 
-    public static IModeration[] ToModerations(this ModerationResponseDto dto)
+    public static IModeration[] ToModerationCollection(this ModerationResponseDto dto)
     {
         return dto.Results.Select(e => e.ToModeration()).ToArray();
     }

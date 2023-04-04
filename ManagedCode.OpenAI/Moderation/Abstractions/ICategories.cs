@@ -1,4 +1,4 @@
-namespace ManagedCode.OpenAI.Moderations.Abstractions;
+namespace ManagedCode.OpenAI.Moderation;
 
 public interface ICategory<TResult> where TResult : struct
 {

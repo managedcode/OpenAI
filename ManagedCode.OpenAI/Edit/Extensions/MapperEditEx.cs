@@ -1,8 +1,8 @@
 ﻿using ManagedCode.OpenAI.API.Edit;
-using ManagedCode.OpenAI.Chat.Extensions;
+using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
 
-namespace ManagedCode.OpenAI.Edit.Extensions
+namespace ManagedCode.OpenAI.Edit
 {
     internal static class MapperEditEx
     {

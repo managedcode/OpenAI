@@ -1,14 +1,8 @@
 ﻿using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.API.Image;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ManagedCode.OpenAI.Extensions;
-using ManagedCode.OpenAI.Image.Extensions;
 
-namespace ManagedCode.OpenAI.Image.Builders
+namespace ManagedCode.OpenAI.Image
 {
     internal class EditImageBuilder : BaseImageBuilder<IEditImageBuilder, EditImageRequestDto>,
         IEditImageBuilder

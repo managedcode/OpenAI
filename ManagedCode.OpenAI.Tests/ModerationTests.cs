@@ -1,6 +1,5 @@
 using ManagedCode.OpenAI.Client;
-using ManagedCode.OpenAI.Files.Abstractions;
-using ManagedCode.OpenAI.Moderations.Abstractions;
+using ManagedCode.OpenAI.Moderation;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -28,7 +27,7 @@ public class ModerationTests
         Assert.NotNull(moderation);
 
         Assert.NotNull(moderation.Categories);
-        Assert.NotNull(moderation.CateroryScores);
+        Assert.NotNull(moderation.CategoryScores);
 
         Log("Moderation has next content:");
         Log(ToJson(moderation));

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.API;
 
-public class UsageDto
+internal class UsageDto
 {
     [JsonPropertyName("prompt_tokens")]
     public int PromptTokens { get; set; }
