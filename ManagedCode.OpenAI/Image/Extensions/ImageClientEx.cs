@@ -1,6 +1,4 @@
-﻿using ManagedCode.OpenAI.Client;
-
-namespace ManagedCode.OpenAI.Image
+﻿namespace ManagedCode.OpenAI.Image
 {
     public static class ImageClientEx
     {

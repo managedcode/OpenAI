@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
 using Xunit;

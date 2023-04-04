@@ -1,9 +1,4 @@
 ﻿using ManagedCode.OpenAI.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ManagedCode.OpenAI.Image;
 using Xunit;
 using Xunit.Abstractions;

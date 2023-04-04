@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Files;
 using Xunit;

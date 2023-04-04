@@ -1,7 +1,5 @@
-using System.Net.Http.Headers;
 using ManagedCode.OpenAI.Exceptions;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
 using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.API.File;
