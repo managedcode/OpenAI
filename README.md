@@ -101,6 +101,3 @@ foreach (var imageBase64 in imgCollection.Content)
 ## Contributing
 We welcome contributions to this project. Please submit a pull request or create an issue if you'd like to help improve this library.
 
-License
-
-TBD (Add license information here)
