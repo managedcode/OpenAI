@@ -1,8 +1,7 @@
-﻿namespace ManagedCode.OpenAI.Chat
+﻿namespace ManagedCode.OpenAI.Chat;
+
+public interface IChatSessionRecord
 {
-    public interface IChatSessionRecord
-    {
-        string Role { get; }
-        string Content { get; }
-    }
+    string Role { get; }
+    string Content { get; }
 }

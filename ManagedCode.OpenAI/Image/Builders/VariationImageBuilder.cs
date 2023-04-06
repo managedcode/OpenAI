@@ -2,37 +2,36 @@
 using ManagedCode.OpenAI.API.Image;
 using ManagedCode.OpenAI.Extensions;
 
-namespace ManagedCode.OpenAI.Image
+namespace ManagedCode.OpenAI.Image;
+
+internal class VariationImageBuilder : BaseImageBuilder<IVariationImageBuilder, VariationImageRequestDto>,
+    IVariationImageBuilder
 {
-    internal class VariationImageBuilder : BaseImageBuilder<IVariationImageBuilder, VariationImageRequestDto>,
-        IVariationImageBuilder
+    private readonly IOpenAiWebClient _client;
+
+    public VariationImageBuilder(IOpenAiWebClient client, string imageBase64)
     {
-        private readonly IOpenAiWebClient _client;
-
-        public VariationImageBuilder(IOpenAiWebClient client, string imageBase64)
-        {
-            _client = client;
-            Request.ImageBase64 = imageBase64;
-        }
+        _client = client;
+        Request.ImageBase64 = imageBase64;
+    }
 
 
-        public async Task<IGptImage<string>> ExecuteAsync()
-        {
-            Request.Validate();
-            var response = await _client.VariationImageAsync(Request);
-            return response.AsSingle();
-        }
+    public async Task<IGptImage<string>> ExecuteAsync()
+    {
+        Request.Validate();
+        var response = await _client.VariationImageAsync(Request);
+        return response.AsSingle();
+    }
 
-        public async Task<IGptImage<string[]>> ExecuteMultipleAsync(int count)
-        {
-            Request.Validate();
-            var response = await _client.VariationImageAsync(Request);
-            return response.AsMultiple();
-        }
+    public async Task<IGptImage<string[]>> ExecuteMultipleAsync(int count)
+    {
+        Request.Validate();
+        var response = await _client.VariationImageAsync(Request);
+        return response.AsMultiple();
+    }
 
-        protected override IVariationImageBuilder Builder()
-        {
-            return this;
-        }
+    protected override IVariationImageBuilder Builder()
+    {
+        return this;
     }
 }

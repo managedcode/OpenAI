@@ -1,24 +1,23 @@
-using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Moderation;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
-using ManagedCode.OpenAI.Image;
 
 namespace ManagedCode.OpenAI.Tests;
 
 public class ModerationTests
 {
     private const string SKIP = $"Class {nameof(ImageTests)} disabled";
-    private readonly ITestOutputHelper _output;
     private readonly IGptClient _client = Mocks.Client();
-    private IModerationBuilder ModerationBuilder => _client.Moderation();
+    private readonly ITestOutputHelper _output;
 
     public ModerationTests(ITestOutputHelper output)
     {
         _output = output;
     }
+
+    private IModerationBuilder ModerationBuilder => _client.Moderation();
 
     [Fact(Skip = SKIP)]
     public async Task CreateModeration_Success()
@@ -44,14 +43,23 @@ public class ModerationTests
         Assert.NotNull(moderation);
 
         Assert.Equal(2, moderation.Length);
-        
+
         Log("Moderations have next content:");
         Log(ToJson(moderation));
     }
 
-    void Log(object obj) => Log(obj.ToString());
+    private void Log(object obj)
+    {
+        Log(obj.ToString());
+    }
 
-    void Log(string str) => _output.WriteLine(str);
+    private void Log(string str)
+    {
+        _output.WriteLine(str);
+    }
 
-    string ToJson(object obj) => JsonConvert.SerializeObject(obj, Formatting.Indented);
+    private string ToJson(object obj)
+    {
+        return JsonConvert.SerializeObject(obj, Formatting.Indented);
+    }
 }

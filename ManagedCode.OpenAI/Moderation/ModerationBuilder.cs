@@ -14,9 +14,9 @@ internal class ModerationBuilder : IModerationBuilder
     public ModerationBuilder(IOpenAiWebClient client)
     {
         _client = client;
-        _requestDto = new ModerationRequestDto()
+        _requestDto = new ModerationRequestDto
         {
-            Model = DEFAULT_MODEL.Name(),
+            Model = DEFAULT_MODEL.Name()
         };
     }
 
@@ -33,7 +33,7 @@ internal class ModerationBuilder : IModerationBuilder
 
     public async Task<IModeration> ExecuteAsync(string input)
     {
-        _requestDto.Input = new List<string>() { input };
+        _requestDto.Input = new List<string> { input };
         var moderationResponseDto = await _client.ModerationAsync(_requestDto);
         return moderationResponseDto.ToModeration();
     }

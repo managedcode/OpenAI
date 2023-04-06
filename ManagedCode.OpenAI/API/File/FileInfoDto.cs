@@ -5,20 +5,20 @@ namespace ManagedCode.OpenAI.API.File;
 internal class FileInfoDto
 {
     [JsonPropertyName("id")]
-    public string Id  { get; set; }
+    public string Id { get; set; }
 
     [JsonPropertyName("object")]
-    public string Object  { get; set; }
+    public string Object { get; set; }
 
     [JsonPropertyName("bytes")]
-    public int Bytes  { get; set; }
+    public int Bytes { get; set; }
 
     [JsonPropertyName("created_at")]
-    public int CreatedAt  { get; set; }
+    public int CreatedAt { get; set; }
 
     [JsonPropertyName("filename")]
-    public string Filename  { get; set; }
+    public string Filename { get; set; }
 
     [JsonPropertyName("purpose")]
-    public string Purpose  { get; set; }
+    public string Purpose { get; set; }
 }

@@ -1,10 +1,11 @@
-using ManagedCode.OpenAI.Exceptions;
 using System.Net.Http.Json;
 using System.Text.Json;
 using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.API.File;
 using ManagedCode.OpenAI.API.Image;
 using ManagedCode.OpenAI.API.Moderation;
+using ManagedCode.OpenAI.Exceptions;
+
 namespace ManagedCode.OpenAI.API;
 
 internal class OpenAiWebClient : IOpenAiWebClient
@@ -131,6 +132,17 @@ internal class OpenAiWebClient : IOpenAiWebClient
         _httpClient.Dispose();
     }
 
+    #region Moderations
+
+    public async Task<ModerationResponseDto> ModerationAsync(ModerationRequestDto request)
+    {
+        var httpResponseMessage = await _httpClient.PostAsJsonAsync(URL_MODERATION, request);
+
+        return await ReadAsync<ModerationResponseDto>(httpResponseMessage);
+    }
+
+    #endregion
+
     private async Task<TModel> ReadAsync<TModel>(HttpResponseMessage response)
     {
         OpenAIExceptions.ThrowsIfError(response.StatusCode);
@@ -163,7 +175,6 @@ internal class OpenAiWebClient : IOpenAiWebClient
     }
 
     #region Files
-
 
     public async Task<FilesInfoResponseDto> FilesInfoAsync()
     {
@@ -201,17 +212,16 @@ internal class OpenAiWebClient : IOpenAiWebClient
     }
 
     public async Task<FileInfoDto> CreateFileAsync(ReadOnlyMemory<byte> content, string fileName, string purpose =
-    "fine-tune")
+        "fine-tune")
     {
         ReadOnlyMemoryContent readOnlyMemoryContent = new(content);
         return await CreateFileAsync(readOnlyMemoryContent, fileName, purpose);
     }
 
 
-
     public async Task<FileDeleteResponseDto> DeleteFileAsync(string fileId)
     {
-        string resultUrl = string.Format(URL_FILE, fileId);
+        var resultUrl = string.Format(URL_FILE, fileId);
         var httpResponseMessage = await _httpClient.DeleteAsync(resultUrl);
 
         return await ReadAsync<FileDeleteResponseDto>(httpResponseMessage);
@@ -219,7 +229,7 @@ internal class OpenAiWebClient : IOpenAiWebClient
 
     public async Task<FileInfoDto> FileInfoAsync(string fileId)
     {
-        string resultUrl = string.Format(URL_FILE, fileId);
+        var resultUrl = string.Format(URL_FILE, fileId);
 
         var httpResponseMessage = await _httpClient.GetAsync(resultUrl);
 
@@ -229,22 +239,11 @@ internal class OpenAiWebClient : IOpenAiWebClient
     // TODO: It is not known what the result of the query returns
     public async Task<string> GetContentFromFileAsync(string fileId)
     {
-        string resultUrl = string.Format(URL_FILE_CONTEXT, fileId);
+        var resultUrl = string.Format(URL_FILE_CONTEXT, fileId);
         var httpResponseMessage = await _httpClient.GetAsync(resultUrl);
 
         OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
         return await httpResponseMessage.Content.ReadAsStringAsync();
-    }
-
-    #endregion
-
-    #region Moderations
-
-    public async Task<ModerationResponseDto> ModerationAsync(ModerationRequestDto request)
-    {
-        var httpResponseMessage = await _httpClient.PostAsJsonAsync(URL_MODERATION, request);
-
-        return await ReadAsync<ModerationResponseDto>(httpResponseMessage);
     }
 
     #endregion

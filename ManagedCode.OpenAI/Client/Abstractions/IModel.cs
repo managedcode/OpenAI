@@ -1,11 +1,10 @@
-﻿namespace ManagedCode.OpenAI.Client
+﻿namespace ManagedCode.OpenAI.Client;
+
+public interface IModel
 {
-    public interface IModel
-    {
-        public string Id { get; }
+    public string Id { get; }
 
-        public string OwnedBy { get; }
+    public string OwnedBy { get; }
 
-        public IPermission[] Permission { get; }
-    }
+    public IPermission[] Permission { get; }
 }

@@ -2,26 +2,24 @@ using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Files;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace ManagedCode.OpenAI.Tests;
-
-
 
 public class FileTest
 {
     private const string SKIP = $"Class {nameof(FileTest)} disabled";
 
 
-    private readonly ITestOutputHelper _output;
+    private const string fileContent =
+        @"{""prompt"":""This is a test"", ""completion"":""This is a test""}";
+
     private readonly IGptClient _client = Mocks.Client();
     private readonly IFileClient _fileClient;
-    
-    
-    private const string fileContent = 
-        @"{""prompt"":""This is a test"", ""completion"":""This is a test""}";
-    
-    
+
+
+    private readonly ITestOutputHelper _output;
+
+
     public FileTest(ITestOutputHelper output)
     {
         _output = output;
@@ -32,10 +30,10 @@ public class FileTest
     public async Task UploadFile_Success()
     {
         const string fileName = "test.txt";
-        
-        
+
+
         var file = await _fileClient.CreateFileAsync(fileContent, fileName);
-        
+
         Log($"File id: {file.Id}");
 
         Assert.False(string.IsNullOrWhiteSpace(file.Id));
@@ -48,13 +46,13 @@ public class FileTest
     [Fact(Skip = SKIP)]
     public async Task ContentFile_Success()
     {
-        string fileId = await _fileClient.FileListAsync()
+        var fileId = await _fileClient.FileListAsync()
             .ContinueWith(t => t.Result[0].Id);
-        
+
         var content = await _fileClient.FileContentAsync(fileId);
-        
+
         Log($"File content: {content}");
-        
+
         Assert.Equal(fileContent, content);
     }
 
@@ -62,19 +60,16 @@ public class FileTest
     public async Task FileList_Success()
     {
         const string fileName = "test.txt";
-        
+
         var newFile = await _fileClient.CreateFileAsync(fileContent, fileName);
         Assert.NotNull(newFile);
-        
+
         var files = await _fileClient.FileListAsync();
         Assert.NotEmpty(files);
-        
-        
-        foreach (var file in files)
-        {
-            Log($"File: {file.Id} - {file.Filename}");
-        }
-        
+
+
+        foreach (var file in files) Log($"File: {file.Id} - {file.Filename}");
+
         var lastFiles = files.First(e => e.Id == newFile.Id);
 
         Assert.Equal(newFile.Id, lastFiles.Id);
@@ -86,17 +81,17 @@ public class FileTest
     public async Task DeleteFile_Success()
     {
         const string fileName = "test.txt";
-        
+
         var newFile = await _fileClient.CreateFileAsync(fileContent, fileName);
         Assert.NotNull(newFile);
-        
+
         //Waiting for file to be deleted
         Thread.Sleep(5000);
 
         var deleted = await _fileClient.DeleteFileAsync(newFile);
         Log(deleted.ToString());
         Assert.True(deleted);
-        
+
         var files = await _fileClient.FileListAsync();
         Assert.NotEqual(newFile.Id, files.Last().Id);
     }
@@ -105,21 +100,20 @@ public class FileTest
     public async Task FileInfo_Success()
     {
         const string fileName = "test.txt";
-        
+
         var newFile = await _fileClient.CreateFileAsync(fileContent, fileName);
         Assert.NotNull(newFile);
 
         var fileInfo = await _fileClient.FileInfoAsync(newFile.Id);
         Assert.NotNull(fileInfo);
-        
+
         Assert.Equal(newFile.Id, fileInfo.Id);
         Assert.Equal(newFile.Filename, fileInfo.Filename);
         Assert.Equal(newFile.Bytes, fileInfo.Bytes);
     }
 
 
-
-    void Log(string log)
+    private void Log(string log)
     {
         _output.WriteLine(log);
     }

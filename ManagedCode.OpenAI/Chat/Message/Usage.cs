@@ -1,9 +1,8 @@
-﻿namespace ManagedCode.OpenAI.Chat
+﻿namespace ManagedCode.OpenAI.Chat;
+
+internal class Usage : IUsage
 {
-    internal class Usage : IUsage
-    {
-        public required int PromptTokens { get; set; }
-        public required int CompletionTokens { get; set; }
-        public required int TotalTokens { get; set; }
-    }
+    public required int PromptTokens { get; set; }
+    public required int CompletionTokens { get; set; }
+    public required int TotalTokens { get; set; }
 }

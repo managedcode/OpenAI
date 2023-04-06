@@ -11,6 +11,6 @@ public abstract class OpenAIClientException : HttpRequestException
     ) :
         base(message, exception, statusCode)
     {
-        this.HelpLink = "https://platform.openai.com/docs/guides/error-codes/api-errors";
+        HelpLink = "https://platform.openai.com/docs/guides/error-codes/api-errors";
     }
 }

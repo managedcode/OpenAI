@@ -27,5 +27,4 @@ internal class EditRequestDto
     [JsonPropertyName("top_p")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public float? TopP { get; set; }
-
 }

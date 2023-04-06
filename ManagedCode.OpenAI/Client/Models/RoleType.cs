@@ -4,9 +4,7 @@ namespace ManagedCode.OpenAI.Client;
 
 public enum RoleType
 {
-    [EnumMember(Value = "user")]
-    User,
+    [EnumMember(Value = "user")] User,
 
-    [EnumMember(Value = "Assistant")]
-    Assistant
+    [EnumMember(Value = "Assistant")] Assistant
 }

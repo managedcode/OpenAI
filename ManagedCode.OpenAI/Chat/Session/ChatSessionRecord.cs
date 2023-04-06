@@ -1,8 +1,7 @@
-﻿namespace ManagedCode.OpenAI.Chat
+﻿namespace ManagedCode.OpenAI.Chat;
+
+internal class ChatSessionRecord : IChatSessionRecord
 {
-    internal class ChatSessionRecord : IChatSessionRecord
-    {
-        public required string Role { get; set; }
-        public required string Content { get; set; }
-    }
+    public required string Role { get; set; }
+    public required string Content { get; set; }
 }

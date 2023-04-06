@@ -1,9 +1,8 @@
-﻿namespace ManagedCode.OpenAI.Completions
+﻿namespace ManagedCode.OpenAI.Completions;
+
+public interface ICompletionsMessage
 {
-    public interface ICompletionsMessage
-    {
-        public string Content { get; }
-        public string FinishReason { get; }
-        public int? LogProbs { get; set; }
-    }
+    public string Content { get; }
+    public string FinishReason { get; }
+    public int? LogProbs { get; set; }
 }

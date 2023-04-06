@@ -1,19 +1,18 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ManagedCode.OpenAI.API
+namespace ManagedCode.OpenAI.API;
+
+internal class CompletionChoiceDto
 {
-    internal class CompletionChoiceDto
-    {
-        [JsonPropertyName("text")]
-        public string Text { get; set; }
+    [JsonPropertyName("text")]
+    public string Text { get; set; }
 
-        [JsonPropertyName("index")]
-        public int Index { get; set; }
+    [JsonPropertyName("index")]
+    public int Index { get; set; }
 
-        [JsonPropertyName("logprobs")]
-        public int? Logprobs { get; set; }
+    [JsonPropertyName("logprobs")]
+    public int? Logprobs { get; set; }
 
-        [JsonPropertyName("finish_reason")]
-        public string FinishReason { get; set; }
-    }
+    [JsonPropertyName("finish_reason")]
+    public string FinishReason { get; set; }
 }

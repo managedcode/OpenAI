@@ -1,40 +1,34 @@
 ﻿using ManagedCode.OpenAI.API.Image;
 
-namespace ManagedCode.OpenAI.Image
+namespace ManagedCode.OpenAI.Image;
+
+internal static class MapperImageEx
 {
-    internal static class MapperImageEx
+    public static IGptImage<string> AsSingle(this ImageResponseDto response)
     {
-        public static IGptImage<string> AsSingle(this ImageResponseDto response)
+        return new GptImage<string>
         {
-            return new GptImage<string>()
-            {
-                Content = ExtractContents(response).First(),
-                Created = response.Created,
-            };
-        }
+            Content = ExtractContents(response).First(),
+            Created = response.Created
+        };
+    }
 
-        public static IGptImage<string[]> AsMultiple(this ImageResponseDto response)
+    public static IGptImage<string[]> AsMultiple(this ImageResponseDto response)
+    {
+        return new GptImage<string[]>
         {
-            return new GptImage<string[]>()
-            {
-                Content = ExtractContents(response),
-                Created = response.Created,
-            };
-        }
+            Content = ExtractContents(response),
+            Created = response.Created
+        };
+    }
 
-        private static string[] ExtractContents(ImageResponseDto response)
-        {
-            if (!string.IsNullOrWhiteSpace(response.Data.First().Url))
-            {
-                return response.Data.Select(x => x.Url).ToArray();
-            }
+    private static string[] ExtractContents(ImageResponseDto response)
+    {
+        if (!string.IsNullOrWhiteSpace(response.Data.First().Url)) return response.Data.Select(x => x.Url).ToArray();
 
-            if (!string.IsNullOrWhiteSpace(response.Data.First().B64Json))
-            {
-                return response.Data.Select(x => x.B64Json).ToArray();
-            }
+        if (!string.IsNullOrWhiteSpace(response.Data.First().B64Json))
+            return response.Data.Select(x => x.B64Json).ToArray();
 
-            throw new ArgumentNullException($"Failed to get image content");
-        }
+        throw new ArgumentNullException("Failed to get image content");
     }
 }

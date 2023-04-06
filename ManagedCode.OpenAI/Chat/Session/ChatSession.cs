@@ -1,29 +1,28 @@
 ﻿using System.Text.Json;
 
-namespace ManagedCode.OpenAI.Chat
+namespace ManagedCode.OpenAI.Chat;
+
+internal class ChatSession : IChatSession
 {
-    internal class ChatSession : IChatSession
+    public List<IChatSessionRecord> ListRecords { get; } = new();
+
+    public string ToJson()
     {
-        public string ToJson()
-        {
-            return JsonSerializer.Serialize(ListRecords);
-        }
+        return JsonSerializer.Serialize(ListRecords);
+    }
 
-        public List<IChatSessionRecord> ListRecords { get; } = new();
+    IChatSessionRecord[] IChatSession.Records()
+    {
+        return ListRecords.ToArray();
+    }
 
-        IChatSessionRecord[] IChatSession.Records()
-        {
-            return ListRecords.ToArray();
-        }
+    public void AddRecord(IChatSessionRecord record)
+    {
+        ListRecords.Add(record);
+    }
 
-        public void AddRecord(IChatSessionRecord record)
-        {
-            ListRecords.Add(record);
-        }
-
-        public void AddRecords(IChatSessionRecord[] records)
-        {
-            ListRecords.AddRange(records);
-        }
+    public void AddRecords(IChatSessionRecord[] records)
+    {
+        ListRecords.AddRange(records);
     }
 }

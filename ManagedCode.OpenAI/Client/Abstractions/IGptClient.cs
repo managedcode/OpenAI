@@ -5,25 +5,23 @@ using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
 using ManagedCode.OpenAI.Moderation;
 
-namespace ManagedCode.OpenAI.Client
+namespace ManagedCode.OpenAI.Client;
+
+public interface IGptClient
 {
+    public IGptClientConfiguration Configuration { get; }
 
-    public interface IGptClient
-    {
-        public IGptClientConfiguration Configuration { get; }
+    public IImageClient ImageClient { get; }
+    public IFileClient FileClient { get; }
 
-        public IImageClient ImageClient { get; }
-        public IFileClient FileClient { get; }
+    void Configure(IGptClientConfiguration configuration);
+    void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration);
 
-        void Configure(IGptClientConfiguration configuration);
-        void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration);
+    public Task<IModel[]> GetModelsAsync();
+    public Task<IModel> GetModelAsync(string modelId);
 
-        public Task<IModel[]> GetModelsAsync();
-        public Task<IModel> GetModelAsync(string modelId);
-
-        IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
-        ICompletionBuilder Completion();
-        IEditBuilder Edit(string input, string instruction);
-        IModerationBuilder Moderation();
-    }
+    IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
+    ICompletionBuilder Completion();
+    IEditBuilder Edit(string input, string instruction);
+    IModerationBuilder Moderation();
 }

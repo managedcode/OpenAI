@@ -1,7 +1,6 @@
-﻿namespace ManagedCode.OpenAI.Edit
+﻿namespace ManagedCode.OpenAI.Edit;
+
+internal class EditMessage : IEditMessage
 {
-    internal class EditMessage: IEditMessage
-    {
-        public required string Content { get; set; }
-    }
+    public required string Content { get; set; }
 }

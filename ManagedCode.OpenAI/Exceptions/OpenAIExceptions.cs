@@ -6,9 +6,6 @@ public static class OpenAIExceptions
 {
     public static void ThrowsIfError(HttpStatusCode statusCode)
     {
-        if (statusCode == HttpStatusCode.Unauthorized)
-        {
-            throw new OpenAIInvalidApiKey();
-        }
+        if (statusCode == HttpStatusCode.Unauthorized) throw new OpenAIInvalidApiKey();
     }
 }

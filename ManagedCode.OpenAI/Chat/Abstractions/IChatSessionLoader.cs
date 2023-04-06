@@ -1,8 +1,6 @@
-﻿
-namespace ManagedCode.OpenAI.Chat
+﻿namespace ManagedCode.OpenAI.Chat;
+
+public interface IChatSessionLoader
 {
-    public interface IChatSessionLoader
-    {
-        IChatSession FromJson(string json);
-    }
+    IChatSession FromJson(string json);
 }

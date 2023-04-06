@@ -1,15 +1,14 @@
-﻿namespace ManagedCode.OpenAI.Image
-{
-    internal class DefaultImageLoader : IImageLoader
-    {
-        public string FromBytes(byte[] bytes)
-        {
-            return Convert.ToBase64String(bytes);
-        }
+﻿namespace ManagedCode.OpenAI.Image;
 
-        public string FromBase64(string base64)
-        {
-            return base64;
-        }
+internal class DefaultImageLoader : IImageLoader
+{
+    public string FromBytes(byte[] bytes)
+    {
+        return Convert.ToBase64String(bytes);
+    }
+
+    public string FromBase64(string base64)
+    {
+        return base64;
     }
 }

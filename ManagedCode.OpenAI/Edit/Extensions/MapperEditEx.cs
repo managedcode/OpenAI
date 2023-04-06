@@ -2,40 +2,39 @@
 using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
 
-namespace ManagedCode.OpenAI.Edit
+namespace ManagedCode.OpenAI.Edit;
+
+internal static class MapperEditEx
 {
-    internal static class MapperEditEx
+    public static IAnswer<IEditMessage> ToEditAnswer(this EditResponseDto dto)
     {
-        public static IAnswer<IEditMessage> ToEditAnswer(this EditResponseDto dto)
+        return new Answer<IEditMessage>
         {
-            return new Answer<IEditMessage>()
-            {
-                Id = dto.Id,
-                ModelId = dto.Model,
-                Usage = dto.Usage.ToUsage(),
-                Data = dto.Choices.First().ToEditMessage(),
-                Created = dto.Created,
-            };
-        }
+            Id = dto.Id,
+            ModelId = dto.Model,
+            Usage = dto.Usage.ToUsage(),
+            Data = dto.Choices.First().ToEditMessage(),
+            Created = dto.Created
+        };
+    }
 
-        public static IAnswer<IEditMessage[]> ToEditAnswerCollection(this EditResponseDto dto)
+    public static IAnswer<IEditMessage[]> ToEditAnswerCollection(this EditResponseDto dto)
+    {
+        return new Answer<IEditMessage[]>
         {
-            return new Answer<IEditMessage[]>()
-            {
-                Id = dto.Id,
-                ModelId = dto.Model,
-                Usage = dto.Usage.ToUsage(),
-                Data = dto.Choices.Select(x => x.ToEditMessage()).ToArray(),
-                Created = dto.Created,
-            };
-        }
+            Id = dto.Id,
+            ModelId = dto.Model,
+            Usage = dto.Usage.ToUsage(),
+            Data = dto.Choices.Select(x => x.ToEditMessage()).ToArray(),
+            Created = dto.Created
+        };
+    }
 
-        public static IEditMessage ToEditMessage(this EditChoiceDto dto)
+    public static IEditMessage ToEditMessage(this EditChoiceDto dto)
+    {
+        return new EditMessage
         {
-            return new EditMessage()
-            {
-                Content = dto.Text,
-            };
-        }
+            Content = dto.Text
+        };
     }
 }

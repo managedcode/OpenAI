@@ -1,13 +1,12 @@
-﻿namespace ManagedCode.OpenAI.Chat
+﻿namespace ManagedCode.OpenAI.Chat;
+
+public interface IChatSession
 {
-    public interface IChatSession
-    {
-        public string ToJson();
+    public string ToJson();
 
-        public IChatSessionRecord[] Records();
+    public IChatSessionRecord[] Records();
 
-        public void AddRecord(IChatSessionRecord record);
+    public void AddRecord(IChatSessionRecord record);
 
-        public void AddRecords(IChatSessionRecord[] records);
-    }
+    public void AddRecords(IChatSessionRecord[] records);
 }

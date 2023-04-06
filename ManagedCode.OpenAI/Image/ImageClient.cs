@@ -1,29 +1,28 @@
 ﻿using ManagedCode.OpenAI.API;
 
-namespace ManagedCode.OpenAI.Image
+namespace ManagedCode.OpenAI.Image;
+
+internal class ImageClient : IImageClient
 {
-    internal class ImageClient: IImageClient
+    private readonly IOpenAiWebClient _webClient;
+
+    public ImageClient(IOpenAiWebClient webClient)
     {
-        private readonly IOpenAiWebClient _webClient;
+        _webClient = webClient;
+    }
 
-        public ImageClient(IOpenAiWebClient webClient)
-        {
-            _webClient = webClient;
-        }
+    public IGenerateImageBuilder GenerateImage(string description)
+    {
+        return new GenerateImageBuilder(_webClient, description);
+    }
 
-        public IGenerateImageBuilder GenerateImage(string description)
-        {
-            return new GenerateImageBuilder(_webClient, description);
-        }
+    public IEditImageBuilder EditImage(string description, string imageBase64)
+    {
+        return new EditImageBuilder(_webClient, description, imageBase64);
+    }
 
-        public IEditImageBuilder EditImage(string description, string imageBase64)
-        {
-            return new EditImageBuilder(_webClient, description, imageBase64);
-        }
-
-        public IVariationImageBuilder VariationImage(string imageBase64)
-        {
-            return new VariationImageBuilder(_webClient, imageBase64);
-        }
+    public IVariationImageBuilder VariationImage(string imageBase64)
+    {
+        return new VariationImageBuilder(_webClient, imageBase64);
     }
 }

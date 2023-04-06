@@ -1,9 +1,8 @@
-﻿namespace ManagedCode.OpenAI.Image
-{
-    public interface IGptImage<out TData>
-    {
-        TData Content { get; }
+﻿namespace ManagedCode.OpenAI.Image;
 
-        int Created { get; }
-    }
+public interface IGptImage<out TData>
+{
+    TData Content { get; }
+
+    int Created { get; }
 }

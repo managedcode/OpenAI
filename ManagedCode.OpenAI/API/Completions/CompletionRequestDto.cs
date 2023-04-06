@@ -10,7 +10,7 @@ internal class CompletionRequestDto
 
     [JsonPropertyName("prompt")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string> Prompt { get; set; } = new List<string>();
+    public List<string> Prompt { get; set; } = new();
 
 
     [JsonPropertyName("suffix")]

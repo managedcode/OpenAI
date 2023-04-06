@@ -11,5 +11,5 @@ public enum ImageFormat
 
     [EnumMember(Value = "b64_json")]
     [Description("b64_json")]
-    Base64Json,
+    Base64Json
 }

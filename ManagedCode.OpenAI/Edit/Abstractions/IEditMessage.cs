@@ -1,7 +1,6 @@
-﻿namespace ManagedCode.OpenAI.Edit
+﻿namespace ManagedCode.OpenAI.Edit;
+
+public interface IEditMessage
 {
-    public interface IEditMessage
-    {
-        public string Content { get; }
-    }
+    public string Content { get; }
 }

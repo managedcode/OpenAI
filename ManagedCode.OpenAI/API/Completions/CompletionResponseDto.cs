@@ -1,6 +1,5 @@
-﻿namespace ManagedCode.OpenAI.API
+﻿namespace ManagedCode.OpenAI.API;
+
+internal class CompletionResponseDto : BaseCompletionsResponseDto<CompletionChoiceDto>
 {
-    internal class CompletionResponseDto: BaseCompletionsResponseDto<CompletionChoiceDto>
-    {
-    }
 }

@@ -7,17 +7,17 @@ namespace ManagedCode.OpenAI.Edit;
 
 internal class EditBuilder : IEditBuilder
 {
-    private readonly EditRequestDto _request;
     private readonly IOpenAiWebClient _client;
+    private readonly EditRequestDto _request;
 
     public EditBuilder(IOpenAiWebClient client, string model, string input, string instruction)
     {
         _client = client;
-        _request = new EditRequestDto()
+        _request = new EditRequestDto
         {
             Model = model,
             Input = input,
-            Instruction = instruction,
+            Instruction = instruction
         };
     }
 
@@ -51,7 +51,6 @@ internal class EditBuilder : IEditBuilder
         _request.Validate();
         var response = await _client.EditAsync(_request);
         return response.ToEditAnswer();
-
     }
 
     public async Task<IAnswer<IEditMessage[]>> EditMultipleAsync(int count)
@@ -60,5 +59,4 @@ internal class EditBuilder : IEditBuilder
         var response = await _client.EditAsync(_request);
         return response.ToEditAnswerCollection();
     }
-
 }

@@ -9,8 +9,8 @@ namespace ManagedCode.OpenAI.Tests;
 public class ChatTests
 {
     private const string SKIP = $"Class {nameof(ChatTests)} disabled";
-    private readonly ITestOutputHelper _output;
     private readonly IGptClient _client = Mocks.Client();
+    private readonly ITestOutputHelper _output;
 
     public ChatTests(ITestOutputHelper output)
     {
@@ -75,6 +75,4 @@ public class ChatTests
     {
         _output.WriteLine(message);
     }
-
-
 }

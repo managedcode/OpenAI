@@ -1,4 +1,5 @@
 using ManagedCode.OpenAI.API.Moderation;
+
 namespace ManagedCode.OpenAI.Moderation;
 
 internal static class MapperModerationEx
@@ -19,14 +20,14 @@ internal static class MapperModerationEx
 
     private static IModeration ToModeration(this CategoryResultDto dto)
     {
-        return new Moderation()
+        return new Moderation
         {
             Categories = dto.Categories.ToCategory(),
             CategoryScores = dto.CategoryScores.ToCategory()
         };
     }
-    
-    
+
+
     public static IModeration ToModeration(this ModerationResponseDto dto)
     {
         return dto.Results.First().ToModeration();
@@ -36,6 +37,4 @@ internal static class MapperModerationEx
     {
         return dto.Results.Select(e => e.ToModeration()).ToArray();
     }
-        
-    
 }

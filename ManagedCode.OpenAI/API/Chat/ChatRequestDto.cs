@@ -2,7 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.API;
 
-
 internal class ChatRequestDto
 {
     [JsonPropertyName("model")]

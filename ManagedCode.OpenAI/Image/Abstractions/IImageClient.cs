@@ -1,12 +1,10 @@
-﻿namespace ManagedCode.OpenAI.Image
+﻿namespace ManagedCode.OpenAI.Image;
+
+public interface IImageClient
 {
-    public interface IImageClient
-    {
-        public IGenerateImageBuilder GenerateImage(string description);
+    public IGenerateImageBuilder GenerateImage(string description);
 
-        public IEditImageBuilder EditImage(string description, string imageBase64);
+    public IEditImageBuilder EditImage(string description, string imageBase64);
 
-        public IVariationImageBuilder VariationImage(string imageBase64);
-
-    }
+    public IVariationImageBuilder VariationImage(string imageBase64);
 }

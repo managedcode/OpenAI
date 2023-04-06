@@ -5,7 +5,7 @@ namespace ManagedCode.OpenAI.API.Moderation;
 internal class ModerationRequestDto
 {
     [JsonPropertyName("input")]
-    public List<string> Input { get; set; } = new List<string>();
+    public List<string> Input { get; set; } = new();
 
     [JsonPropertyName("model")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
