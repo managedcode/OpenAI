@@ -62,7 +62,9 @@ public class MyClass
 
 ## Ask chat gpt
 ``` cs
-var client = new GptClient("#API_KEY#");
+var client = GptClient.Builder("#API_KEY#")
+    .WithOrganization("#ORGANIZATION#")
+    .Build();
 var chat = client.OpenChat();
 var answer = await chat.AskAsync("2+2?");
 Console.WriteLine($"Answer: {answer.Data.Content}");
