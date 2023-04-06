@@ -17,8 +17,8 @@
         <RepositoryUrl>https://github.com/managedcode/OpenAI</RepositoryUrl>
         <PackageProjectUrl>https://github.com/managedcode/OpenAI</PackageProjectUrl>
         <Product>Managed Code - OpenAI</Product>
-        <Version>0.0.3</Version>
-        <PackageVersion>0.0.3</PackageVersion>
+        <Version>0.0.4</Version>
+        <PackageVersion>0.0.4</PackageVersion>
 
     </PropertyGroup>
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
