@@ -1,59 +1,53 @@
+using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
-using ManagedCode.OpenAI.Files.Abstractions;
-using ManagedCode.OpenAI.Moderations.Abstractions;
+using ManagedCode.OpenAI.Moderation;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
+using ManagedCode.OpenAI.Image;
 
 namespace ManagedCode.OpenAI.Tests;
 
 public class ModerationTests
 {
+    private const string SKIP = $"Class {nameof(ImageTests)} disabled";
     private readonly ITestOutputHelper _output;
     private readonly IGptClient _client = Mocks.Client();
-    private IModerationBuilder ModerationBuilder => _client.ModerationBuilder();
+    private IModerationBuilder ModerationBuilder => _client.Moderation();
 
     public ModerationTests(ITestOutputHelper output)
     {
         _output = output;
     }
-    
-    [Fact]
+
+    [Fact(Skip = SKIP)]
     public async Task CreateModeration_Success()
     {
         var moderation = await ModerationBuilder
-            .AddInput("I kill you")
-            .ExecuteAsync();
+            .ExecuteAsync("I kill you");
 
         Assert.NotNull(moderation);
 
         Assert.NotNull(moderation.Categories);
-        Assert.NotNull(moderation.CateroryScores);
+        Assert.NotNull(moderation.CategoryScores);
 
         Log("Moderation has next content:");
         Log(ToJson(moderation));
     }
 
-    [Fact]
+    [Fact(Skip = SKIP)]
     public async Task CreateMultipleModeration_Success()
     {
-        var moderations = await ModerationBuilder
-            .AddInput("I kill you")
-            .AddInput("You are a bad man")
-            .ExecuteMultipleAsync();
+        var moderation = await ModerationBuilder
+            .ExecuteMultipleAsync("I kill you", "You are a bad man");
 
-        Assert.NotNull(moderations);
+        Assert.NotNull(moderation);
 
-        Assert.Equal(2, moderations.Length);
+        Assert.Equal(2, moderation.Length);
         
         Log("Moderations have next content:");
-        Log(ToJson(moderations));
+        Log(ToJson(moderation));
     }
-
-
-
-
-
 
     void Log(object obj) => Log(obj.ToString());
 

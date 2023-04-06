@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ManagedCode.OpenAI.API;
+﻿using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.API.Image;
 using ManagedCode.OpenAI.Extensions;
-using ManagedCode.OpenAI.Image.Extensions;
 
-namespace ManagedCode.OpenAI.Image.Builders
+namespace ManagedCode.OpenAI.Image
 {
     internal class VariationImageBuilder : BaseImageBuilder<IVariationImageBuilder, VariationImageRequestDto>,
         IVariationImageBuilder
@@ -22,14 +16,14 @@ namespace ManagedCode.OpenAI.Image.Builders
         }
 
 
-        public async Task<IGptImage<string>> VariationAsync()
+        public async Task<IGptImage<string>> ExecuteAsync()
         {
             Request.Validate();
             var response = await _client.VariationImageAsync(Request);
             return response.AsSingle();
         }
 
-        public async Task<IGptImage<string[]>> VariationsMultipleAsync(int count)
+        public async Task<IGptImage<string[]>> ExecuteMultipleAsync(int count)
         {
             Request.Validate();
             var response = await _client.VariationImageAsync(Request);

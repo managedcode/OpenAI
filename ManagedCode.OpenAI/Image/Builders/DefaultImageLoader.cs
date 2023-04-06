@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ManagedCode.OpenAI.Image.Builders
+﻿namespace ManagedCode.OpenAI.Image
 {
     internal class DefaultImageLoader : IImageLoader
     {

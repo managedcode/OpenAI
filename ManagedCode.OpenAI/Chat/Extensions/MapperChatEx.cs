@@ -1,7 +1,7 @@
 ﻿using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.Client;
 
-namespace ManagedCode.OpenAI.Chat.Extensions
+namespace ManagedCode.OpenAI.Chat
 {
     internal static class MapperChatEx
     {

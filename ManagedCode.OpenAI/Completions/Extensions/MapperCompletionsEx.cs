@@ -1,8 +1,8 @@
 ﻿using ManagedCode.OpenAI.API;
-using ManagedCode.OpenAI.Chat.Extensions;
+using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
 
-namespace ManagedCode.OpenAI.Completions.Extensions
+namespace ManagedCode.OpenAI.Completions
 {
     internal static class MapperCompletionsEx
     {

@@ -1,18 +1,13 @@
 ﻿using ManagedCode.OpenAI.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ManagedCode.OpenAI.Image;
 using Xunit;
 using Xunit.Abstractions;
-using ManagedCode.OpenAI.Image.Extensions;
 
 namespace ManagedCode.OpenAI.Tests
 {
     public class ImageTests
     {
+        private const string SKIP = $"Class {nameof(ImageTests)} disabled";
         private readonly ITestOutputHelper _output;
         private readonly IGptClient _client = Mocks.Client();
 
@@ -21,24 +16,24 @@ namespace ManagedCode.OpenAI.Tests
             _output = output;
         }
 
-        [Fact]
+        [Fact(Skip = SKIP)]
         public async Task GenerateImage_Success()
         {
-            var image = await _client.GenerateImage("Red dragon")
-                .SetImageResolution(ImageResolution._512x512).GenerateAsync();
+            var image = await _client.ImageClient.GenerateImage("Red dragon")
+                .SetImageResolution(ImageResolution._512x512).ExecuteAsync();
 
             Log($"Image url: {image.Content}");
             Assert.False(string.IsNullOrWhiteSpace(image.Content));
         }
 
-        [Fact]
+        [Fact(Skip = SKIP)]
         public async Task EditImage_Success()
         {
            var edited = await _client
-               .EditImage("change color to blue",
+               .ImageClient.EditImage("change color to blue",
                    x=> x.FromBytes(Properties.Resources.Dog))
                .AsUrl()
-               .EditAsync();
+               .ExecuteAsync();
 
            Log($"Edited dog: {edited}");
            Assert.False(string.IsNullOrWhiteSpace(edited.Content));

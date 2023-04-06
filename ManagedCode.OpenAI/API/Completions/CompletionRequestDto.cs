@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.API;
 
-public class CompletionRequestDto
+internal class CompletionRequestDto
 {
     [JsonPropertyName("model")]
     public string Model { get; set; }

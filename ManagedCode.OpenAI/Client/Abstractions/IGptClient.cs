@@ -1,9 +1,9 @@
 ﻿using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
-using ManagedCode.OpenAI.Files.Abstractions;
+using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
-using ManagedCode.OpenAI.Moderations.Abstractions;
+using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client
 {
@@ -11,6 +11,10 @@ namespace ManagedCode.OpenAI.Client
     public interface IGptClient
     {
         public IGptClientConfiguration Configuration { get; }
+
+        public IImageClient ImageClient { get; }
+        public IFileClient FileClient { get; }
+
         void Configure(IGptClientConfiguration configuration);
         void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration);
 
@@ -18,19 +22,8 @@ namespace ManagedCode.OpenAI.Client
         public Task<IModel> GetModelAsync(string modelId);
 
         IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
-
         ICompletionBuilder Completion();
         IEditBuilder Edit(string input, string instruction);
-
-        IGenerateImageBuilder GenerateImage(string description);
-
-        IEditImageBuilder EditImage(string description, string imageBase64);
-
-        IVariationImageBuilder VariationImage(string imageBase64);
-
-        IFileManager FileManager();
-        
-        IModerationBuilder ModerationBuilder();
-
+        IModerationBuilder Moderation();
     }
 }

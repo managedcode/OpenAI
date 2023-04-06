@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ManagedCode.OpenAI.API;
+﻿using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.API.Image;
 using ManagedCode.OpenAI.Extensions;
-using ManagedCode.OpenAI.Image.Extensions;
 
-namespace ManagedCode.OpenAI.Image.Builders
+namespace ManagedCode.OpenAI.Image
 {
     internal class GenerateImageBuilder :
         BaseImageBuilder<IGenerateImageBuilder, GenerateImageRequestDto>,
@@ -22,14 +16,14 @@ namespace ManagedCode.OpenAI.Image.Builders
             Request.Description = description;
         }
 
-        public async Task<IGptImage<string>> GenerateAsync()
+        public async Task<IGptImage<string>> ExecuteAsync()
         {
             Request.Validate();
             var response = await _webClient.GenerateImageAsync(Request);
             return response.AsSingle();
         }
 
-        public async Task<IGptImage<string[]>> GenerateMultipleAsync(int count)
+        public async Task<IGptImage<string[]>> ExecuteMultipleAsync(int count)
         {
             Request.Validate();
             var response = await _webClient.GenerateImageAsync(Request);

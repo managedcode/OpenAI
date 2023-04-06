@@ -1,5 +1,4 @@
 ﻿using ManagedCode.OpenAI.API;
-using ManagedCode.OpenAI.Chat.Extensions;
 using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Extensions;
 

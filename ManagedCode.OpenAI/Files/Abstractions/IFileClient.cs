@@ -1,6 +1,6 @@
-namespace ManagedCode.OpenAI.Files.Abstractions;
+namespace ManagedCode.OpenAI.Files;
 
-public interface IFileManager
+public interface IFileClient
 {
     Task<IFileInfo[]> FileListAsync();
     Task<IFileInfo> CreateFileAsync(string content, string fileName, string purpose = "fine-tune");

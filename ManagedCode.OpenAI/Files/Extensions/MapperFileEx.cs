@@ -1,7 +1,6 @@
-using ManagedCode.OpenAI.Files.Abstractions;
-using ManagedCode.OpenAI.Files.Models;
+using ManagedCode.OpenAI.API.File;
 
-namespace ManagedCode.OpenAI.Files.Extensions;
+namespace ManagedCode.OpenAI.Files;
 
 internal static class MapperFileEx
 {

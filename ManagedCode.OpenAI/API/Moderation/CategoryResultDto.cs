@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace ManagedCode.OpenAI.API.Moderations;
+namespace ManagedCode.OpenAI.API.Moderation;
 
-public class CategoryResultDto
+internal class CategoryResultDto
 {
     [JsonPropertyName("categories")]
     public CategoryDto<bool> Categories { get; set; }

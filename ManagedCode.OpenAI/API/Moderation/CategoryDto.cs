@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace ManagedCode.OpenAI.API.Moderations;
+namespace ManagedCode.OpenAI.API.Moderation;
 
-public class CategoryDto<TResult> where TResult : struct
+internal class CategoryDto<TResult> where TResult : struct
 {
     [JsonPropertyName("hate")]
     public TResult Hate { get; set; }

@@ -2,7 +2,7 @@
 
 namespace ManagedCode.OpenAI.API
 {
-    public class CompletionChoiceDto
+    internal class CompletionChoiceDto
     {
         [JsonPropertyName("text")]
         public string Text { get; set; }

@@ -1,16 +1,12 @@
-using System.Text;
 using ManagedCode.OpenAI.API;
-using ManagedCode.OpenAI.Files.Abstractions;
-using ManagedCode.OpenAI.Files.Extensions;
 
+namespace ManagedCode.OpenAI.Files;
 
-namespace ManagedCode.OpenAI.Files.Builders;
-
-public class FileManager : IFileManager
+public class FileClient : IFileClient
 {
     private readonly IOpenAiWebClient _client;
 
-    internal FileManager(IOpenAiWebClient webClient)
+    internal FileClient(IOpenAiWebClient webClient)
     {
         _client = webClient;
     }

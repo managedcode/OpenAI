@@ -1,7 +1,6 @@
 ﻿using ManagedCode.OpenAI.Chat;
-using ManagedCode.OpenAI.Chat.Extensions;
 
-namespace ManagedCode.OpenAI.Client.Extensions
+namespace ManagedCode.OpenAI.Client
 {
     public static class GptClientEx
     {

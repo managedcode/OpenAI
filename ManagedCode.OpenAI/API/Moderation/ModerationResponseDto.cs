@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace ManagedCode.OpenAI.API.Moderations;
+namespace ManagedCode.OpenAI.API.Moderation;
 
-public class ModerationResponseDto
+internal class ModerationResponseDto
 {
     [JsonPropertyName("id")]
     public string Id { get; set; }

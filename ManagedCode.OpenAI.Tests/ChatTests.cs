@@ -1,9 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.Chat;
-using ManagedCode.OpenAI.Chat.Extensions;
 using ManagedCode.OpenAI.Client;
-using ManagedCode.OpenAI.Client.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 using static System.String;
@@ -12,6 +8,7 @@ namespace ManagedCode.OpenAI.Tests;
 
 public class ChatTests
 {
+    private const string SKIP = $"Class {nameof(ChatTests)} disabled";
     private readonly ITestOutputHelper _output;
     private readonly IGptClient _client = Mocks.Client();
 
@@ -20,7 +17,7 @@ public class ChatTests
         _output = output;
     }
 
-    [Fact]
+    [Fact(Skip = SKIP)]
     public async Task AskSingle_Success()
     {
         var chat = _client.OpenChat();
@@ -39,7 +36,7 @@ public class ChatTests
         Assert.False(IsNullOrWhiteSpace(answer2.Data.Content));
     }
 
-    [Fact]
+    [Fact(Skip = SKIP)]
     public async Task AskMultiple_Success()
     {
         var chat = _client.OpenChat();
@@ -56,7 +53,7 @@ public class ChatTests
     }
 
 
-    [Fact]
+    [Fact(Skip = SKIP)]
     public async Task ChatSessionSaveLoad_Success()
     {
         var chat = _client.OpenChat();

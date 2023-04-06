@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
-using ManagedCode.OpenAI.Files.Abstractions;
 
-namespace ManagedCode.OpenAI.Files.Models;
+namespace ManagedCode.OpenAI.API.File;
 
 internal class FilesInfoResponseDto
 {

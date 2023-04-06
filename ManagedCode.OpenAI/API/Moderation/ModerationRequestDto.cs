@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace ManagedCode.OpenAI.API;
+namespace ManagedCode.OpenAI.API.Moderation;
 
 internal class ModerationRequestDto
 {

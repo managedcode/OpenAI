@@ -1,6 +1,6 @@
 ﻿using ManagedCode.OpenAI.Client;
 
-namespace ManagedCode.OpenAI.Chat.Extensions
+namespace ManagedCode.OpenAI.Chat
 {
     public static class ClientChatEx
     {

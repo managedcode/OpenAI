@@ -1,7 +1,6 @@
 using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.Client;
-using ManagedCode.OpenAI.Edit.Extensions;
 using ManagedCode.OpenAI.Extensions;
 
 namespace ManagedCode.OpenAI.Edit;

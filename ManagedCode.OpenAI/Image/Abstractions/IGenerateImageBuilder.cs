@@ -2,8 +2,8 @@
 {
     public interface IGenerateImageBuilder: IBaseImageBuilder<IGenerateImageBuilder>
     {
-        public Task<IGptImage<string>> GenerateAsync();
+        public Task<IGptImage<string>> ExecuteAsync();
 
-        public Task<IGptImage<string[]>> GenerateMultipleAsync(int count);
+        public Task<IGptImage<string[]>> ExecuteMultipleAsync(int count);
     }
 }

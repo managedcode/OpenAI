@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace ManagedCode.OpenAI.Files.Models;
+namespace ManagedCode.OpenAI.API.File;
 
 internal class FileDeleteResponseDto
 {

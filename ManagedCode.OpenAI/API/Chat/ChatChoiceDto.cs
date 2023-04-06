@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.API;
 
-public class ChatChoiceDto
+internal class ChatChoiceDto
 {
     [JsonPropertyName("index")]
     public int Index { get; set; }
