@@ -46,6 +46,11 @@ var client2 = GptClient.Builder("#API_KEY#")
     .Configure(x => x.SetDefaultModel(GptModel.Ada))
     .Build();
 ```
+or using DI
+
+```cs
+builder.Services.AddOpenAI("#API_KEY#");
+```
 
 ## Generating an image URL
 
@@ -54,9 +59,7 @@ var client = new GptClient("#API_KEY#");
 var img = await client.ImageClient
     .GenerateImage("Big man")
     .AsUrl().ExecuteAsync();
-```
 
-```cs
 var url = img.Content;
 Console.WriteLine(url);
 ```
