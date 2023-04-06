@@ -59,9 +59,10 @@ var img = await client.ImageClient
 ```cs
 var url = img.Content;
 Console.WriteLine(url);
-Generating an image URL with editing
-csharp
-Copy code
+```
+
+### Generating an image URL with editing
+```cs
 var client = new GptClient("#API_KEY#");
 var imgBytes = new byte[] { };
 var maskBase64 = "#CONTENT#";
@@ -70,14 +71,13 @@ var img = await client.ImageClient
     .EditImage("Change color to red", x => x.FromBytes(imgBytes))
     .SetImageMask(x => x.FromBase64(maskBase64))
     .AsUrl().ExecuteAsync();
-```
 
-```cs
 // Edited img URL
 Console.WriteLine(img.Content);
-Editing an image using a mask
-csharp
-Copy code
+```
+
+### Editing an image using a mask
+```cs
 var client = new GptClient("#API_KEY#");
 var imgBytes = new byte[] { };
 var imgCollection = await client.ImageClient
