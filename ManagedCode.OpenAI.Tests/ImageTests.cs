@@ -20,7 +20,7 @@ namespace ManagedCode.OpenAI.Tests
         public async Task GenerateImage_Success()
         {
             var image = await _client.ImageClient.GenerateImage("Red dragon")
-                .SetImageResolution(ImageResolution._512x512).GenerateAsync();
+                .SetImageResolution(ImageResolution._512x512).ExecuteAsync();
 
             Log($"Image url: {image.Content}");
             Assert.False(string.IsNullOrWhiteSpace(image.Content));
@@ -33,7 +33,7 @@ namespace ManagedCode.OpenAI.Tests
                .ImageClient.EditImage("change color to blue",
                    x=> x.FromBytes(Properties.Resources.Dog))
                .AsUrl()
-               .EditAsync();
+               .ExecuteAsync();
 
            Log($"Edited dog: {edited}");
            Assert.False(string.IsNullOrWhiteSpace(edited.Content));

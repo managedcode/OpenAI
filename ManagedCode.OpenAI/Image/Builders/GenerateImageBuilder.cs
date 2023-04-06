@@ -16,14 +16,14 @@ namespace ManagedCode.OpenAI.Image
             Request.Description = description;
         }
 
-        public async Task<IGptImage<string>> GenerateAsync()
+        public async Task<IGptImage<string>> ExecuteAsync()
         {
             Request.Validate();
             var response = await _webClient.GenerateImageAsync(Request);
             return response.AsSingle();
         }
 
-        public async Task<IGptImage<string[]>> GenerateMultipleAsync(int count)
+        public async Task<IGptImage<string[]>> ExecuteMultipleAsync(int count)
         {
             Request.Validate();
             var response = await _webClient.GenerateImageAsync(Request);

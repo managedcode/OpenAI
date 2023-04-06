@@ -1,8 +1,10 @@
+using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Moderation;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
+using ManagedCode.OpenAI.Image;
 
 namespace ManagedCode.OpenAI.Tests;
 
@@ -46,11 +48,6 @@ public class ModerationTests
         Log("Moderations have next content:");
         Log(ToJson(moderation));
     }
-
-
-
-
-
 
     void Log(object obj) => Log(obj.ToString());
 

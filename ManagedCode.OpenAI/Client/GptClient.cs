@@ -1,5 +1,6 @@
 ﻿using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.Chat;
+using ManagedCode.OpenAI.Client.Abstractions;
 using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
 using ManagedCode.OpenAI.Files;
@@ -11,6 +12,11 @@ namespace ManagedCode.OpenAI.Client
     public class GptClient : IGptClient
     {
         private IOpenAiWebClient _webClient = null!;
+
+        public static IGptClientBuilder Builder(string apiKey)
+        {
+            return new GptClientBuilder(apiKey);
+        }
 
         public GptClient(string apiKey)
         {
@@ -28,6 +34,11 @@ namespace ManagedCode.OpenAI.Client
         }
 
         public GptClient(string apiKey, string organization, IGptClientConfiguration configuration)
+        {
+            Init(apiKey, organization, configuration);
+        }
+
+        internal GptClient(string apiKey, IGptClientConfiguration configuration, string? organization)
         {
             Init(apiKey, organization, configuration);
         }

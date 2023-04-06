@@ -16,14 +16,14 @@ namespace ManagedCode.OpenAI.Image
         }
 
 
-        public async Task<IGptImage<string>> VariationAsync()
+        public async Task<IGptImage<string>> ExecuteAsync()
         {
             Request.Validate();
             var response = await _client.VariationImageAsync(Request);
             return response.AsSingle();
         }
 
-        public async Task<IGptImage<string[]>> VariationsMultipleAsync(int count)
+        public async Task<IGptImage<string[]>> ExecuteMultipleAsync(int count)
         {
             Request.Validate();
             var response = await _client.VariationImageAsync(Request);

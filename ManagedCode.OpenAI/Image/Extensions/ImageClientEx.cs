@@ -15,5 +15,13 @@
             var loader = new DefaultImageLoader();
             return client.VariationImage(image.Invoke(loader));
         }
+
+        public static IEditImageBuilder SetImageMask(this IEditImageBuilder builder, 
+            Func<IImageLoader, string> image)
+        {
+            var loader = new DefaultImageLoader();
+            builder.SetImageMask(image.Invoke(loader));
+            return builder;
+        }
     }
 }
