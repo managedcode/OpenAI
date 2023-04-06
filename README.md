@@ -50,7 +50,24 @@ or using DI
 
 ```cs
 builder.Services.AddOpenAI("#API_KEY#");
+
+public class MyClass
+{
+    public MyClass(IGptClient client)
+    {
+        var chat = client.OpenChat();
+    }
+}
 ```
+
+## Ask chat gpt
+``` cs
+var client = new GptClient("#API_KEY#");
+var chat = client.OpenChat();
+var answer = await chat.AskAsync("2+2?");
+Console.WriteLine($"Answer: {answer.Data.Content}");
+```
+
 
 ## Generating an image URL
 
