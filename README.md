@@ -11,7 +11,21 @@ This is an unofficial C# library for the OpenAI API. As there are no official li
 
 ## Installation
 
-TBD (Add installation instructions here)
+To install the ManagedCode.OpenAI library from NuGet, you can use the following methods:
+
+### Package Manager
+Open the Package Manager Console in Visual Studio and run the following command:
+
+```
+Install-Package ManagedCode.OpenAI
+```
+
+### .NET CLI
+You can also use the .NET CLI to install the package. Open a terminal/command prompt and run the following command:
+
+```
+dotnet add package ManagedCode.OpenAI
+```
 
 ## Usage
 
