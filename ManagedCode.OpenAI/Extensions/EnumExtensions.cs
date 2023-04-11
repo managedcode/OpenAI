@@ -11,7 +11,8 @@ internal static class EnumExtensions
         var attributes = (EnumMemberAttribute[])field!.GetCustomAttributes(
             typeof(EnumMemberAttribute), false);
 
-        if (attributes.Length == 0) return value.ToString();
+        if (attributes.Length == 0)
+            return value.ToString();
 
         return attributes.First().Value
                ?? throw new Exception($"{value} value property not specified in attribute");

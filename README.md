@@ -46,6 +46,7 @@ var client2 = GptClient.Builder("#API_KEY#")
     .Configure(x => x.SetDefaultModel(GptModel.Ada))
     .Build();
 ```
+
 or using DI
 
 ```cs
@@ -61,6 +62,7 @@ public class MyClass
 ```
 
 ## Ask chat gpt
+
 ``` cs
 var client = GptClient.Builder("#API_KEY#")
     .WithOrganization("#ORGANIZATION#")
@@ -69,7 +71,6 @@ var chat = client.OpenChat();
 var answer = await chat.AskAsync("2+2?");
 Console.WriteLine($"Answer: {answer.Data.Content}");
 ```
-
 
 ## Generating an image URL
 
@@ -84,6 +85,7 @@ Console.WriteLine(url);
 ```
 
 ### Generating an image URL with editing
+
 ```cs
 var client = new GptClient("#API_KEY#");
 var imgBytes = new byte[] { };
@@ -99,6 +101,7 @@ Console.WriteLine(img.Content);
 ```
 
 ### Editing an image using a mask
+
 ```cs
 var client = new GptClient("#API_KEY#");
 var imgBytes = new byte[] { };

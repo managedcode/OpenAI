@@ -5,9 +5,9 @@ using Xunit.Abstractions;
 
 namespace ManagedCode.OpenAI.Tests;
 
-public class FileTest
+public class FileTests
 {
-    private const string SKIP = $"Class {nameof(FileTest)} disabled";
+    private const string SKIP = $"Class {nameof(FileTests)} disabled";
 
 
     private const string fileContent =
@@ -20,7 +20,7 @@ public class FileTest
     private readonly ITestOutputHelper _output;
 
 
-    public FileTest(ITestOutputHelper output)
+    public FileTests(ITestOutputHelper output)
     {
         _output = output;
         _fileClient = _client.FileClient;
