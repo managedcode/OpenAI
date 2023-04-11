@@ -5,12 +5,13 @@ using ManagedCode.OpenAI.Edit;
 using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
 using ManagedCode.OpenAI.Moderation;
+using System.Runtime.CompilerServices;
 
-namespace ManagedCode.OpenAI.Client;
-
-public class GptClient : IGptClient
+namespace ManagedCode.OpenAI.Client
 {
-    private IOpenAiWebClient _webClient = null!;
+    public class GptClient : IGptClient
+    {
+        private IOpenAiWebClient _webClient = null!;
 
     public GptClient(string apiKey)
     {
@@ -32,14 +33,34 @@ public class GptClient : IGptClient
         Init(apiKey, organization, configuration);
     }
 
-    internal GptClient(string apiKey, IGptClientConfiguration configuration, string? organization)
-    {
-        Init(apiKey, organization, configuration);
-    }
 
-    private GptClient()
-    {
-    }
+        internal GptClient(string apiKey, IGptClientConfiguration configuration, string? organization)
+        {
+            Init(apiKey, organization, configuration);
+        }
+
+        internal GptClient(IOpenAiWebClient webClient)
+        {
+            _webClient = webClient;
+            Configuration = new DefaultGptClientConfiguration();
+            ImageClient = new ImageClient(_webClient);
+            FileClient = new FileClient(_webClient);
+
+        }
+
+        private GptClient(){}
+
+        private void  Init(string apiKey, string? organization, IGptClientConfiguration configuration)
+        {
+            var webClient = string.IsNullOrWhiteSpace(organization) 
+                ? new OpenAiWebClient(apiKey) 
+                : new OpenAiWebClient(apiKey, organization);
+
+            _webClient = webClient;
+            Configuration = configuration;
+            ImageClient = new ImageClient(_webClient);
+            FileClient = new FileClient(_webClient);
+        }
 
 
     public IGptClientConfiguration Configuration { get; private set; } = null!;

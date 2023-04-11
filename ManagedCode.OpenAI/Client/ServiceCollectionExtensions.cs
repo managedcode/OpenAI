@@ -1,13 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using ManagedCode.OpenAI.Client.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ManagedCode.OpenAI.Client;
+[assembly: InternalsVisibleTo("ManagedCode.OpenAI.Tests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
-public static class ServiceCollectionExtensions
+namespace ManagedCode.OpenAI.Client
 {
-    public static void AddOpenAI(this IServiceCollection collection, string apiKey)
+    public static class ServiceCollectionExtensions
     {
-        collection.AddSingleton<IGptClient>(s => new GptClient(apiKey));
-    }
+        public static void AddOpenAI(this IServiceCollection collection, string apiKey)
+        {
+            collection.AddSingleton<IGptClient>(s => new GptClient(apiKey));
+        }
 
     public static void AddOpenAI(this IServiceCollection collection, string apiKey,
         Action<IGptClientBuilder> build)
