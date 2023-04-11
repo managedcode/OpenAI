@@ -6,6 +6,9 @@ using ManagedCode.OpenAI.Edit;
 using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
 using ManagedCode.OpenAI.Moderation;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ManagedCode.OpenAI.Tests")]
 
 namespace ManagedCode.OpenAI.Client
 {
@@ -38,9 +41,19 @@ namespace ManagedCode.OpenAI.Client
             Init(apiKey, organization, configuration);
         }
 
+
         internal GptClient(string apiKey, IGptClientConfiguration configuration, string? organization)
         {
             Init(apiKey, organization, configuration);
+        }
+
+        internal GptClient(IOpenAiWebClient webClient)
+        {
+            _webClient = webClient;
+            Configuration = new DefaultGptClientConfiguration();
+            ImageClient = new ImageClient(_webClient);
+            FileClient = new FileClient(_webClient);
+
         }
 
         private GptClient(){}
@@ -76,7 +89,7 @@ namespace ManagedCode.OpenAI.Client
         public async Task<IModel[]> GetModelsAsync()
         {
             var models = await _webClient.ModelsAsync();
-            return models.Models.Select(x => x.ToModel()).ToArray();
+            return models.Models.Select(selector: x => x.ToModel()).ToArray();
         }
 
         public async Task<IModel> GetModelAsync(string modelId)

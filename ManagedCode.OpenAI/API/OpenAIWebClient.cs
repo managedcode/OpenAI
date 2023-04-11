@@ -5,6 +5,10 @@ using ManagedCode.OpenAI.API.Edit;
 using ManagedCode.OpenAI.API.File;
 using ManagedCode.OpenAI.API.Image;
 using ManagedCode.OpenAI.API.Moderation;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+
 namespace ManagedCode.OpenAI.API;
 
 internal class OpenAiWebClient : IOpenAiWebClient

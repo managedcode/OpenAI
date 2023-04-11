@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using ManagedCode.OpenAI.Client.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+
+[assembly: InternalsVisibleTo("ManagedCode.OpenAI.Tests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace ManagedCode.OpenAI.Client
 {

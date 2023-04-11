@@ -1,5 +1,10 @@
+using FluentAssertions;
+using ManagedCode.OpenAI.API;
 using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
+using Moq;
+using System;
+using System.Reflection;
 using Xunit;
 using Xunit.Abstractions;
 using static System.String;
@@ -76,5 +81,109 @@ public class ChatTests
         _output.WriteLine(message);
     }
 
+
+    [Fact]
+    public async Task GetModels_Success()
+    {
+        var mock = new Mock<IOpenAiWebClient>();
+        var models = new ModelDto[]
+        {
+            new()
+            {
+                Id = "mango",
+                Permission = new PermissionDto[]
+                {
+                    new PermissionDto()
+                    {
+                        AllowCreateEngine = true,
+                    }
+                }
+            }
+        };
+
+        mock.Setup(x => x.ModelsAsync())
+            .ReturnsAsync
+            (new ModelsResponseDto()
+                {
+                    Models = models
+                }
+            );
+
+        var client = new GptClient(mock.Object);
+        var response = await client.GetModelsAsync();
+        var expected = models.Select(selector: x => x.ToModel()).ToArray();
+
+        expected.Should().BeEquivalentTo(response);
+    }
+
+    [Fact]
+    public async Task GetModels_Empty()
+    {
+        var mock = new Mock<IOpenAiWebClient>();
+
+        var models = new ModelDto[]
+       {    };
+        mock.Setup(x => x.ModelsAsync())
+            .ReturnsAsync(new ModelsResponseDto()
+            {
+                Models = models
+            });  
+
+        var client = new GptClient(mock.Object);
+        var response = await client.GetModelsAsync(); 
+        response.Should().BeEmpty();
+    }
+
+
+    [Fact]
+    public async Task GetModel_Success()
+    {
+
+        var mock = new Mock<IOpenAiWebClient>();
+        var model = new ModelDto
+        {
+            Id = "obj",
+            Permission = new PermissionDto[]
+            {
+                new PermissionDto()
+                {
+                    AllowCreateEngine = true,
+                }
+            }
+        };
+
+        mock.Setup(x => x.ModelAsync("obj"))
+            .ReturnsAsync(model);
+
+        var client = new GptClient(mock.Object);
+        var response = await client.GetModelAsync(model.Id);
+        var expected = model.ToModel();
+
+        expected.Should().BeEquivalentTo(response);
+
+    }
+
+    [Fact]
+    public async Task GetModel_NullException()
+    {
+        var mock = new Mock<IOpenAiWebClient>();
+        var model = new ModelDto
+        {
+            Id = "obj",
+            Permission = new PermissionDto[]
+           {
+                new PermissionDto()
+                {
+                    AllowCreateEngine = true,
+                }
+           }
+        };
+
+        mock.Setup(x => x.ModelAsync("obj"))
+            .ReturnsAsync(model);
+
+        var client = new GptClient(mock.Object);
+        await Assert.ThrowsAsync<NullReferenceException>(async () => await client.GetModelAsync("model"));
+    }
 
 }
