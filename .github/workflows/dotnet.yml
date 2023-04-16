@@ -29,12 +29,12 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Test and Collect Code Coverage
-        run: dotnet test -p:CollectCoverage=true  --collect:"XPlat Code Coverage" -p:CoverletOutput=./coverage
+        run: dotnet test -p:CollectCoverage=true  --collect:"XPlat Code Coverage" --results-directory ./coverage
  
       - name: Code Coverage Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: OpenAI/OpenAI/ManagedCode.OpenAI.Tests/TestResults/**/coverage.cobertura.xml
+          filename: coverage/**/coverage.cobertura.xml
           badge: true
           fail_below_min: true
           format: markdown
