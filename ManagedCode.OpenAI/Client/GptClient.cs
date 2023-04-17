@@ -2,7 +2,6 @@
 using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
-using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
 using ManagedCode.OpenAI.Moderation;
 
@@ -43,7 +42,6 @@ public class GptClient : IGptClient
         _webClient = webClient;
         Configuration = new DefaultGptClientConfiguration();
         ImageClient = new ImageClient(_webClient);
-        FileClient = new FileClient(_webClient);
         Configuration = configuration;
     }
 
@@ -54,7 +52,6 @@ public class GptClient : IGptClient
 
     public IGptClientConfiguration Configuration { get; private set; } = null!;
     public IImageClient ImageClient { get; private set; } = null!;
-    public IFileClient FileClient { get; private set; } = null!;
 
     public void Configure(IGptClientConfiguration configuration)
     {
@@ -113,6 +110,5 @@ public class GptClient : IGptClient
         _webClient = webClient;
         Configuration = configuration;
         ImageClient = new ImageClient(_webClient);
-        FileClient = new FileClient(_webClient);
     }
 }
