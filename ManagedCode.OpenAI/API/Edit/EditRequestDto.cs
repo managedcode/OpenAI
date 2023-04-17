@@ -17,7 +17,7 @@ internal class EditRequestDto
 
     [JsonPropertyName("n")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? N { get; set; }
+    public int? Count { get; set; }
 
     [Range(0, 2f)]
     [JsonPropertyName("temperature")]

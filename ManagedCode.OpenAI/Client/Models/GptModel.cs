@@ -76,5 +76,9 @@ public enum GptModel
 
     [EnumMember(Value = "text-moderation-latest")]
     [Description("text-moderation-latest")]
-    TextModerationLatest
+    TextModerationLatest,
+
+    [EnumMember(Value = "text-davinci-edit-001")]
+    [Description("text-davinci-edit-001")]
+    TextDavinciEdit001,
 }

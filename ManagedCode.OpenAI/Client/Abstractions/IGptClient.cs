@@ -21,7 +21,7 @@ public interface IGptClient
     public Task<IModel> GetModelAsync(string modelId);
 
     IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
-    ICompletionBuilder Completion();
+    ICompletionBuilder Completion(string prompt);
     IEditBuilder Edit(string input, string instruction);
     IModerationBuilder Moderation();
 }

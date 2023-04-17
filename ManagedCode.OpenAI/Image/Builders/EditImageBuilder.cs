@@ -31,6 +31,7 @@ internal class EditImageBuilder : BaseImageBuilder<IEditImageBuilder, EditImageR
 
     public async Task<IGptImage<string[]>> ExecuteMultipleAsync(int count)
     {
+        Request.N = count;
         Request.Validate();
         var response = await _webClient.EditImageAsync(Request);
         return response.AsMultiple();

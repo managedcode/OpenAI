@@ -5,7 +5,7 @@ namespace ManagedCode.OpenAI.Completions;
 public interface ICompletionBuilder
 {
     public ICompletionBuilder AddPrompt(string prompt);
-    public ICompletionBuilder AddPrompt(IEnumerable<string> prompt);
+    public ICompletionBuilder AddPrompt(params string[] prompts);
     public ICompletionBuilder SetSuffix(string suffix);
     public ICompletionBuilder SetMaxTokens(int maxTokens);
     public ICompletionBuilder SetTemperature(float temperature);
@@ -24,7 +24,7 @@ public interface ICompletionBuilder
     public ICompletionBuilder SetModel(GptModel model);
 
 
-    public Task<IAnswer<ICompletionsMessage>> ExecuteSingleAsync();
+    public Task<IAnswer<ICompletionsMessage>> ExecuteAsync();
 
     public Task<IAnswer<ICompletionsMessage[]>> ExecuteMultipleAsync(int count);
 }

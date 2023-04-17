@@ -5,13 +5,12 @@ using ManagedCode.OpenAI.Edit;
 using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
 using ManagedCode.OpenAI.Moderation;
-using System.Runtime.CompilerServices;
 
-namespace ManagedCode.OpenAI.Client
+namespace ManagedCode.OpenAI.Client;
+
+public class GptClient : IGptClient
 {
-    public class GptClient : IGptClient
-    {
-        private IOpenAiWebClient _webClient = null!;
+    private IOpenAiWebClient _webClient = null!;
 
     public GptClient(string apiKey)
     {
@@ -34,33 +33,23 @@ namespace ManagedCode.OpenAI.Client
     }
 
 
-        internal GptClient(string apiKey, IGptClientConfiguration configuration, string? organization)
-        {
-            Init(apiKey, organization, configuration);
-        }
+    internal GptClient(string apiKey, IGptClientConfiguration configuration, string? organization)
+    {
+        Init(apiKey, organization, configuration);
+    }
 
-        internal GptClient(IOpenAiWebClient webClient)
-        {
-            _webClient = webClient;
-            Configuration = new DefaultGptClientConfiguration();
-            ImageClient = new ImageClient(_webClient);
-            FileClient = new FileClient(_webClient);
+    internal GptClient(IGptClientConfiguration configuration, IOpenAiWebClient webClient)
+    {
+        _webClient = webClient;
+        Configuration = new DefaultGptClientConfiguration();
+        ImageClient = new ImageClient(_webClient);
+        FileClient = new FileClient(_webClient);
+        Configuration = configuration;
+    }
 
-        }
-
-        private GptClient(){}
-
-        private void  Init(string apiKey, string? organization, IGptClientConfiguration configuration)
-        {
-            var webClient = string.IsNullOrWhiteSpace(organization) 
-                ? new OpenAiWebClient(apiKey) 
-                : new OpenAiWebClient(apiKey, organization);
-
-            _webClient = webClient;
-            Configuration = configuration;
-            ImageClient = new ImageClient(_webClient);
-            FileClient = new FileClient(_webClient);
-        }
+    private GptClient()
+    {
+    }
 
 
     public IGptClientConfiguration Configuration { get; private set; } = null!;
@@ -95,14 +84,14 @@ namespace ManagedCode.OpenAI.Client
         return new GptChat(_webClient, session, defaultMessageParameters);
     }
 
-    public ICompletionBuilder Completion()
+    public ICompletionBuilder Completion(string prompt)
     {
-        return new CompletionsBuilder(_webClient, Configuration.ModelId);
+        return new CompletionsBuilder(_webClient, prompt);
     }
 
     public IEditBuilder Edit(string input, string instruction)
     {
-        return new EditBuilder(_webClient, Configuration.ModelId, input, instruction);
+        return new EditBuilder(_webClient, input, instruction);
     }
 
     public IModerationBuilder Moderation()

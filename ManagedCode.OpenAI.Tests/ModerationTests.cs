@@ -1,65 +1,50 @@
-using ManagedCode.OpenAI.Client;
-using ManagedCode.OpenAI.Moderation;
-using Newtonsoft.Json;
-using Xunit;
+using FluentAssertions;
+using ManagedCode.OpenAI.Tests.Attributes;
+using ManagedCode.OpenAI.Tests.Base;
+using ManagedCode.OpenAI.Tests.Extensions;
+using Microsoft.Extensions.Configuration;
 using Xunit.Abstractions;
 
 namespace ManagedCode.OpenAI.Tests;
 
-public class ModerationTests
+public class ModerationTests : BaseTestClass
 {
-    private const string SKIP = $"Class {nameof(ImageTests)} disabled";
-    private readonly IGptClient _client = Mocks.Client();
-    private readonly ITestOutputHelper _output;
 
-    public ModerationTests(ITestOutputHelper output)
+    public ModerationTests(ITestOutputHelper output, IConfiguration configuration)
+        : base(output, configuration)
     {
-        _output = output;
     }
 
-    private IModerationBuilder ModerationBuilder => _client.Moderation();
-
-    [Fact(Skip = SKIP)]
+    [ManualTest]
     public async Task CreateModeration_Success()
     {
-        var moderation = await ModerationBuilder
-            .ExecuteAsync("I kill you");
+        var client = ClientBuilder.Build();
 
-        Assert.NotNull(moderation);
+        var moderation = await client.Moderation().ExecuteAsync("I kill you");
 
-        Assert.NotNull(moderation.Categories);
-        Assert.NotNull(moderation.CategoryScores);
+        //assert
+        moderation.Categories.Violence.Should().BeTrue();
+        moderation.Should().NotBeNull();
+        moderation.Categories.Should().NotBeNull();
+        moderation.CategoryScores.Should().NotBeNull();
 
-        Log("Moderation has next content:");
-        Log(ToJson(moderation));
+        Log($"Moderation content: {Environment.NewLine}{moderation.ToJson()}");
     }
 
-    [Fact(Skip = SKIP)]
+    [ManualTest]
     public async Task CreateMultipleModeration_Success()
     {
-        var moderation = await ModerationBuilder
-            .ExecuteMultipleAsync("I kill you", "You are a bad man");
+        var client = ClientBuilder.Build();
 
-        Assert.NotNull(moderation);
+        var moderationItems = await client.Moderation()
+            .ExecuteMultipleAsync("I kill you", "You must die");
 
-        Assert.Equal(2, moderation.Length);
 
-        Log("Moderations have next content:");
-        Log(ToJson(moderation));
-    }
+        //assert
+        moderationItems.Should().NotBeNull().And.HaveCount(2);
+        foreach (var moderation in moderationItems)
+            moderation.Categories.Violence.Should().BeTrue();
 
-    private void Log(object obj)
-    {
-        Log(obj.ToString());
-    }
-
-    private void Log(string str)
-    {
-        _output.WriteLine(str);
-    }
-
-    private string ToJson(object obj)
-    {
-        return JsonConvert.SerializeObject(obj, Formatting.Indented);
+        Log($"Moderation content: {Environment.NewLine}{moderationItems.ToJson()}");
     }
 }
