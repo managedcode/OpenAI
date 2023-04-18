@@ -4,7 +4,7 @@ using ManagedCode.OpenAI.Client;
 
 namespace ManagedCode.OpenAI.Edit;
 
-internal static class MapperEditEx
+internal static class MapperEditExtensions
 {
     public static IAnswer<IEditMessage> ToEditAnswer(this EditResponseDto dto)
     {

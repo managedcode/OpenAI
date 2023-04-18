@@ -29,8 +29,8 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Test and Collect Code Coverage
-        run: dotnet test -p:CollectCoverage=true -p:CoverletOutput=coverage/
-    
+        run: dotnet test -p:CollectCoverage=true  --collect:"XPlat Code Coverage" --results-directory ./coverage
+ 
           
 #      - name: coveralls
 #        uses: coverallsapp/github-action@master

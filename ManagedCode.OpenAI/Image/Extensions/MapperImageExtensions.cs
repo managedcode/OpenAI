@@ -2,7 +2,7 @@
 
 namespace ManagedCode.OpenAI.Image;
 
-internal static class MapperImageEx
+internal static class MapperImageExtensions
 {
     public static IGptImage<string> AsSingle(this ImageResponseDto response)
     {
@@ -24,7 +24,8 @@ internal static class MapperImageEx
 
     private static string[] ExtractContents(ImageResponseDto response)
     {
-        if (!string.IsNullOrWhiteSpace(response.Data.First().Url)) return response.Data.Select(x => x.Url).ToArray();
+        if (!string.IsNullOrWhiteSpace(response.Data.First().Url))
+            return response.Data.Select(x => x.Url).ToArray();
 
         if (!string.IsNullOrWhiteSpace(response.Data.First().B64Json))
             return response.Data.Select(x => x.B64Json).ToArray();

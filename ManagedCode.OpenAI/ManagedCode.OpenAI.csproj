@@ -16,18 +16,8 @@
         <PackageTags>managedcode, OpenAI, ChatGPT, API</PackageTags>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Remove="Audio\**" />
-        <Compile Remove="FileTunes\**" />
-        <Compile Remove="Methods\**" />
-        <EmbeddedResource Remove="Audio\**" />
-        <EmbeddedResource Remove="FileTunes\**" />
-        <EmbeddedResource Remove="Methods\**" />
-        <None Remove="Audio\**" />
-        <None Remove="FileTunes\**" />
-        <None Remove="Methods\**" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+        <InternalsVisibleTo Include="ManagedCode.OpenAI.Tests"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0"/>
     </ItemGroup>
 
 </Project>

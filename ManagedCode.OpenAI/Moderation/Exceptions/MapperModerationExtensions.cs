@@ -2,7 +2,7 @@ using ManagedCode.OpenAI.API.Moderation;
 
 namespace ManagedCode.OpenAI.Moderation;
 
-internal static class MapperModerationEx
+internal static class MapperModerationExtensions
 {
     public static ICategory<TResult> ToCategory<TResult>(this CategoryDto<TResult> dto) where TResult : struct
     {

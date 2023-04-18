@@ -1,6 +1,6 @@
 ﻿namespace ManagedCode.OpenAI.Image;
 
-public static class ImageClientEx
+public static class ImageClientExtensions
 {
     public static IEditImageBuilder EditImage(this IImageClient client,
         string instruction, Func<IImageLoader, string> image)
