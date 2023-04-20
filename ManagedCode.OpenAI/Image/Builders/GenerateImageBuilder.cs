@@ -25,6 +25,7 @@ internal class GenerateImageBuilder :
 
     public async Task<IGptImage<string[]>> ExecuteMultipleAsync(int count)
     {
+        Request.N = count;
         Request.Validate();
         var response = await _webClient.GenerateImageAsync(Request);
         return response.AsMultiple();

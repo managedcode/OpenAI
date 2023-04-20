@@ -13,7 +13,7 @@ public interface IEditBuilder
     public IEditBuilder SetTopP(float topP);
 
 
-    public Task<IAnswer<IEditMessage>> EditAsync();
+    public Task<IAnswer<IEditMessage>> ExecuteAsync();
 
-    public Task<IAnswer<IEditMessage[]>> EditMultipleAsync(int count);
+    public Task<IAnswer<IEditMessage[]>> ExecuteMultipleAsync(int count);
 }

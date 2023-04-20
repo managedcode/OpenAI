@@ -7,15 +7,16 @@ namespace ManagedCode.OpenAI.Edit;
 
 internal class EditBuilder : IEditBuilder
 {
+    private const GptModel DEFAULT_MODEL = GptModel.TextDavinciEdit001;
     private readonly IOpenAiWebClient _client;
     private readonly EditRequestDto _request;
 
-    public EditBuilder(IOpenAiWebClient client, string model, string input, string instruction)
+    public EditBuilder(IOpenAiWebClient client,string input, string instruction)
     {
         _client = client;
         _request = new EditRequestDto
         {
-            Model = model,
+            Model = DEFAULT_MODEL.Name(),
             Input = input,
             Instruction = instruction
         };
@@ -46,14 +47,14 @@ internal class EditBuilder : IEditBuilder
     }
 
 
-    public async Task<IAnswer<IEditMessage>> EditAsync()
+    public async Task<IAnswer<IEditMessage>> ExecuteAsync()
     {
         _request.Validate();
         var response = await _client.EditAsync(_request);
         return response.ToEditAnswer();
     }
 
-    public async Task<IAnswer<IEditMessage[]>> EditMultipleAsync(int count)
+    public async Task<IAnswer<IEditMessage[]>> ExecuteMultipleAsync(int count)
     {
         _request.Validate();
         var response = await _client.EditAsync(_request);

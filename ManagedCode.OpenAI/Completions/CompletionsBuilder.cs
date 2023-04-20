@@ -6,14 +6,17 @@ namespace ManagedCode.OpenAI.Completions;
 
 internal class CompletionsBuilder : ICompletionBuilder
 {
+    private const GptModel DEFAULT_MODEL = GptModel.TextDavinci003;
     private readonly CompletionRequestDto _request;
     private readonly IOpenAiWebClient _webClient;
 
-    public CompletionsBuilder(IOpenAiWebClient webClient, string model)
+    public CompletionsBuilder(IOpenAiWebClient webClient, string prompt)
     {
         _request = new CompletionRequestDto();
         _webClient = webClient;
-        SetModel(model);
+
+        AddPrompt(prompt);
+        SetModel(DEFAULT_MODEL);
     }
 
     public ICompletionBuilder AddPrompt(string prompt)
@@ -25,9 +28,9 @@ internal class CompletionsBuilder : ICompletionBuilder
         return this;
     }
 
-    public ICompletionBuilder AddPrompt(IEnumerable<string> prompt)
+    public ICompletionBuilder AddPrompt(params string[] prompts)
     {
-        _request.Prompt.AddRange(prompt);
+        _request.Prompt.AddRange(prompts);
         return this;
     }
 
@@ -131,7 +134,7 @@ internal class CompletionsBuilder : ICompletionBuilder
         return this;
     }
 
-    public async Task<IAnswer<ICompletionsMessage>> ExecuteSingleAsync()
+    public async Task<IAnswer<ICompletionsMessage>> ExecuteAsync()
     {
         _request.Validate();
         var response = await _webClient.CompletionsAsync(_request);
@@ -141,7 +144,6 @@ internal class CompletionsBuilder : ICompletionBuilder
     public async Task<IAnswer<ICompletionsMessage[]>> ExecuteMultipleAsync(int count)
     {
         _request.N = count;
-
         _request.Validate();
         var response = await _webClient.CompletionsAsync(_request);
         return response.ToCompletionsAnswerCollection();

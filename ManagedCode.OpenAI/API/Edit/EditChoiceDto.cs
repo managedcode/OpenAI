@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ManagedCode.OpenAI.API.Edit;
 
-internal class EditChoiceDto
+internal class EditChoiceDto 
 {
     [JsonPropertyName("text")]
     public string Text { get; set; }

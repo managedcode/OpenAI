@@ -2,7 +2,6 @@
 using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
-using ManagedCode.OpenAI.Files;
 using ManagedCode.OpenAI.Image;
 using ManagedCode.OpenAI.Moderation;
 
@@ -32,9 +31,18 @@ public class GptClient : IGptClient
         Init(apiKey, organization, configuration);
     }
 
+
     internal GptClient(string apiKey, IGptClientConfiguration configuration, string? organization)
     {
         Init(apiKey, organization, configuration);
+    }
+
+    internal GptClient(IGptClientConfiguration configuration, IOpenAiWebClient webClient)
+    {
+        _webClient = webClient;
+        Configuration = new DefaultGptClientConfiguration();
+        ImageClient = new ImageClient(_webClient);
+        Configuration = configuration;
     }
 
     private GptClient()
@@ -44,7 +52,6 @@ public class GptClient : IGptClient
 
     public IGptClientConfiguration Configuration { get; private set; } = null!;
     public IImageClient ImageClient { get; private set; } = null!;
-    public IFileClient FileClient { get; private set; } = null!;
 
     public void Configure(IGptClientConfiguration configuration)
     {
@@ -74,14 +81,14 @@ public class GptClient : IGptClient
         return new GptChat(_webClient, session, defaultMessageParameters);
     }
 
-    public ICompletionBuilder Completion()
+    public ICompletionBuilder Completion(string prompt)
     {
-        return new CompletionsBuilder(_webClient, Configuration.ModelId);
+        return new CompletionsBuilder(_webClient, prompt);
     }
 
     public IEditBuilder Edit(string input, string instruction)
     {
-        return new EditBuilder(_webClient, Configuration.ModelId, input, instruction);
+        return new EditBuilder(_webClient, input, instruction);
     }
 
     public IModerationBuilder Moderation()
@@ -103,6 +110,5 @@ public class GptClient : IGptClient
         _webClient = webClient;
         Configuration = configuration;
         ImageClient = new ImageClient(_webClient);
-        FileClient = new FileClient(_webClient);
     }
 }

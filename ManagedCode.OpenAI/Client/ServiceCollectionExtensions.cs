@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.Extensions.DependencyInjection;
+
+[assembly: InternalsVisibleTo("ManagedCode.OpenAI.Tests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace ManagedCode.OpenAI.Client;
 

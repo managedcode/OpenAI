@@ -2,18 +2,20 @@
 
 public class GptClientBuilder : IGptClientBuilder
 {
-    private readonly string _apiKey;
-    private IGptClientConfiguration _configuration = new DefaultGptClientConfiguration();
-    private string? _organization;
 
     public GptClientBuilder(string apiKey)
     {
-        _apiKey = apiKey;
+        ApiKey = apiKey;
+        Configuration = new DefaultGptClientConfiguration();
     }
+
+    protected string ApiKey { get; set; }
+    protected IGptClientConfiguration Configuration { get; set; }
+    protected string? Organization { get; set; }
 
     public IGptClientBuilder WithOrganization(string organization)
     {
-        _organization = organization;
+        Organization = organization;
         return this;
     }
 
@@ -21,14 +23,13 @@ public class GptClientBuilder : IGptClientBuilder
     {
         var builder = new GptClientConfigurationBuilder();
         configuration.Invoke(builder);
-
-        _configuration = builder.Build();
+        Configuration = builder.Build();
         return this;
     }
 
-    public GptClient Build()
+    public virtual GptClient Build()
     {
-        var client = new GptClient(_apiKey, _configuration, _organization);
+        var client = new GptClient(ApiKey, Configuration, Organization);
         return client;
     }
 }

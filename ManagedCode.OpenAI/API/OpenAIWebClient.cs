@@ -1,10 +1,10 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using ManagedCode.OpenAI.API.Edit;
+using ManagedCode.OpenAI.API.Errors;
 using ManagedCode.OpenAI.API.File;
 using ManagedCode.OpenAI.API.Image;
 using ManagedCode.OpenAI.API.Moderation;
-using ManagedCode.OpenAI.Exceptions;
 
 namespace ManagedCode.OpenAI.API;
 
@@ -145,9 +145,27 @@ internal class OpenAiWebClient : IOpenAiWebClient
 
     private async Task<TModel> ReadAsync<TModel>(HttpResponseMessage response)
     {
-        OpenAIExceptions.ThrowsIfError(response.StatusCode);
+        if (!response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var error = JsonDeserialize<OpenAIErrorResponse>(responseContent).Error;
+            throw new OpenAIException(error.Message, error.Code, response.StatusCode);
+        }
+
         var responseBody = await response.Content.ReadAsStringAsync();
         return JsonDeserialize<TModel>(responseBody);
+    }
+
+    private async Task<string> ReadAsStringAsync(HttpResponseMessage response)
+    {
+        if (!response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var error = JsonDeserialize<OpenAIErrorResponse>(responseContent).Error;
+            throw new OpenAIException(error.Message, error.Code, response.StatusCode);
+        }
+
+        return await response.Content.ReadAsStringAsync();
     }
 
     private TModel JsonDeserialize<TModel>(string jsonStr)
@@ -170,7 +188,7 @@ internal class OpenAiWebClient : IOpenAiWebClient
             result.Add(new StringContent(request.User), "user");
 
         if (request.N.HasValue)
-            result.Add(new StringContent(request.N.Value.ToString()), "m");
+            result.Add(new StringContent(request.N.Value.ToString()), "n");
         return result;
     }
 
@@ -242,8 +260,7 @@ internal class OpenAiWebClient : IOpenAiWebClient
         var resultUrl = string.Format(URL_FILE_CONTEXT, fileId);
         var httpResponseMessage = await _httpClient.GetAsync(resultUrl);
 
-        OpenAIExceptions.ThrowsIfError(httpResponseMessage.StatusCode);
-        return await httpResponseMessage.Content.ReadAsStringAsync();
+        return await ReadAsStringAsync(httpResponseMessage);
     }
 
     #endregion
