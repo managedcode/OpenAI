@@ -7,7 +7,7 @@ namespace ManagedCode.OpenAI.Chat;
 internal class GptChat : IGptChat
 {
     private const RoleType DEFAULT_ROLE = RoleType.User;
-    private const GptModel DEFAULT_MODEL = GptModel.Turbo;
+    private const GptModel DEFAULT_MODEL = GptModel.Gpt35Turbo;
     private readonly IChatMessageParameters _defaultMessageParameters;
 
     private readonly IOpenAiWebClient _webClient;

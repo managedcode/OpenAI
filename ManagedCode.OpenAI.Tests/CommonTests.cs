@@ -19,8 +19,8 @@ public class CommonTests
     [Fact]
     public async Task UploadFile_Success()
     {
-        var enumValue = GptModel.Turbo0301;
+        var enumValue = GptModel.Gpt40613;
         var enumName = enumValue.Name(); // Enum.GetName(enumValue);
-        enumName.Should().Be("gpt-3.5-turbo-0301");
+        enumName.Should().Be("gpt-4-0613");
     }
 }

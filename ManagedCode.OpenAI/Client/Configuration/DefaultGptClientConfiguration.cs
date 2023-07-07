@@ -4,7 +4,7 @@ namespace ManagedCode.OpenAI.Client;
 
 public class DefaultGptClientConfiguration : IGptClientConfiguration
 {
-    private const GptModel DEFAULT_MODEL = GptModel.Turbo;
+    private const GptModel DEFAULT_MODEL = GptModel.Gpt35Turbo;
 
     public DefaultGptClientConfiguration()
     {
