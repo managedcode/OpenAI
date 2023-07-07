@@ -5,13 +5,38 @@ namespace ManagedCode.OpenAI.Client;
 
 public enum GptModel
 {
+
+    [EnumMember(Value = "gpt-4")]
+    [Description("gpt-4")]
+    Gpt4,
+
+    [EnumMember(Value = "gpt-4-0613")]
+    [Description("gpt-4-0613")]
+    Gpt40613,
+
+    [EnumMember(Value = "gpt-4-32k")]
+    [Description("gpt-4-32k")]
+    Gpt432k,
+
+    [EnumMember(Value = "gpt-4-32k-0613")]
+    [Description("gpt-4-32k-0613")]
+    Gpt432k0613,
+
     [EnumMember(Value = "gpt-3.5-turbo")]
     [Description("gpt-3.5-turbo")]
-    Turbo,
+    Gpt35Turbo,
 
-    [EnumMember(Value = "gpt-3.5-turbo-0301")]
-    [Description("gpt-3.5-turbo-0301")]
-    Turbo0301,
+    [EnumMember(Value = "gpt-3.5-turbo-16k")]
+    [Description("gpt-3.5-turbo-16k")]
+    Gpt35Turbo16k,
+
+    [EnumMember(Value = "gpt-3.5-turbo-0613")]
+    [Description("gpt-3.5-turbo-0613")]
+    Gpt35Turbo0613,
+
+    [EnumMember(Value = "gpt-3.5-turbo-16k-0613")]
+    [Description("gpt-3.5-turbo-16k-0613")]
+    Gpt35Turbo16k0613,
 
     [EnumMember(Value = "text-davinci-003")]
     [Description("text-davinci-003")]
