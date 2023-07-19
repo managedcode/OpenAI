@@ -4,20 +4,22 @@ using ManagedCode.OpenAI.Client;
 
 namespace ManagedCode.OpenAI.Chat;
 
-public class AzureOpenAIChat : IAzureOpenAIChat
+public class AzureOpenAIChat : IOpenAiChat
 {
     private readonly ChatRole ChatRole = ChatRole.System;
     
     private OpenAIClient _client;
     private ChatCompletionsOptions _options;
-
+    
     public AzureOpenAIChat(OpenAIClient client, ChatCompletionsOptions options)
     {
         _client = client;
         _options = options;
     }
+
+    public IChatSession Session { get; }
     
-    public async Task<string> AskAsync(string message)
+    public async Task<IAnswer<IChatMessage>> AskAsync(string message)
     {
         _options.Messages.Add(new Azure.AI.OpenAI.ChatMessage(ChatRole, message));
 
@@ -30,20 +32,20 @@ public class AzureOpenAIChat : IAzureOpenAIChat
         string fullresponse = completions.Choices[0].Message.Content;
         _options.Messages.Add(completions.Choices[0].Message);
 
-        return fullresponse;
+        return response.Value.ToChatAnswer();
     }
 
-    public Task<string> AskAsync(string message, IChatMessageParameters parameters)
+    public Task<IAnswer<IChatMessage>> AskAsync(string message, IChatMessageParameters parameters)
     {
         throw new NotImplementedException();
     }
 
-    public Task<string> AskMultipleAsync(string message, int countOfAnswers)
+    public Task<IAnswer<IChatMessage[]>> AskMultipleAsync(string message, int countOfAnswers)
     {
         throw new NotImplementedException();
     }
 
-    public Task<string> AskMultipleAsync(string message, int countOfAnswers, IChatMessageParameters parameters)
+    public Task<IAnswer<IChatMessage[]>> AskMultipleAsync(string message, int countOfAnswers, IChatMessageParameters parameters)
     {
         throw new NotImplementedException();
     }

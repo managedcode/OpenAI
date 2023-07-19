@@ -7,10 +7,10 @@ using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client;
 
-public class GptClient : IGptClient
+public class GptClient : IOpenAIClient
 {
     private IOpenAiWebClient _webClient = null!;
-
+    
     public GptClient(string apiKey)
     {
         Init(apiKey, default, new DefaultGptClientConfiguration());
@@ -76,7 +76,7 @@ public class GptClient : IGptClient
         return model.ToModel();
     }
 
-    public IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session)
+    public IOpenAiChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session)
     {
         return new GptChat(_webClient, session, defaultMessageParameters);
     }

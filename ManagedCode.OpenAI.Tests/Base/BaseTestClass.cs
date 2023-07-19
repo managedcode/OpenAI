@@ -17,7 +17,7 @@ namespace ManagedCode.OpenAI.Tests.Base
 
         public ITestOutputHelper Output { get; }
         internal ITestGptClientBuilder ClientBuilder { get; }
-        internal IAzureOpenAiClientBuilder AzureClientBuilder { get; } = new AzureOpenAiClientBuilder();
+        //internal IAzureOpenAiClientBuilder AzureClientBuilder { get; } = new AzureOpenAiClientBuilder();
 
         protected void Log(string message)
         {

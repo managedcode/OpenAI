@@ -4,7 +4,7 @@ using ManagedCode.OpenAI.Extensions;
 
 namespace ManagedCode.OpenAI.Chat;
 
-internal class GptChat : IGptChat
+internal class GptChat : IOpenAiChat
 {
     private const RoleType DEFAULT_ROLE = RoleType.User;
     private const GptModel DEFAULT_MODEL = GptModel.Gpt35Turbo;

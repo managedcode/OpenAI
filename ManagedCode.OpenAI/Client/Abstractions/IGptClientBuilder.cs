@@ -6,5 +6,5 @@ public interface IGptClientBuilder
 
     public IGptClientBuilder Configure(Action<IGptClientConfigurationBuilder> configuration);
 
-    public GptClient Build();
+    public IOpenAIClient Build();
 }

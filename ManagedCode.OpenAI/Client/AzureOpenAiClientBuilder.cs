@@ -10,10 +10,9 @@ public class AzureOpenAiClientBuilder : IAzureOpenAiClientBuilder
     private OpenAIClient _client;
     private ChatCompletionsOptions _options;
 
-    public IAzureOpenAiClientBuilder InitializateClient(Uri uri, AzureKeyCredential credential)
+    public AzureOpenAiClientBuilder(Uri uri, AzureKeyCredential credential)
     {
         _client = new OpenAIClient(uri, credential);
-        return this;
     }
     
     public IAzureOpenAiClientBuilder Configure(ChatCompletionsOptions options)
@@ -22,8 +21,8 @@ public class AzureOpenAiClientBuilder : IAzureOpenAiClientBuilder
         return this;
     }
 
-    public AzureOpenAIChat Build()
+    public IOpenAIClient Build()
     {
-        return new AzureOpenAIChat(_client, _options);
+        return new AzureOpenAiClient(_client, _options);
     }
 }

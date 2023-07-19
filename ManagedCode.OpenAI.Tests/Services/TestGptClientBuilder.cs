@@ -35,7 +35,7 @@ namespace ManagedCode.OpenAI.Tests.Services
                 return new GptClient(Configuration, mock.Object);
             }
 
-            return base.Build();
+            return (GptClient)base.Build();
         }
     }
 }

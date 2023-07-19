@@ -27,7 +27,7 @@ public class GptClientBuilder : IGptClientBuilder
         return this;
     }
 
-    public virtual GptClient Build()
+    public virtual IOpenAIClient Build()
     {
         var client = new GptClient(ApiKey, Configuration, Organization);
         return client;
