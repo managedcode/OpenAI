@@ -2,7 +2,7 @@
 
 namespace ManagedCode.OpenAI.Chat;
 
-public interface IGptChat
+public interface IOpenAiChat
 {
     public IChatSession Session { get; }
 

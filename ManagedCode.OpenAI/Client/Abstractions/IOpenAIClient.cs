@@ -6,7 +6,7 @@ using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client;
 
-public interface IGptClient
+public interface IOpenAIClient
 {
     public IGptClientConfiguration Configuration { get; }
 
@@ -18,7 +18,7 @@ public interface IGptClient
     public Task<IModel[]> GetModelsAsync();
     public Task<IModel> GetModelAsync(string modelId);
 
-    IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
+    IOpenAiChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
     ICompletionBuilder Completion(string prompt);
     IEditBuilder Edit(string input, string instruction);
     IModerationBuilder Moderation();

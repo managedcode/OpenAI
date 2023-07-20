@@ -1,6 +1,8 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
 using FluentAssertions;
+using ManagedCode.OpenAI.Chat;
+using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Tests.Attributes;
 using ManagedCode.OpenAI.Tests.Base;
 using Microsoft.Extensions.Configuration;
@@ -19,9 +21,6 @@ public class AzureOpenAIChatTests : BaseTestClass
     [Fact]
     public async Task AskSingle_Success()
     {
-        var uri = new Uri("");
-        var cred = new AzureKeyCredential("");
-
         var options = new ChatCompletionsOptions
         {
             MaxTokens = 400,
@@ -31,9 +30,15 @@ public class AzureOpenAIChatTests : BaseTestClass
             NucleusSamplingFactor = 0.95f // Top P
         };
         
-        var chat = AzureClientBuilder.InitializateClient(uri, cred)
+        var client = AzureOpenAiClient.Builder(
+            new Uri(""),
+            new AzureKeyCredential(""))
             .Configure(options)
             .Build();
+        
+        var chat = client.OpenChat();
+
+        await chat.AskAsync("grg");
 
         var response = await chat.AskAsync("How are you?");
         var response2 = await chat.AskAsync("Tell me what is C#");

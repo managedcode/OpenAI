@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>true</IsPackable>
+        <LangVersion>11</LangVersion>
+    </PropertyGroup>
+
+    <!--NuGet-->
+    <PropertyGroup>
+        <Title>ManagedCode.OpenAI.Azure</Title>
+        <PackageId>ManagedCode.OpenAI.Azure</PackageId>
+        <Description>OpenAI</Description>
+        <PackageTags>managedcode, OpenAI, ChatGPT, API</PackageTags>
+    </PropertyGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="ManagedCode.OpenAI.Tests" />
+        <PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.5" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ManagedCode.OpenAI\ManagedCode.OpenAI.csproj" />
+    </ItemGroup>
+
+</Project>
