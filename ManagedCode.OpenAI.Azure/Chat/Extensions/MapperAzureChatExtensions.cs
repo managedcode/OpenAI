@@ -1,9 +1,10 @@
-﻿using Azure;
+﻿
 using Azure.AI.OpenAI;
-using ManagedCode.OpenAI.API;
+using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
+using ChatMessage = ManagedCode.OpenAI.Chat.ChatMessage;
 
-namespace ManagedCode.OpenAI.Chat;
+namespace ManagedCode.OpenAI.Azure.Chat;
 
 internal static class MapperAzureChatExtensions
 {

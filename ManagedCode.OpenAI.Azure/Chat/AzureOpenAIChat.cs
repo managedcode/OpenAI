@@ -1,8 +1,10 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
+using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
+using ChatMessage = Azure.AI.OpenAI.ChatMessage;
 
-namespace ManagedCode.OpenAI.Chat;
+namespace ManagedCode.OpenAI.Azure.Chat;
 
 public class AzureOpenAIChat : IOpenAiChat
 {
@@ -21,7 +23,7 @@ public class AzureOpenAIChat : IOpenAiChat
     
     public async Task<IAnswer<IChatMessage>> AskAsync(string message)
     {
-        _options.Messages.Add(new Azure.AI.OpenAI.ChatMessage(ChatRole, message));
+        _options.Messages.Add(new ChatMessage(ChatRole, message));
 
         Response<ChatCompletions> response =
             await _client.GetChatCompletionsAsync(

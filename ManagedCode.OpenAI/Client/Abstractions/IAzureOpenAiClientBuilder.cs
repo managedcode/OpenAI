@@ -1,8 +1,7 @@
-﻿using Azure;
-using Azure.AI.OpenAI;
-using ManagedCode.OpenAI.Chat;
+﻿using Azure.AI.OpenAI;
+using ManagedCode.OpenAI.Client;
 
-namespace ManagedCode.OpenAI.Client;
+namespace ManagedCode.OpenAI.Azure.Client;
 
 public interface IAzureOpenAiClientBuilder
 {

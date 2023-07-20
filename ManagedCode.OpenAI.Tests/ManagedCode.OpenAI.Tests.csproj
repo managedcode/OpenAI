@@ -45,6 +45,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\ManagedCode.OpenAI.Azure\ManagedCode.OpenAI.Azure.csproj" />
         <ProjectReference Include="..\ManagedCode.OpenAI\ManagedCode.OpenAI.csproj" />
     </ItemGroup>
 

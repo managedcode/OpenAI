@@ -1,8 +1,10 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
+using ManagedCode.OpenAI.Azure.Chat;
 using ManagedCode.OpenAI.Chat;
+using ManagedCode.OpenAI.Client;
 
-namespace ManagedCode.OpenAI.Client;
+namespace ManagedCode.OpenAI.Azure.Client;
 
 public class AzureOpenAiClientBuilder : IAzureOpenAiClientBuilder
 {
@@ -28,7 +30,7 @@ public class AzureOpenAiClientBuilder : IAzureOpenAiClientBuilder
         return this;
     }
 
-    public IOpenAIClient<ChatCompletionsOptions, ChatCompletionsOptions> Build()
+    public IOpenAIClient Build()
     {
         return new AzureOpenAiClient(_client, _options);
     }

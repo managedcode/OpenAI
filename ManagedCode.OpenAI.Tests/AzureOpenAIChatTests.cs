@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
 using FluentAssertions;
+using ManagedCode.OpenAI.Azure.Client;
 using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Tests.Attributes;

@@ -1,34 +1,38 @@
-﻿using System.Security.Cryptography;
+﻿
+
 using Azure;
 using Azure.AI.OpenAI;
+using ManagedCode.OpenAI.Azure.Chat;
 using ManagedCode.OpenAI.Chat;
+using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Completions;
 using ManagedCode.OpenAI.Edit;
 using ManagedCode.OpenAI.Image;
 using ManagedCode.OpenAI.Moderation;
 
-namespace ManagedCode.OpenAI.Client;
+namespace ManagedCode.OpenAI.Azure.Client;
 
-public class AzureOpenAiClient : IOpenAIClient<ChatCompletionsOptions, ChatCompletionsOptions>
+public class AzureOpenAiClient : IOpenAIClient
 {
     private OpenAIClient _client;
     private ChatCompletionsOptions _options;
-    
-    public ChatCompletionsOptions Configuration { get; private set; } = null!;
+
+    public IGptClientConfiguration Configuration { get; }
     public IImageClient ImageClient { get; }
     
     public AzureOpenAiClient(OpenAIClient client, ChatCompletionsOptions options)
     {
         _client = client;
-        Configuration = options; //hard code
+        _options = options;
+        //Configuration = options; //hard code
     }
     
-    public void Configure(ChatCompletionsOptions configuration)
+    public void Configure(IGptClientConfiguration configuration)
     {
         throw new NotImplementedException();
     }
 
-    public void Configure(Func<ChatCompletionsOptions, ChatCompletionsOptions> configuration)
+    public void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration)
     {
         throw new NotImplementedException();
     }
