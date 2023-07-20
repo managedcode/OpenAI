@@ -24,7 +24,6 @@ public class AzureOpenAiClient : IOpenAIClient
     {
         _client = client;
         _options = options;
-        //Configuration = options; //hard code
     }
     
     public void Configure(IGptClientConfiguration configuration)

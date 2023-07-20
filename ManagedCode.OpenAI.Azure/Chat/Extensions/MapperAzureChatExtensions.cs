@@ -24,7 +24,7 @@ internal static class MapperAzureChatExtensions
             Created = dto.Created.GetHashCode()
         };
     }
-    
+
     public static IChatMessage ToChatMessage(this ChatChoice dto)
     {
         return new ChatMessage
