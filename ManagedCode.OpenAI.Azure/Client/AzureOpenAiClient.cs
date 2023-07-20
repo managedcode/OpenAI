@@ -12,26 +12,24 @@ using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Azure.Client;
 
-public class AzureOpenAiClient : IOpenAIClient
+public class AzureOpenAiClient : IOpenAIClient<ChatCompletionsOptions, IAzureOpenAiConfigurationBuilder>
 {
     private OpenAIClient _client;
-    private ChatCompletionsOptions _options;
-
-    public IGptClientConfiguration Configuration { get; }
+    public ChatCompletionsOptions Configuration { get; }
     public IImageClient ImageClient { get; }
     
     public AzureOpenAiClient(OpenAIClient client, ChatCompletionsOptions options)
     {
         _client = client;
-        _options = options;
+        Configuration = options;
     }
     
-    public void Configure(IGptClientConfiguration configuration)
+    public void Configure(ChatCompletionsOptions configuration)
     {
         throw new NotImplementedException();
     }
 
-    public void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration)
+    public void Configure(Func<IAzureOpenAiConfigurationBuilder, ChatCompletionsOptions> configuration)
     {
         throw new NotImplementedException();
     }
@@ -48,7 +46,7 @@ public class AzureOpenAiClient : IOpenAIClient
 
     public IOpenAiChat OpenChat(IChatMessageParameters defaultMessageParameters = null, IChatSession session = null)
     {
-        return new AzureOpenAIChat(_client, _options);
+        return new AzureOpenAIChat(_client, Configuration);
     }
 
     public ICompletionBuilder Completion(string prompt)

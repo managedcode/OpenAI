@@ -6,7 +6,7 @@ namespace ManagedCode.OpenAI.Tests.Extensions
 {
     internal static class MockExtensions
     {
-        public static IOpenAIClient Client(this Mock<IOpenAiWebClient> webClient)
+        public static IOpenAIClient<IGptClientConfiguration, IGptClientConfigurationBuilder> Client(this Mock<IOpenAiWebClient> webClient)
         {
             throw new NullReferenceException();
         }

@@ -7,18 +7,18 @@ public static class ServiceCollectionExtensions
 {
     public static void AddOpenAI(this IServiceCollection collection, string apiKey)
     {
-        collection.AddSingleton<IOpenAIClient>(s => new GptClient(apiKey));
+        collection.AddSingleton<IOpenAIClient<IGptClientConfiguration, IGptClientConfigurationBuilder>>(s => new GptClient(apiKey));
     }
 
     public static void AddOpenAI(this IServiceCollection collection, string apiKey, string organization)
     {
-        collection.AddSingleton<IOpenAIClient>(s => new GptClient(apiKey, organization));
+        collection.AddSingleton<IOpenAIClient<IGptClientConfiguration, IGptClientConfigurationBuilder>>(s => new GptClient(apiKey, organization));
     }
 
     public static void AddOpenAI(this IServiceCollection collection, string apiKey,
         IGptClientConfiguration configuration)
     {
-        collection.AddSingleton<IOpenAIClient>(s => new GptClient(apiKey, configuration));
+        collection.AddSingleton<IOpenAIClient<IGptClientConfiguration, IGptClientConfigurationBuilder>>(s => new GptClient(apiKey, configuration));
     }
 
     public static void AddOpenAI(this IServiceCollection collection, string apiKey,
@@ -26,6 +26,6 @@ public static class ServiceCollectionExtensions
     {
         var config = new DefaultGptClientConfiguration();
         configuration.Invoke(config);
-        collection.AddSingleton<IOpenAIClient>(s => new GptClient(apiKey, config));
+        collection.AddSingleton<IOpenAIClient<IGptClientConfiguration, IGptClientConfigurationBuilder>>(s => new GptClient(apiKey, config));
     }
 }

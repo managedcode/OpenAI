@@ -6,14 +6,14 @@ using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client;
 
-public interface IOpenAIClient
+public interface IOpenAIClient<TConf, TConfBuilder>
 {
-    public IGptClientConfiguration Configuration { get; }
+    public TConf Configuration { get; }
 
     public IImageClient ImageClient { get; }
 
-    void Configure(IGptClientConfiguration configuration);
-    void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration);
+    void Configure(TConf configuration);
+    void Configure(Func<TConfBuilder, TConf> configuration);
 
     public Task<IModel[]> GetModelsAsync();
     public Task<IModel> GetModelAsync(string modelId);

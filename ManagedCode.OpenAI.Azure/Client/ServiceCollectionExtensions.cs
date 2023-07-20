@@ -10,14 +10,14 @@ public static class ServiceCollectionExtensions
 {
     public static void AddOpenAI(this IServiceCollection collection, string apiKey)
     {
-        collection.AddSingleton<IOpenAIClient>(s => new GptClient(apiKey));
+        //collection.AddSingleton<IOpenAIClient>(s => new GptClient(apiKey));
     }
 
     public static void AddOpenAI(this IServiceCollection collection, string apiKey,
         Action<IGptClientBuilder> build)
     {
-        var builder = new GptClientBuilder(apiKey);
-        build.Invoke(builder);
-        collection.AddSingleton<IOpenAIClient>(s => builder.Build());
+        //var builder = new GptClientBuilder(apiKey);
+        //build.Invoke(builder);
+       //collection.AddSingleton<IOpenAIClient>(s => builder.Build());
     }
 }

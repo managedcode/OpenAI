@@ -30,7 +30,7 @@ public class AzureOpenAiClientBuilder : IAzureOpenAiClientBuilder
         return this;
     }
 
-    public IOpenAIClient Build()
+    public IOpenAIClient<ChatCompletionsOptions, IAzureOpenAiConfigurationBuilder> Build()
     {
         return new AzureOpenAiClient(_client, _options);
     }

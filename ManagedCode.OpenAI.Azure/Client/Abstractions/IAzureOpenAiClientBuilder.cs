@@ -6,5 +6,5 @@ namespace ManagedCode.OpenAI.Azure.Client;
 public interface IAzureOpenAiClientBuilder
 {
     public IAzureOpenAiClientBuilder Configure(ChatCompletionsOptions options);
-    public IOpenAIClient Build();
+    public IOpenAIClient<ChatCompletionsOptions, IAzureOpenAiConfigurationBuilder> Build();
 }

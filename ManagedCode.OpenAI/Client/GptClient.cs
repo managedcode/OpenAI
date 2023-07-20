@@ -7,7 +7,7 @@ using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client;
 
-public class GptClient : IOpenAIClient
+public class GptClient : IOpenAIClient<IGptClientConfiguration, IGptClientConfigurationBuilder>
 {
     private IOpenAiWebClient _webClient = null!;
     

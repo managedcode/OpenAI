@@ -37,7 +37,7 @@ public class AzureOpenAIChatTests : BaseTestClass
             .Configure(options)
             .Build();
         
-        var chat = client.OpenChat();
+        var chat = client.OpenChat(new ChatMessageParameters(), new ChatSession());
 
         await chat.AskAsync("grg");
 

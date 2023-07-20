@@ -6,5 +6,5 @@ public interface IGptClientBuilder
 
     public IGptClientBuilder Configure(Action<IGptClientConfigurationBuilder> configuration);
 
-    public IOpenAIClient Build();
+    public IOpenAIClient<IGptClientConfiguration, IGptClientConfigurationBuilder> Build();
 }
