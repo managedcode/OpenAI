@@ -1,4 +1,5 @@
-﻿using ManagedCode.OpenAI.Client;
+﻿using Azure.AI.OpenAI;
+using ManagedCode.OpenAI.Client;
 
 namespace ManagedCode.OpenAI.Chat;
 
