@@ -7,40 +7,40 @@ using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client;
 
-public class GptClient : IGptClient
+public class GptClient : IOpenAIClient
 {
     private IOpenAiWebClient _webClient = null!;
-
+    
     public GptClient(string apiKey)
     {
-        Init(apiKey, default, new DefaultGptClientConfiguration());
+        Init(apiKey, default, new DefaultOpenAiClientConfiguration());
     }
 
-    public GptClient(string apiKey, IGptClientConfiguration configuration)
+    public GptClient(string apiKey, IOpenAiClientConfiguration configuration)
     {
         Init(apiKey, default, configuration);
     }
 
     public GptClient(string apiKey, string organization)
     {
-        Init(apiKey, organization, new DefaultGptClientConfiguration());
+        Init(apiKey, organization, new DefaultOpenAiClientConfiguration());
     }
 
-    public GptClient(string apiKey, string organization, IGptClientConfiguration configuration)
+    public GptClient(string apiKey, string organization, IOpenAiClientConfiguration configuration)
     {
         Init(apiKey, organization, configuration);
     }
 
 
-    internal GptClient(string apiKey, IGptClientConfiguration configuration, string? organization)
+    internal GptClient(string apiKey, IOpenAiClientConfiguration configuration, string? organization)
     {
         Init(apiKey, organization, configuration);
     }
 
-    internal GptClient(IGptClientConfiguration configuration, IOpenAiWebClient webClient)
+    internal GptClient(IOpenAiClientConfiguration configuration, IOpenAiWebClient webClient)
     {
         _webClient = webClient;
-        Configuration = new DefaultGptClientConfiguration();
+        Configuration = new DefaultOpenAiClientConfiguration();
         ImageClient = new ImageClient(_webClient);
         Configuration = configuration;
     }
@@ -50,17 +50,17 @@ public class GptClient : IGptClient
     }
 
 
-    public IGptClientConfiguration Configuration { get; private set; } = null!;
+    public IOpenAiClientConfiguration Configuration { get; private set; } = null!;
     public IImageClient ImageClient { get; private set; } = null!;
 
-    public void Configure(IGptClientConfiguration configuration)
+    public void Configure(IOpenAiClientConfiguration configuration)
     {
         Configuration = configuration;
     }
 
-    public void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration)
+    public void Configure(Func<IOpenAiClientConfigurationBuilder, IOpenAiClientConfiguration> configuration)
     {
-        var builder = new GptClientConfigurationBuilder();
+        var builder = new OpenAiClientConfigurationBuilder();
         Configure(configuration.Invoke(builder));
     }
 
@@ -76,7 +76,7 @@ public class GptClient : IGptClient
         return model.ToModel();
     }
 
-    public IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session)
+    public IOpenAiChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session)
     {
         return new GptChat(_webClient, session, defaultMessageParameters);
     }
@@ -101,7 +101,7 @@ public class GptClient : IGptClient
         return new GptClientBuilder(apiKey);
     }
 
-    private void Init(string apiKey, string? organization, IGptClientConfiguration configuration)
+    private void Init(string apiKey, string? organization, IOpenAiClientConfiguration configuration)
     {
         var webClient = string.IsNullOrWhiteSpace(organization)
             ? new OpenAiWebClient(apiKey)

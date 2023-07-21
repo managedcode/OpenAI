@@ -4,7 +4,7 @@ public interface IGptClientBuilder
 {
     public IGptClientBuilder WithOrganization(string organization);
 
-    public IGptClientBuilder Configure(Action<IGptClientConfigurationBuilder> configuration);
+    public IGptClientBuilder Configure(Action<IOpenAiClientConfigurationBuilder> configuration);
 
-    public GptClient Build();
+    public IOpenAIClient Build();
 }

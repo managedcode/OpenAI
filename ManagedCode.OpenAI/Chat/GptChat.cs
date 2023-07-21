@@ -4,7 +4,7 @@ using ManagedCode.OpenAI.Extensions;
 
 namespace ManagedCode.OpenAI.Chat;
 
-internal class GptChat : IGptChat
+internal class GptChat : IOpenAiChat
 {
     private const RoleType DEFAULT_ROLE = RoleType.User;
     private const GptModel DEFAULT_MODEL = GptModel.Gpt35Turbo;
@@ -51,6 +51,11 @@ internal class GptChat : IGptChat
 
         UpdateSession(response, askMessage);
         return response.ToChatAnswerCollection();
+    }
+
+    public Task<IAnswer<IChatMessage>> AskMultipleAsync(IChatSessionRecord[] records, IChatMessageParameters parameters)
+    {
+        throw new NotImplementedException();
     }
 
     private void UpdateSession(ChatResponseDto response, MessageDto askMessage)

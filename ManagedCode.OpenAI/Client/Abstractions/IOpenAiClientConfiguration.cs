@@ -1,6 +1,6 @@
 ﻿namespace ManagedCode.OpenAI.Client;
 
-public interface IGptClientConfiguration
+public interface IOpenAiClientConfiguration
 {
     public string ModelId { get; }
 }

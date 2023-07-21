@@ -10,16 +10,21 @@
 
     <!--NuGet-->
     <PropertyGroup>
-        <Title>ManagedCode.OpenAI</Title>
-        <PackageId>ManagedCode.OpenAI</PackageId>
+        <Title>ManagedCode.OpenAI.Azure</Title>
+        <PackageId>ManagedCode.OpenAI.Azure</PackageId>
         <Description>OpenAI</Description>
         <PackageTags>managedcode, OpenAI, ChatGPT, API</PackageTags>
     </PropertyGroup>
     <ItemGroup>
-        <InternalsVisibleTo Include="ManagedCode.OpenAI.Azure" />
         <InternalsVisibleTo Include="ManagedCode.OpenAI.Tests" />
         <PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.5" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ManagedCode.OpenAI\ManagedCode.OpenAI.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Client\Extensions\" />
     </ItemGroup>
 
 </Project>

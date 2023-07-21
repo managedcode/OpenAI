@@ -6,19 +6,19 @@ using ManagedCode.OpenAI.Moderation;
 
 namespace ManagedCode.OpenAI.Client;
 
-public interface IGptClient
+public interface IOpenAIClient
 {
-    public IGptClientConfiguration Configuration { get; }
+    public IOpenAiClientConfiguration Configuration { get; }
 
     public IImageClient ImageClient { get; }
 
-    void Configure(IGptClientConfiguration configuration);
-    void Configure(Func<IGptClientConfigurationBuilder, IGptClientConfiguration> configuration);
+    void Configure(IOpenAiClientConfiguration configuration);
+    void Configure(Func<IOpenAiClientConfigurationBuilder, IOpenAiClientConfiguration> configuration);
 
     public Task<IModel[]> GetModelsAsync();
     public Task<IModel> GetModelAsync(string modelId);
 
-    IGptChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
+    IOpenAiChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session);
     ICompletionBuilder Completion(string prompt);
     IEditBuilder Edit(string input, string instruction);
     IModerationBuilder Moderation();

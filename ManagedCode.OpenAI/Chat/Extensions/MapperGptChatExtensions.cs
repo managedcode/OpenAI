@@ -3,7 +3,7 @@ using ManagedCode.OpenAI.Client;
 
 namespace ManagedCode.OpenAI.Chat;
 
-internal static class MapperChatExtensions
+internal static class MapperGptChatExtensions
 {
     public static IPermission ToPermission(this PermissionDto dto)
     {
