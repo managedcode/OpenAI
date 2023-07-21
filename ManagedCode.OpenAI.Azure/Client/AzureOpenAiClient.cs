@@ -26,26 +26,22 @@ public class AzureOpenAiClient : IOpenAIClient
     
     public void Configure(IOpenAiClientConfiguration configuration)
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public void Configure(Func<IOpenAiClientConfigurationBuilder, IOpenAiClientConfiguration> configuration)
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public Task<IModel[]> GetModelsAsync()
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public Task<IModel> GetModelAsync(string modelId)
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public IOpenAiChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session)
@@ -55,20 +51,17 @@ public class AzureOpenAiClient : IOpenAIClient
 
     public ICompletionBuilder Completion(string prompt)
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public IEditBuilder Edit(string input, string instruction)
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public IModerationBuilder Moderation()
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public static IAzureOpenAiClientBuilder Builder(Uri uri, AzureKeyCredential credential)

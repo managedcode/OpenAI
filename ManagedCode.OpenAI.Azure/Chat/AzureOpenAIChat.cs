@@ -71,14 +71,12 @@ public class AzureOpenAIChat : IOpenAiChat
 
     public Task<IAnswer<IChatMessage[]>> AskMultipleAsync(string message, int countOfAnswers)
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public Task<IAnswer<IChatMessage[]>> AskMultipleAsync(string message, int countOfAnswers, IChatMessageParameters parameters)
     {
-        //will be implemented in future versions
-        throw new NotSupportedException();
+        throw new NotSupportedException("Will be implemented in future versions");
     }
 
     public async Task<IAnswer<IChatMessage>> AskMultipleAsync(IChatSessionRecord[] records, IChatMessageParameters parameters)
