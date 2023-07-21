@@ -21,6 +21,9 @@ public class ChatMessageParameters : IChatMessageParameters
 
     [Range(-2f, 2f)]
     public float? FrequencyPenalty { get; set; }
+    
+    [Range(0, 1f)]
+    public float? NucleusSamplingFactor { get; set; }
 
     public Dictionary<string, int>? LogitBias { get; set; }
     public string? User { get; set; }

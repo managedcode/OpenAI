@@ -8,30 +8,24 @@ namespace ManagedCode.OpenAI.Azure.Client;
 
 public class AzureOpenAiClientBuilder : IAzureOpenAiClientBuilder
 {
-    private AzureOpenAIChat _chat;
-    private OpenAIClient _client;
-    private ChatCompletionsOptions _options;
+    private OpenAIClient Client;
+    protected IOpenAiClientConfiguration Configuration { get; set; }
+
     public AzureOpenAiClientBuilder(Uri uri, AzureKeyCredential credential)
     {
-        _client = new OpenAIClient(uri, credential);
-        _options = new ChatCompletionsOptions
-        {
-            MaxTokens = 400,
-            Temperature = 1f,
-            FrequencyPenalty = 0.0f,
-            PresencePenalty = 0.0f,
-            NucleusSamplingFactor = 0.95f // Top P
-        };
+        Client = new OpenAIClient(uri, credential);
     }
-    
-    public IAzureOpenAiClientBuilder Configure(ChatCompletionsOptions options)
+
+    public IAzureOpenAiClientBuilder Configure(Action<IOpenAiClientConfigurationBuilder> configuration)
     {
-        _options = options;
+        var builder = new OpenAiClientConfigurationBuilder();
+        configuration.Invoke(builder);
+        Configuration = builder.Build();
         return this;
     }
 
-    public IOpenAIClient<ChatCompletionsOptions, IAzureOpenAiConfigurationBuilder> Build()
+    public IOpenAIClient Build()
     {
-        return new AzureOpenAiClient(_client, _options);
+        return new AzureOpenAiClient(Client, Configuration);
     }
 }

@@ -14,4 +14,7 @@ public interface IOpenAiChat
 
     public Task<IAnswer<IChatMessage[]>> AskMultipleAsync(string message, int countOfAnswers,
         IChatMessageParameters parameters);
+    
+    public Task<IAnswer<IChatMessage>> AskMultipleAsync(IChatSessionRecord[] records,
+        IChatMessageParameters parameters);
 }

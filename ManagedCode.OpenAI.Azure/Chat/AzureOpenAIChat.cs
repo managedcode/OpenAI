@@ -9,38 +9,52 @@ namespace ManagedCode.OpenAI.Azure.Chat;
 public class AzureOpenAIChat : IOpenAiChat
 {
     private OpenAIClient _client;
-    private ChatCompletionsOptions _options;
+    private IOpenAiClientConfiguration _configuration;
+    private IChatMessageParameters _parameters;
+    private IChatSession _session;
     
-    public AzureOpenAIChat(OpenAIClient client, ChatCompletionsOptions options)
+    public AzureOpenAIChat(OpenAIClient client, IOpenAiClientConfiguration configuration, IChatMessageParameters parameters, IChatSession session)
     {
         _client = client;
-        _options = options;
+        _configuration = configuration;
+        _parameters = parameters;
+        _session = session;
     }
 
     public IChatSession Session { get; }
     
     public async Task<IAnswer<IChatMessage>> AskAsync(string message)
     {
-        return await AskAsync(message, new ChatMessageParameters());
+        return await AskAsync(message, _parameters);
     }
 
     public async Task<IAnswer<IChatMessage>> AskAsync(string message, ChatRole role)
     {
-        return await AskAsync(message, new ChatMessageParameters() { Role = role.ToString() });
+        _session.AddRecord(new ChatSessionRecord(){ Content = message, Role = role.ToString() });
+
+        Response<ChatCompletions> response =
+            await _client.GetChatCompletionsAsync(
+                _configuration.ModelId,
+                ToAzureOptions(_parameters, _session));
+
+        ChatCompletions completions  = response.Value;
+        string fullresponse = completions.Choices[0].Message.Content;
+        _session.AddRecord(new ChatSessionRecord(){Content = completions.Choices[0].Message.Content, Role = role.ToString() });
+
+        return response.Value.ToChatAnswer();
     }
     
     public async Task<IAnswer<IChatMessage>> AskAsync(string message, IChatMessageParameters parameters)
     {
-        _options.Messages.Add(new ChatMessage(parameters.Role, message));
-
+        _session.AddRecord(new ChatSessionRecord(){ Content = message, Role = _parameters.Role });
+        
         Response<ChatCompletions> response =
             await _client.GetChatCompletionsAsync(
-                "gpt-35-turbo",
-                _options);
+                _configuration.ModelId,
+                ToAzureOptions(_parameters, _session));
 
         ChatCompletions completions  = response.Value;
-        string fullresponse = completions.Choices[0].Message.Content;
-        _options.Messages.Add(completions.Choices[0].Message);
+        _session.AddRecord(new ChatSessionRecord(){Content = completions.Choices[0].Message.Content, Role = parameters.Role });
 
         return response.Value.ToChatAnswer();
     }
@@ -54,41 +68,41 @@ public class AzureOpenAIChat : IOpenAiChat
     {
         throw new NotImplementedException();
     }
-    
-    public async Task<IAnswer<IChatMessage>> AskMultipleAsync(ChatMessage[] messages)
+
+    public async Task<IAnswer<IChatMessage>> AskMultipleAsync(IChatSessionRecord[] records, IChatMessageParameters parameters)
     {
-        foreach (var message in messages)
-        {
-            _options.Messages.Add(message);
-        }
+        _session.AddRecords(records);
         
         Response<ChatCompletions> response =
             await _client.GetChatCompletionsAsync(
-                "gpt-35-turbo",
-                _options);
+                _configuration.ModelId,
+                ToAzureOptions(_parameters, _session));
 
         ChatCompletions completions  = response.Value;
         string fullresponse = completions.Choices[0].Message.Content;
-        _options.Messages.Add(completions.Choices[0].Message);
+        _session.AddRecord(new ChatSessionRecord(){Content = completions.Choices[0].Message.Content, Role = parameters.Role });
 
         return response.Value.ToChatAnswer();
     }
 
-    public async Task SetBehaviour(ChatMessage message)
-    {
-        _options.Messages.Add(message);
-    }
-    
-    public async Task SetBehaviour(ChatMessage[] messages)
-    {
-        foreach (var message in messages)
-        {
-            _options.Messages.Add(message);
-        }
-    }
 
-    public async Task ClearContext()
+    private ChatCompletionsOptions ToAzureOptions(IChatMessageParameters parameters, IChatSession session)
     {
-        _options.Messages.Clear();
+        var chatOptions = new ChatCompletionsOptions()
+        {
+            MaxTokens = parameters.MaxTokens,
+            Temperature = parameters.Temperature,
+            FrequencyPenalty = parameters.FrequencyPenalty,
+            PresencePenalty = parameters.PresencePenalty,
+            NucleusSamplingFactor = parameters.NucleusSamplingFactor
+        };
+        
+        foreach(var message in session.Records())
+        {
+            var chatMessage = new ChatMessage(message.Role, message.Content);
+            chatOptions.Messages.Add(chatMessage);
+        }
+
+        return chatOptions;
     }
 }

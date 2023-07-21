@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
 using FluentAssertions;
+using ManagedCode.OpenAI.Azure.Chat;
 using ManagedCode.OpenAI.Azure.Client;
 using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
@@ -22,24 +23,25 @@ public class AzureOpenAIChatTests : BaseTestClass
     [Fact]
     public async Task AskSingle_Success()
     {
-        var options = new ChatCompletionsOptions
+        var client = AzureOpenAiClient.Builder(
+            new Uri(""),
+            new AzureKeyCredential(""))
+            .Configure(c => c.SetDefaultModel("gpt-35-turbo"))
+            .Build();
+
+        var conf = new ChatMessageParameters()
         {
-            MaxTokens = 400,
-            Temperature = 1f,
+            Role = ChatRole.User.ToString(),
+            MaxTokens = 800,
+            Temperature = 0.95f,
             FrequencyPenalty = 0.0f,
             PresencePenalty = 0.0f,
             NucleusSamplingFactor = 0.95f // Top P
         };
         
-        var client = AzureOpenAiClient.Builder(
-            new Uri(""),
-            new AzureKeyCredential(""))
-            .Configure(options)
-            .Build();
-        
-        var chat = client.OpenChat(new ChatMessageParameters(), new ChatSession());
+        var chat = client.OpenChat(conf);
 
-        await chat.AskAsync("grg");
+        await chat.AskAsync("2");
 
         var response = await chat.AskAsync("How are you?");
         var response2 = await chat.AskAsync("Tell me what is C#");

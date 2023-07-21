@@ -18,6 +18,8 @@ public interface IChatMessageParameters
 
     public float? FrequencyPenalty { get; }
 
+    public float? NucleusSamplingFactor { get; set; }
+    
     public Dictionary<string, int>? LogitBias { get; }
 
     public string? User { get; }
