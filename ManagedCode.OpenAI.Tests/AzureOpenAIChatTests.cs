@@ -20,7 +20,7 @@ public class AzureOpenAIChatTests : BaseTestClass
     {
     }
     
-    [Fact]
+    [ManualTest]
     public async Task AskSingle_Success()
     {
         var client = AzureOpenAiClient.Builder(
