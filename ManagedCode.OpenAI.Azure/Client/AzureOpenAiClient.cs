@@ -26,22 +26,26 @@ public class AzureOpenAiClient : IOpenAIClient
     
     public void Configure(IOpenAiClientConfiguration configuration)
     {
-        throw new NotImplementedException();
+        //will be implemented in future versions
+        throw new NotSupportedException();
     }
 
     public void Configure(Func<IOpenAiClientConfigurationBuilder, IOpenAiClientConfiguration> configuration)
     {
-        throw new NotImplementedException();
+        //will be implemented in future versions
+        throw new NotSupportedException();
     }
 
     public Task<IModel[]> GetModelsAsync()
     {
-        throw new NotImplementedException();
+        //will be implemented in future versions
+        throw new NotSupportedException();
     }
 
     public Task<IModel> GetModelAsync(string modelId)
     {
-        throw new NotImplementedException();
+        //will be implemented in future versions
+        throw new NotSupportedException();
     }
 
     public IOpenAiChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session)
@@ -51,17 +55,20 @@ public class AzureOpenAiClient : IOpenAIClient
 
     public ICompletionBuilder Completion(string prompt)
     {
-        throw new NotImplementedException();
+        //will be implemented in future versions
+        throw new NotSupportedException();
     }
 
     public IEditBuilder Edit(string input, string instruction)
     {
-        throw new NotImplementedException();
+        //will be implemented in future versions
+        throw new NotSupportedException();
     }
 
     public IModerationBuilder Moderation()
     {
-        throw new NotImplementedException();
+        //will be implemented in future versions
+        throw new NotSupportedException();
     }
 
     public static IAzureOpenAiClientBuilder Builder(Uri uri, AzureKeyCredential credential)
