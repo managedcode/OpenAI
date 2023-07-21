@@ -96,19 +96,6 @@ public class AzureOpenAIChat : IOpenAiChat
         return response.Value.ToChatAnswer();
     }
 
-    public async Task<IAnswer<IChatMessage>> Ask(IChatSessionRecord[] records)
-    {
-        Response<ChatCompletions> response =
-            await _client.GetChatCompletionsAsync(
-                _configuration.ModelId,
-                ToAzureOptions(records));
-
-        ChatCompletions completions  = response.Value;
-        AddRecord(completions);
-        
-        return response.Value.ToChatAnswer();
-    }
-
     private ChatCompletionsOptions ToAzureOptions(IChatSessionRecord record)
     {
         _options.Messages.Add(ToChatMessage(record));

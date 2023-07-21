@@ -20,7 +20,7 @@ public class AzureOpenAIChatTests : BaseTestClass
     {
     }
     
-    [Fact]
+    [ManualTest]
     public async Task AskSingle_Success()
     {
         var client = AzureOpenAiClient.Builder(
@@ -41,7 +41,7 @@ public class AzureOpenAIChatTests : BaseTestClass
         
         var chat = client.OpenChat(conf);
 
-        await chat.AskAsync("2", ChatRole.User);
+        await chat.AskAsync("f");
 
         var response = await chat.AskAsync("How are you?");
         var response2 = await chat.AskAsync("Tell me what is C#");
