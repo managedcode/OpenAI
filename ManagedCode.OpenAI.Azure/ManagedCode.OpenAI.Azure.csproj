@@ -23,8 +23,5 @@
     <ItemGroup>
       <ProjectReference Include="..\ManagedCode.OpenAI\ManagedCode.OpenAI.csproj" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Client\Extensions\" />
-    </ItemGroup>
 
 </Project>

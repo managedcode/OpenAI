@@ -4,7 +4,7 @@ namespace ManagedCode.OpenAI.Chat;
 
 internal class ChatSession : IChatSession
 {
-    public List<IChatSessionRecord> ListRecords { get; } = new();
+    private Queue<IChatSessionRecord> ListRecords { get; } = new();
 
     public string ToJson()
     {
@@ -18,11 +18,14 @@ internal class ChatSession : IChatSession
 
     public void AddRecord(IChatSessionRecord record)
     {
-        ListRecords.Add(record);
+        ListRecords.Enqueue(record);
     }
 
     public void AddRecords(IChatSessionRecord[] records)
     {
-        ListRecords.AddRange(records);
+        foreach (var record in records)
+        {
+            AddRecord(record);
+        }
     }
 }

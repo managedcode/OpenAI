@@ -11,6 +11,8 @@ public static class ClientChatExtensions
 
     public static IOpenAiChat OpenChat(this IOpenAIClient client, IChatSession session)
     {
+        ArgumentNullException.ThrowIfNull(session);
+        
         var builder = new ChatMessageParametersBuilder();
         builder.SetModel(client.Configuration.ModelId);
         return client.OpenChat(builder.Build(), session);

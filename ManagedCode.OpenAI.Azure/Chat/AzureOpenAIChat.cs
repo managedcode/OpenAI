@@ -8,10 +8,11 @@ namespace ManagedCode.OpenAI.Azure.Chat;
 
 public class AzureOpenAIChat : IOpenAiChat
 {
-    private OpenAIClient _client;
-    private IOpenAiClientConfiguration _configuration;
-    private IChatMessageParameters _parameters;
-    private IChatSession _session;
+    private readonly OpenAIClient _client;
+    private readonly IOpenAiClientConfiguration _configuration;
+    private readonly IChatMessageParameters _parameters;
+    private readonly IChatSession _session;
+    private readonly ChatCompletionsOptions _options;
     
     public AzureOpenAIChat(OpenAIClient client, IOpenAiClientConfiguration configuration, IChatMessageParameters parameters, IChatSession session)
     {
@@ -29,8 +30,8 @@ public class AzureOpenAIChat : IOpenAiChat
         };
     }
 
-    public IChatSession Session { get; }
-    private ChatCompletionsOptions _options { get; }
+    public IChatSession Session => _session;
+
     
     public async Task<IAnswer<IChatMessage>> AskAsync(string message)
     {
@@ -58,10 +59,7 @@ public class AzureOpenAIChat : IOpenAiChat
         var newRecord = new ChatSessionRecord() { Content = message, Role = _parameters.Role };
         _session.AddRecord(newRecord);
         
-        Response<ChatCompletions> response =
-            await _client.GetChatCompletionsAsync(
-                _configuration.ModelId,
-                ToAzureOptions(newRecord));
+        Response<ChatCompletions> response = await _client.GetChatCompletionsAsync(_configuration.ModelId, ToAzureOptions(newRecord));
 
         ChatCompletions completions  = response.Value;
         AddRecord(completions);

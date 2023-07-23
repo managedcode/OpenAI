@@ -46,6 +46,8 @@ public class AzureOpenAiClient : IOpenAIClient
 
     public IOpenAiChat OpenChat(IChatMessageParameters defaultMessageParameters, IChatSession session)
     {
+        ArgumentNullException.ThrowIfNull(session);
+        ArgumentNullException.ThrowIfNull(defaultMessageParameters);
         return new AzureOpenAIChat(_client, Configuration, defaultMessageParameters, session);
     }
 
