@@ -6,5 +6,7 @@ public enum RoleType
 {
     [EnumMember(Value = "user")] User,
 
-    [EnumMember(Value = "Assistant")] Assistant
+    [EnumMember(Value = "assistant")] Assistant,
+    
+    [EnumMember(Value = "system")] System,
 }

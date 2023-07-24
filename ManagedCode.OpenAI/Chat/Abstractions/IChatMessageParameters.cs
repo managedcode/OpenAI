@@ -1,8 +1,10 @@
-﻿namespace ManagedCode.OpenAI.Chat;
+﻿using ManagedCode.OpenAI.Client;
+
+namespace ManagedCode.OpenAI.Chat;
 
 public interface IChatMessageParameters
 {
-    public string? Role { get; }
+    public RoleType? Role { get; }
 
     public string? ModelId { get; }
 

@@ -16,9 +16,11 @@
         <PackageTags>managedcode, OpenAI, ChatGPT, API</PackageTags>
     </PropertyGroup>
     <ItemGroup>
-        <InternalsVisibleTo Include="ManagedCode.OpenAI.Tests" />
-        <PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.5" />
+        <PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.6" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="ManagedCode.OpenAI.Tests" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\ManagedCode.OpenAI\ManagedCode.OpenAI.csproj" />

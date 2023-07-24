@@ -24,18 +24,12 @@ public class ChatMessageParametersBuilder : IChatMessageParametersBuilder
         return this;
     }
 
-    public IChatMessageParametersBuilder SetRole(string role)
+    public IChatMessageParametersBuilder SetRole(RoleType role)
     {
         _parameters.Role = role;
         return this;
     }
-
-    public IChatMessageParametersBuilder SetRole(RoleType role)
-    {
-        _parameters.Role = role.Name();
-        return this;
-    }
-
+    
     public IChatMessageParametersBuilder SetMaxTokens(int maxTokens)
     {
         _parameters.MaxTokens = maxTokens;

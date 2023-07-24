@@ -52,12 +52,7 @@ internal class GptChat : IOpenAiChat
         UpdateSession(response, askMessage);
         return response.ToChatAnswerCollection();
     }
-
-    public Task<IAnswer<IChatMessage>> AskMultipleAsync(IChatSessionRecord[] records, IChatMessageParameters parameters)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     private void UpdateSession(ChatResponseDto response, MessageDto askMessage)
     {
         Session.AddRecord(new ChatSessionRecord
@@ -82,7 +77,7 @@ internal class GptChat : IOpenAiChat
         return new MessageDto
         {
             Content = message,
-            Role = (parameters.Role ?? _defaultMessageParameters.Role) ?? DEFAULT_ROLE.Name()
+            Role = (parameters.Role ?? _defaultMessageParameters.Role) ?? DEFAULT_ROLE
         };
     }
 

@@ -11,15 +11,14 @@ public class AzureOpenAIChat : IOpenAiChat
     private readonly OpenAIClient _client;
     private readonly IOpenAiClientConfiguration _configuration;
     private readonly IChatMessageParameters _parameters;
-    private readonly IChatSession _session;
-    private readonly ChatCompletionsOptions _options;
+    private ChatCompletionsOptions _options;
     
     public AzureOpenAIChat(OpenAIClient client, IOpenAiClientConfiguration configuration, IChatMessageParameters parameters, IChatSession session)
     {
         _client = client;
         _configuration = configuration;
         _parameters = parameters;
-        _session = session;
+        Session = session;
         _options = new ChatCompletionsOptions()
         {
             MaxTokens = parameters.MaxTokens,
@@ -30,36 +29,26 @@ public class AzureOpenAIChat : IOpenAiChat
         };
     }
 
-    public IChatSession Session => _session;
-
+    public IChatSession Session { get; }
+    
     
     public async Task<IAnswer<IChatMessage>> AskAsync(string message)
     {
         return await AskAsync(message, _parameters);
     }
-
-    public async Task<IAnswer<IChatMessage>> AskAsync(string message, ChatRole role)
-    {
-        var newRecord = new ChatSessionRecord() { Content = message, Role = role.ToString() };
-        _session.AddRecord(newRecord);
-
-        Response<ChatCompletions> response =
-            await _client.GetChatCompletionsAsync(
-                _configuration.ModelId,
-                ToAzureOptions(newRecord));
-
-        ChatCompletions completions  = response.Value;
-        AddRecord(completions);
-
-        return response.Value.ToChatAnswer();
-    }
+    
     
     public async Task<IAnswer<IChatMessage>> AskAsync(string message, IChatMessageParameters parameters)
     {
-        var newRecord = new ChatSessionRecord() { Content = message, Role = _parameters.Role };
-        _session.AddRecord(newRecord);
+        Session.AddRecord( new ChatSessionRecord() { Content = message, Role = _parameters.Role ?? RoleType.User});
         
-        Response<ChatCompletions> response = await _client.GetChatCompletionsAsync(_configuration.ModelId, ToAzureOptions(newRecord));
+        _options.Messages.Clear();
+        foreach (var record in Session.Records())
+        {
+            _options = ToAzureOptions(record);
+        }
+        
+        Response<ChatCompletions> response = await _client.GetChatCompletionsAsync(_configuration.ModelId, _options);
 
         ChatCompletions completions  = response.Value;
         AddRecord(completions);
@@ -79,12 +68,9 @@ public class AzureOpenAIChat : IOpenAiChat
 
     public async Task<IAnswer<IChatMessage>> AskMultipleAsync(IChatSessionRecord[] records, IChatMessageParameters parameters)
     {
-        _session.AddRecords(records);
+        Session.AddRecords(records);
         
-        Response<ChatCompletions> response =
-            await _client.GetChatCompletionsAsync(
-                _configuration.ModelId,
-                ToAzureOptions(records));
+        Response<ChatCompletions> response = await _client.GetChatCompletionsAsync(_configuration.ModelId, ToAzureOptions(records));
 
         ChatCompletions completions  = response.Value;
         AddRecord(completions);
@@ -111,17 +97,16 @@ public class AzureOpenAIChat : IOpenAiChat
     private void AddRecord(ChatCompletions completions)
     {
         var content = completions.Choices[0].Message.Content;
-        var role = completions.Choices[0].Message.Role.ToString();
-        _session.AddRecord(new ChatSessionRecord()
+        var role = completions.Choices[0].Message.Role;
+        Session.AddRecord(new ChatSessionRecord()
         {
             Content = content, 
-            Role = role
+            Role = role.GetRole()
         });
-        _options.Messages.Add(new ChatMessage(role, content));
     }
 
     private ChatMessage ToChatMessage(IChatSessionRecord record)
     {
-        return new ChatMessage(record.Role, record.Content);
+        return new ChatMessage(record.Role.GetRole(), record.Content);
     }
 }

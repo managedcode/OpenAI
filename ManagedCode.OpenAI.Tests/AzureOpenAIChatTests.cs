@@ -1,14 +1,11 @@
 ﻿using Azure;
-using Azure.AI.OpenAI;
 using FluentAssertions;
-using ManagedCode.OpenAI.Azure.Chat;
 using ManagedCode.OpenAI.Azure.Client;
 using ManagedCode.OpenAI.Chat;
 using ManagedCode.OpenAI.Client;
 using ManagedCode.OpenAI.Tests.Attributes;
 using ManagedCode.OpenAI.Tests.Base;
 using Microsoft.Extensions.Configuration;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace ManagedCode.OpenAI.Tests;
@@ -31,7 +28,7 @@ public class AzureOpenAIChatTests : BaseTestClass
 
         var conf = new ChatMessageParameters()
         {
-            Role = ChatRole.User.ToString(),
+            Role = RoleType.User,
             MaxTokens = 800,
             Temperature = 0.95f,
             FrequencyPenalty = 0.0f,

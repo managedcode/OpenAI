@@ -8,6 +8,6 @@ internal static class AzureOpenAiChatExtensions
 {
     public static async Task<IAnswer<IChatMessage>> AskAsync(this IOpenAiChat chat, string message, ChatRole role)
     {
-        return await chat.AskAsync(message, new ChatMessageParameters() { Role = role.ToString() });
+        return await chat.AskAsync(message, new ChatMessageParameters() { Role = role.GetRole() });
     }
 }

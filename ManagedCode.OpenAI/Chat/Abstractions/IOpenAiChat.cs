@@ -1,5 +1,4 @@
-﻿using Azure.AI.OpenAI;
-using ManagedCode.OpenAI.Client;
+﻿using ManagedCode.OpenAI.Client;
 
 namespace ManagedCode.OpenAI.Chat;
 
@@ -14,8 +13,5 @@ public interface IOpenAiChat
     public Task<IAnswer<IChatMessage[]>> AskMultipleAsync(string message, int countOfAnswers);
 
     public Task<IAnswer<IChatMessage[]>> AskMultipleAsync(string message, int countOfAnswers,
-        IChatMessageParameters parameters);
-    
-    public Task<IAnswer<IChatMessage>> AskMultipleAsync(IChatSessionRecord[] records,
         IChatMessageParameters parameters);
 }

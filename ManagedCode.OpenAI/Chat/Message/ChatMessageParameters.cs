@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ManagedCode.OpenAI.Client;
 
 namespace ManagedCode.OpenAI.Chat;
 
 public class ChatMessageParameters : IChatMessageParameters
 {
-    public string? Role { get; set; }
+    public RoleType? Role { get; set; }
     public string? ModelId { get; set; }
 
     [Range(0, 2f)]

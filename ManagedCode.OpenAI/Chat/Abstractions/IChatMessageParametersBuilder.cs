@@ -6,7 +6,6 @@ public interface IChatMessageParametersBuilder
 {
     public IChatMessageParametersBuilder SetModel(string modelId);
     public IChatMessageParametersBuilder SetModel(GptModel model);
-    public IChatMessageParametersBuilder SetRole(string role);
     public IChatMessageParametersBuilder SetRole(RoleType role);
     public IChatMessageParametersBuilder SetMaxTokens(int maxTokens);
     public IChatMessageParametersBuilder SetTemperature(float temperature);
