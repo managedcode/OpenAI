@@ -16,7 +16,7 @@
         <PackageTags>managedcode, OpenAI, ChatGPT, API</PackageTags>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.6" />
+        <PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.8" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     </ItemGroup>
     <ItemGroup>
